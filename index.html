@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Thunder Bay Civic Map</title>
 <meta name="description" content="A multi-layer map of open civic data for Thunder Bay, Ontario: police incidents, fire infrastructure, trees, heritage properties, restaurants, highway cameras, trails, and live flight/ship traffic.">
-<meta name="theme-color" content="#1c5c78">
+<meta name="theme-color" content="#0f3547">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Thunder Bay Civic Map">
 <meta property="og:description" content="A multi-layer map of open civic data for Thunder Bay, Ontario, built to grow one layer at a time.">
@@ -15,47 +15,93 @@
 <meta name="twitter:description" content="A multi-layer map of open civic data for Thunder Bay, Ontario, built to grow one layer at a time.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <style>
   :root{
-    --paper:#eef1ec; --surface:#ffffff; --surface-2:#e4e8e1; --ink:#16211d; --ink-2:#4a564e; --ink-muted:#5f6b64;
-    --hair:#d5dbd1; --hair-strong:#b9c2b4;
-    --lake:#1c5c78; --amber:#c8722c; --spruce:#2f6b52; --brick:#a8412c;
+    --paper:#f1f3ed; --surface:#ffffff; --surface-2:#eef1ea; --ink:#14201c; --ink-2:#47534c; --ink-muted:#5f6b64;
+    --line:#dde2d8; --line-strong:#c3ccbd;
+    --topbar:#0f3547; --topbar-ink:#eaf2f5; --topbar-line:#1c4d63;
+    --lake:#1c5c78; --spruce:#2f6b52; --brick:#a8412c; --amber:#a8681c;
+    --safety:#a8412c; --nature:#2f6b52; --explore:#a8681c; --transport:#1c5c78;
+    --radius:12px;
+    --shadow-sm:0 1px 2px rgba(15,53,71,.06), 0 1px 1px rgba(15,53,71,.04);
+    --shadow-md:0 8px 24px rgba(15,53,71,.10), 0 2px 6px rgba(15,53,71,.06);
   }
   *{box-sizing:border-box;}
   body{margin:0; background:var(--paper); color:var(--ink); font-family:"Public Sans",system-ui,sans-serif;}
+  /* Fixed to the viewport so the map always claims whatever space the
+     header/tabs/panel don't need; the footer sits outside this shell
+     entirely so it can never squeeze the map's share on a tall panel or
+     a short viewport -- it just requires a scroll, like any footer. */
+  .app-shell{height:100vh; display:flex; flex-direction:column;}
   .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;}
   a{color:var(--lake);}
+  svg.icon{width:1em; height:1em; display:inline-block; vertical-align:-0.14em; flex:none;}
   .skip-link{position:absolute; left:-9999px; top:0; background:var(--lake); color:#fff; padding:10px 16px; z-index:1000; border-radius:0 0 8px 0;}
   .skip-link:focus{left:0;}
-  header{padding:18px 28px 14px; border-bottom:1px solid var(--hair); background:var(--surface);}
-  header h1{margin:0 0 6px; font-size:21px; letter-spacing:-0.01em;}
-  header p{margin:0; font-size:13px; color:var(--ink-2); max-width:86ch; line-height:1.55;}
-  .badge{display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--lake); background:#dce9ee; padding:4px 10px; border-radius:999px; margin-bottom:9px;}
-  .layout{display:grid; grid-template-columns:310px 1fr; gap:0; height:calc(100vh - 88px); min-height:560px;}
-  .sidebar{border-right:1px solid var(--hair); background:var(--surface); overflow-y:auto; padding:16px;}
-  #map{width:100%; height:100%; background:#dce4dc;}
-  @media (max-width:860px){ .layout{grid-template-columns:1fr; height:auto;} #map{height:70vh;} }
 
-  /* ---- layer registry UI ---- */
-  .layer-card{border:1px solid var(--hair); border-radius:10px; margin-bottom:10px; overflow:hidden; background:var(--surface);}
-  .layer-head{display:flex; align-items:center; gap:10px; padding:10px 12px; cursor:pointer; user-select:none;}
-  .layer-head:hover{background:var(--surface-2);}
-  .layer-head:focus-visible{outline:2px solid var(--lake); outline-offset:-2px; background:var(--surface-2);}
-  .layer-head input[type=checkbox]{width:16px; height:16px; accent-color:var(--lake); flex:none;}
-  .layer-head input[type=checkbox]:focus-visible{outline:2px solid var(--lake); outline-offset:2px;}
-  .layer-swatch{width:11px; height:11px; border-radius:3px; flex:none; border:1.5px solid rgba(0,0,0,.15);}
-  .layer-name{font-size:13.5px; font-weight:600; flex:1;}
-  .layer-count{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-muted);}
+  /* ---- top bar ---- */
+  .topbar{flex:none; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 24px; background:var(--topbar); color:var(--topbar-ink); border-bottom:1px solid var(--topbar-line);}
+  .brand{display:flex; align-items:center; gap:12px; min-width:0;}
+  .brand-mark{width:36px; height:36px; border-radius:10px; background:linear-gradient(155deg,#2d7a9c,#123e52); display:flex; align-items:center; justify-content:center; flex:none; box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);}
+  .brand-mark svg{width:20px; height:20px; color:#eaf6fa;}
+  .brand-text{min-width:0;}
+  .brand-eyebrow{display:block; font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:.09em; color:#9fc4d4; margin-bottom:1px;}
+  .brand h1{margin:0; font-family:"Fraunces",Georgia,serif; font-weight:600; font-size:19px; letter-spacing:-0.01em; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .repo-link{display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600; color:#cfe6ee; text-decoration:none; padding:7px 13px; border-radius:999px; border:1px solid rgba(255,255,255,.22); flex:none; transition:background .15s, border-color .15s;}
+  .repo-link:hover{background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.4);}
+  .repo-link:focus-visible{outline:2px solid #7fd0e8; outline-offset:2px;}
+  @media (max-width:640px){ .repo-link span{display:none;} .brand-eyebrow{display:none;} }
+
+  .intro{flex:none; padding:12px 24px; background:var(--surface); border-bottom:1px solid var(--line); font-size:12.5px; color:var(--ink-2); line-height:1.6; max-width:96ch;}
+  .intro a{font-weight:600;}
+  @media (max-width:640px){ .intro{padding:8px 16px; font-size:11.5px; -webkit-line-clamp:2; display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden;} }
+
+  /* ---- category tabs ---- */
+  .cat-tabs{flex:none; display:flex; gap:6px; padding:10px 20px; background:var(--surface); border-bottom:1px solid var(--line); overflow-x:auto; scrollbar-width:thin;}
+  .cat-tab{display:flex; align-items:center; gap:8px; font-family:"Public Sans",sans-serif; font-size:13.5px; font-weight:700; color:var(--ink-2); background:var(--paper); border:1px solid var(--line); border-radius:11px; padding:9px 15px; cursor:pointer; white-space:nowrap; flex:none; transition:background .15s, border-color .15s, color .15s, box-shadow .15s;}
+  .cat-tab .icon{color:var(--cat-color, var(--ink-muted));}
+  .cat-tab:hover{background:var(--surface-2); border-color:var(--line-strong);}
+  .cat-tab:focus-visible{outline:2px solid var(--lake); outline-offset:1px;}
+  .cat-tab[aria-selected="true"]{background:var(--cat-color); border-color:var(--cat-color); color:#fff; box-shadow:var(--shadow-sm);}
+  .cat-tab[aria-selected="true"] .icon{color:#fff;}
+  .cat-badge{font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600; background:rgba(255,255,255,.28); color:inherit; padding:1px 6px; border-radius:999px;}
+  .cat-tab:not([aria-selected="true"]) .cat-badge{background:var(--cat-color); color:#fff;}
+
+  /* ---- layer panel ---- */
+  .layer-panel{flex:none; max-height:42vh; overflow-y:auto; background:var(--paper); border-bottom:1px solid var(--line); padding:14px 20px 16px;}
+  .layer-grid{display:flex; flex-wrap:wrap; gap:10px; align-items:flex-start;}
+  .layer-grid[hidden]{display:none;}
+  .layer-card{flex:1 1 320px; max-width:420px; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--surface); box-shadow:var(--shadow-sm); transition:box-shadow .15s, border-color .15s;}
+  .layer-card:hover{border-color:var(--line-strong);}
+  .layer-card.expanded{box-shadow:var(--shadow-md);}
+
+  .layer-head{display:flex; align-items:flex-start; gap:10px; padding:11px 13px; cursor:pointer; user-select:none;}
+  .layer-head .switch, .layer-head .layer-swatch, .layer-head .layer-chevron{margin-top:2px;}
+  .layer-head .layer-name{margin-top:1px;}
+  .layer-head:focus-visible{outline:2px solid var(--lake); outline-offset:-2px; border-radius:var(--radius);}
+
+  /* toggle switch (real checkbox, visually restyled) */
+  .switch{position:relative; width:34px; height:20px; flex:none;}
+  .switch input{position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:pointer;}
+  .switch .track{position:absolute; inset:0; background:var(--line-strong); border-radius:999px; transition:background .15s;}
+  .switch .thumb{position:absolute; top:2px; left:2px; width:16px; height:16px; background:#fff; border-radius:50%; box-shadow:0 1px 2px rgba(0,0,0,.35); transition:transform .15s;}
+  .switch input:checked ~ .track{background:var(--layer-color, var(--lake));}
+  .switch input:checked ~ .thumb{transform:translateX(14px);}
+  .switch input:focus-visible ~ .track{outline:2px solid var(--lake); outline-offset:2px;}
+
+  .layer-name{font-size:13.5px; font-weight:700; flex:1; min-width:0; line-height:1.3;}
+  .layer-count{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-muted); flex:none; white-space:nowrap; text-align:right;}
   .layer-chevron{font-size:10px; color:var(--ink-muted); transition:transform .15s; flex:none;}
   .layer-card.expanded .layer-chevron{transform:rotate(90deg);}
-  .layer-body{display:none; padding:2px 12px 12px; border-top:1px solid var(--hair);}
+  .layer-body{display:none; padding:0 13px 13px;}
   .layer-card.expanded .layer-body{display:block;}
-  .layer-desc{font-size:11.5px; color:var(--ink-muted); line-height:1.5; margin:8px 0;}
-  .layer-loading{font-size:11px; color:var(--ink-muted); padding:4px 0 2px; display:flex; align-items:center; gap:6px;}
-  .layer-loading::before{content:""; width:9px; height:9px; border-radius:50%; border:1.5px solid var(--hair-strong); border-top-color:var(--lake); animation:spin .7s linear infinite; flex:none;}
+  .layer-desc{font-size:11.5px; color:var(--ink-muted); line-height:1.55; margin:2px 0 8px; padding-top:9px; border-top:1px solid var(--line);}
+  .layer-loading{font-size:11px; color:var(--ink-muted); padding:0 0 8px; display:flex; align-items:center; gap:6px;}
+  .layer-loading::before{content:""; width:9px; height:9px; border-radius:50%; border:1.5px solid var(--line-strong); border-top-color:var(--lake); animation:spin .7s linear infinite; flex:none;}
   .layer-loading.error{color:var(--brick);}
   .layer-loading.error::before{animation:none; border-color:var(--brick); border-top-color:var(--brick);}
   @keyframes spin{to{transform:rotate(360deg);}}
@@ -67,16 +113,18 @@
   .legend-row .n{margin-left:auto; font-family:"IBM Plex Mono",monospace; color:var(--ink-muted);}
   .legend-row.off{opacity:.35;}
   .legend-row[data-cat]:focus-visible{outline:2px solid var(--lake); border-radius:4px;}
-  .sub-label{font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-muted); font-weight:600; margin:10px 0 4px;}
+  .sub-label{font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-muted); font-weight:700; margin:10px 0 4px;}
+
+  #map{flex:1 1 auto; min-height:260px; width:100%; background:#dce4dc;}
 
   .leaflet-popup-content{font-family:"Public Sans",sans-serif; font-size:12.5px; min-width:170px;}
-  .leaflet-popup-content b{font-size:13.5px;}
+  .leaflet-popup-content b{font-size:13.5px; font-family:"Fraunces",Georgia,serif; font-weight:600;}
   .leaflet-tooltip{font-family:"Public Sans",sans-serif; font-size:12px; padding:4px 8px;}
-  .popup-cats{margin-top:6px; color:#4a564e; line-height:1.5;}
+  .popup-cats{margin-top:6px; color:var(--ink-2); line-height:1.5;}
 
   .freeze-note{background:#fbf0ec; border:1px solid var(--brick); border-left-width:3px; border-radius:8px; padding:9px 11px; font-size:11.5px; color:var(--ink-2); line-height:1.5; margin-top:6px;}
   .freeze-note b{color:var(--ink);}
-  footer{padding:8px 28px; font-size:10.5px; color:var(--ink-muted); border-top:1px solid var(--hair); background:var(--surface);}
+  footer{flex:none; padding:9px 24px; font-size:10.5px; color:var(--ink-muted); border-top:1px solid var(--line); background:var(--surface);}
   footer a{color:var(--lake);}
 </style>
 </head>
@@ -84,15 +132,29 @@
 
 <a class="skip-link" href="#map">Skip to map</a>
 
-<header>
-  <span class="badge">City of Thunder Bay &middot; multi-layer open data</span>
-  <h1>Thunder Bay Civic Map</h1>
-  <p>A scalable viewer over the City's open data and other public sources: toggle layers on or off independently, or run several together. Covers public safety, infrastructure, nature, heritage, food, transportation, and live flight/ship traffic across Thunder Bay. Built to grow &mdash; add a new layer entry to extend it further. Every dataset is a plain, directly-fetchable file &mdash; see <a href="https://github.com/Jandoue/Thunder-Bay#readme" target="_blank" rel="noopener">the repo</a> if you want to reuse the data yourself.</p>
+<div class="app-shell">
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+    </span>
+    <div class="brand-text">
+      <span class="brand-eyebrow">City of Thunder Bay &middot; open data</span>
+      <h1>Thunder Bay Civic Map</h1>
+    </div>
+  </div>
+  <a class="repo-link" href="https://github.com/Jandoue/Thunder-Bay" target="_blank" rel="noopener">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-2.85 17.54c.45.08.61-.2.61-.43v-1.68c-2.5.55-3.03-1.2-3.03-1.2-.41-1.04-1-1.32-1-1.32-.82-.56.06-.55.06-.55.9.06 1.38.93 1.38.93.8 1.38 2.11.98 2.63.75.08-.58.32-.98.57-1.21-2-.23-4.1-1-4.1-4.46 0-.98.35-1.79.93-2.42-.09-.23-.4-1.15.09-2.4 0 0 .76-.24 2.5.93a8.6 8.6 0 0 1 4.55 0c1.73-1.17 2.5-.93 2.5-.93.49 1.25.18 2.17.09 2.4.58.63.93 1.44.93 2.42 0 3.47-2.11 4.23-4.12 4.45.33.29.62.85.62 1.72v2.55c0 .24.16.51.62.43A9 9 0 0 0 12 3z"/></svg>
+    <span>Source &amp; data</span>
+  </a>
 </header>
 
-<div class="layout">
-  <aside class="sidebar" id="sidebar" aria-label="Map layers"></aside>
-  <main id="map" aria-label="Interactive map of Thunder Bay showing the selected layers"></main>
+<p class="intro">A scalable viewer over the City's open data and other public sources: switch on layers from any category below, or combine several at once. Every dataset is a plain, directly-fetchable file &mdash; see <a href="https://github.com/Jandoue/Thunder-Bay#readme" target="_blank" rel="noopener">the repo</a> if you want to reuse the data yourself.</p>
+
+<nav class="cat-tabs" role="tablist" aria-label="Layer categories" id="cat-tabs"></nav>
+<section class="layer-panel" id="layer-panel"></section>
+
+<main id="map" aria-label="Interactive map of Thunder Bay showing the selected layers"></main>
 </div>
 
 <footer>
@@ -153,11 +215,27 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 /* ============================================================
+   CATEGORIES -- the top tab bar. Each layer below declares which
+   one it belongs to via `category`.
+   ============================================================ */
+const CATEGORIES = [
+  { id: 'safety', name: 'Public Safety', color: 'var(--safety)',
+    icon: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>' },
+  { id: 'nature', name: 'Nature & Trails', color: 'var(--nature)',
+    icon: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c8 0 14-6 14-14 0 0-11-2-14 6-2 5 0 8 0 8z"/><path d="M5 19c0-4 2-8 6-11"/></svg>' },
+  { id: 'explore', name: 'Explore', color: 'var(--explore)',
+    icon: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16"/><path d="M5 21V10M9 21V10M15 21V10M19 21V10"/><path d="M3 10l9-6 9 6"/></svg>' },
+  { id: 'transport', name: 'Transportation', color: 'var(--transport)',
+    icon: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg>' },
+];
+
+/* ============================================================
    LAYER REGISTRY -- add a new entry here to extend the map.
-   Each layer: id, name, swatch color, defaultOn, legendHTML() (optional,
-   returns HTML for the expandable body), render(group) which populates
-   a fresh L.layerGroup and returns a Promise (use loadData for any file
-   under data/), and a static count string for the sidebar badge.
+   Each layer: id, category (must match a CATEGORIES id), name,
+   swatch color, defaultOn, legendHTML() (optional, returns HTML for
+   the expandable body), render(group) which populates a fresh
+   L.layerGroup and returns a Promise (use loadData for any file
+   under data/), and a static count string for the panel badge.
    ============================================================ */
 const LAYERS = [];
 const active = new Set();          // incident category filter (shared with crime layer)
@@ -167,10 +245,11 @@ function incidentRadius(c, max){ return 5 + Math.sqrt(c / max) * 26; }
 
 LAYERS.push({
   id: 'crime',
+  category: 'safety',
   name: 'Police Incidents',
   color: '#a8412c',
   count: '3,758 of 9,276',
-  defaultOn: true,
+  defaultOn: false,
   desc: 'Thunder Bay Police Service, Oct 2023–Oct 2024 (feed frozen since Oct 24, 2024). 9,276 incidents total citywide, aggregated to the 67 busiest block/intersection points shown here (accounting for 41% of all incidents) — the long tail of one-off locations is omitted to keep the map legible.',
   legendHTML: function(){
     let html = '<div class="sub-label">Filter by category (citywide totals)</div>';
@@ -212,6 +291,7 @@ LAYERS.push({
 
 LAYERS.push({
   id: 'stations',
+  category: 'safety',
   name: 'Fire Stations',
   color: '#c0392b',
   count: '9 stations',
@@ -235,6 +315,7 @@ LAYERS.push({
 
 LAYERS.push({
   id: 'zones',
+  category: 'safety',
   name: 'Fire Response Zones',
   color: '#2980b9',
   count: '35 zones',
@@ -267,6 +348,7 @@ LAYERS.push({
 
 LAYERS.push({
   id: 'hydrants',
+  category: 'safety',
   name: 'Hydrants',
   color: '#3a7ea6',
   count: '4,243 hydrants',
@@ -302,6 +384,7 @@ LAYERS.push({
 
 LAYERS.push({
   id: 'trees',
+  category: 'nature',
   name: 'Trees',
   color: '#3f8f4f',
   count: '37,752 trees',
@@ -337,6 +420,7 @@ LAYERS.push({
 
 LAYERS.push({
   id: 'heritage',
+  category: 'explore',
   name: 'Heritage Properties',
   color: '#b8860b',
   count: '135 of 136',
@@ -377,6 +461,7 @@ LAYERS.push({
 
 LAYERS.push({
   id: 'restaurants',
+  category: 'explore',
   name: 'Justthemenu.ca',
   color: '#c0562a',
   count: '243 of 245',
@@ -410,6 +495,7 @@ LAYERS.push({
 
 LAYERS.push({
   id: 'cameras',
+  category: 'transport',
   name: 'Highway Cameras',
   color: '#6a4c93',
   count: '17 cameras',
@@ -458,6 +544,7 @@ LAYERS.push({
 
 LAYERS.push({
   id: 'trails',
+  category: 'nature',
   name: 'Trails',
   color: '#2f6b3f',
   count: '61 trails',
@@ -509,6 +596,7 @@ let flightRefreshTimer = null;
 
 LAYERS.push({
   id: 'flights',
+  category: 'transport',
   name: 'Live Flights',
   color: '#1baf7a',
   count: 'live',
@@ -590,6 +678,7 @@ let shipRefreshTimer = null;
 
 LAYERS.push({
   id: 'ships',
+  category: 'transport',
   name: 'Live Ships',
   color: '#1a7fa8',
   count: 'live',
@@ -653,11 +742,12 @@ LAYERS.push({
 });
 
 /* ============================================================
-   GENERIC RENDER / SIDEBAR ENGINE
+   TAB + PANEL ENGINE
    ============================================================ */
 const groups = {};
 LAYERS.forEach(l => { groups[l.id] = L.layerGroup(); });
 const layerCards = {};
+let activeCategory = CATEGORIES[0].id;
 
 function renderLayer(id){
   const def = LAYERS.find(l => l.id === id);
@@ -665,10 +755,9 @@ function renderLayer(id){
   const card = layerCards[id];
   const loadingEl = card && card.querySelector('.layer-loading');
   const countEl = card && card.querySelector('.layer-count');
-  // The count badge lives in the always-visible header row, so it's the one
-  // place loading/error state is guaranteed to be seen even if the card is
-  // collapsed (the richer .layer-loading text and any per-layer live status
-  // only show once expanded).
+  // The count badge lives in the always-visible chip header, so it's the
+  // one place loading/error state is guaranteed to be seen even if the
+  // chip's own description body isn't expanded.
   if (countEl) countEl.textContent = 'loading…';
   if (loadingEl) {
     loadingEl.hidden = false;
@@ -691,20 +780,34 @@ function renderLayer(id){
     });
 }
 
-function setLayerOn(id, on){
-  if (on) { renderLayer(id); groups[id].addTo(map); }
-  else { map.removeLayer(groups[id]); }
+function updateCategoryBadge(catId){
+  const tab = document.getElementById(`tab-${catId}`);
+  if (!tab) return;
+  const n = LAYERS.filter(l => l.category === catId && map.hasLayer(groups[l.id])).length;
+  const badge = tab.querySelector('.cat-badge');
+  badge.textContent = n;
+  badge.hidden = n === 0;
 }
 
-const sidebar = document.getElementById('sidebar');
-LAYERS.forEach(def => {
+function setLayerOn(id, on){
+  const def = LAYERS.find(l => l.id === id);
+  if (on) { renderLayer(id); groups[id].addTo(map); }
+  else { map.removeLayer(groups[id]); }
+  updateCategoryBadge(def.category);
+}
+
+function buildLayerCard(def){
   const card = document.createElement('div');
   card.className = 'layer-card';
   const bodyId = `layer-body-${def.id}`;
   card.innerHTML = `
     <div class="layer-head" role="button" tabindex="0" aria-expanded="false" aria-controls="${bodyId}">
-      <input type="checkbox" ${def.defaultOn ? 'checked' : ''} aria-label="Show ${def.name} layer on the map">
-      <span class="layer-swatch" style="background:${def.color}" aria-hidden="true"></span>
+      <span class="switch" style="--layer-color:${def.color}">
+        <input type="checkbox" role="switch" ${def.defaultOn ? 'checked' : ''} aria-label="Show ${def.name} layer on the map">
+        <span class="track" aria-hidden="true"></span>
+        <span class="thumb" aria-hidden="true"></span>
+      </span>
+      <span class="layer-swatch" style="background:${def.color}; width:9px; height:9px; border-radius:50%; flex:none;" aria-hidden="true"></span>
       <span class="layer-name">${def.name}</span>
       <span class="layer-count">${def.count}</span>
       <span class="layer-chevron" aria-hidden="true">&#9656;</span>
@@ -730,11 +833,61 @@ LAYERS.forEach(def => {
   });
   checkbox.addEventListener('click', (e) => e.stopPropagation());
   checkbox.addEventListener('change', () => setLayerOn(def.id, checkbox.checked));
-  sidebar.appendChild(card);
   layerCards[def.id] = card;
   if (def.afterRender) def.afterRender(card);
   if (def.defaultOn) { card.classList.add('expanded'); head.setAttribute('aria-expanded','true'); setLayerOn(def.id, true); }
+  return card;
+}
+
+const catTabsEl = document.getElementById('cat-tabs');
+const panelEl = document.getElementById('layer-panel');
+const categoryPanels = {};
+
+CATEGORIES.forEach((cat, i) => {
+  const tab = document.createElement('button');
+  tab.type = 'button';
+  tab.className = 'cat-tab';
+  tab.id = `tab-${cat.id}`;
+  tab.setAttribute('role', 'tab');
+  tab.setAttribute('aria-selected', String(i === 0));
+  tab.setAttribute('aria-controls', 'layer-panel');
+  tab.style.setProperty('--cat-color', cat.color);
+  tab.innerHTML = `${cat.icon}<span>${cat.name}</span><span class="cat-badge" hidden>0</span>`;
+  tab.addEventListener('click', () => selectCategory(cat.id));
+  tab.addEventListener('keydown', (e) => {
+    const idx = CATEGORIES.findIndex(c => c.id === cat.id);
+    let next = null;
+    if (e.key === 'ArrowRight') next = CATEGORIES[(idx + 1) % CATEGORIES.length];
+    else if (e.key === 'ArrowLeft') next = CATEGORIES[(idx - 1 + CATEGORIES.length) % CATEGORIES.length];
+    else if (e.key === 'Home') next = CATEGORIES[0];
+    else if (e.key === 'End') next = CATEGORIES[CATEGORIES.length - 1];
+    if (next) {
+      e.preventDefault();
+      selectCategory(next.id);
+      document.getElementById(`tab-${next.id}`).focus();
+    }
+  });
+  catTabsEl.appendChild(tab);
+
+  const panel = document.createElement('div');
+  panel.className = 'layer-grid';
+  panel.hidden = i !== 0;
+  panel.id = `panel-${cat.id}`;
+  const catLayers = LAYERS.filter(l => l.category === cat.id);
+  catLayers.forEach(def => panel.appendChild(buildLayerCard(def)));
+  panelEl.appendChild(panel);
+  categoryPanels[cat.id] = panel;
 });
+
+function selectCategory(catId){
+  activeCategory = catId;
+  CATEGORIES.forEach(cat => {
+    document.getElementById(`tab-${cat.id}`).setAttribute('aria-selected', String(cat.id === catId));
+    categoryPanels[cat.id].hidden = cat.id !== catId;
+  });
+}
+
+CATEGORIES.forEach(cat => updateCategoryBadge(cat.id));
 </script>
 </body>
 </html>

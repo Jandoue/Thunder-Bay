@@ -103,7 +103,7 @@ Kept here on purpose rather than quietly cleaned up, since it's the more useful 
 This is a personal side project, not a City of Thunder Bay product. If you spot bad data, a better geocode, or want another open-data layer added:
 
 - Open an issue or PR on this repo.
-- For a new layer: add a `data/<layer>/` folder with whatever script(s) pulled the source data, writing its final output to `data/<layer>/<name>.json`; document its fields in `data/README.md`; and add a `LAYERS.push({...})` block to `index.html` following the pattern of the existing layers (an id, a color, a description, and a `render()` function that calls `loadData(id, url)` and returns the resulting promise so the sidebar's loading/error state works automatically).
+- For a new layer: add a `data/<layer>/` folder with whatever script(s) pulled the source data, writing its final output to `data/<layer>/<name>.json`; document its fields in `data/README.md`; and add a `LAYERS.push({...})` block to `index.html` following the pattern of the existing layers (an id, a `category` matching one of the four top tabs, a color, a description, and a `render()` function that calls `loadData(id, url)` and returns the resulting promise so the panel's loading/error state works automatically). New categories can be added to the `CATEGORIES` array above it.
 - If something here is factually wrong about a specific business, address, or property, the most durable fix is usually at the source (the City's open data portal, OpenStreetMap, or the relevant listing site) rather than only here — this map will re-pull from source if a layer is rebuilt.
 
 ## License / attribution
