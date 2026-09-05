@@ -121,6 +121,13 @@ print(f'{len(ships)} vessel(s) seen in a {LISTEN_SECONDS}s window')
 out = {
     'fetched_at': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'),
     'bbox': BBOX,
+    'note': (
+        'An empty ships array is a normal, expected state, not a failure: '
+        'Great Lakes shipping is seasonal (roughly late March-December), '
+        'this feed is terrestrial AIS reception only (no satellite fallback -- '
+        'see the root README), and it requires AISSTREAM_API_KEY to be set as '
+        'a repo secret to populate at all on a fork.'
+    ),
     'ships': list(ships.values()),
 }
 
