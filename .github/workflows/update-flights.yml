@@ -1,0 +1,39 @@
+name: Update flight data
+
+on:
+  schedule:
+    # Every 10 minutes. OpenSky's anonymous API allows ~400 requests/day;
+    # this uses ~144/day, well under that, and is a reasonable refresh
+    # cadence for a civic map (this is not a real-time ATC feed).
+    - cron: '*/10 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch current aircraft near Thunder Bay
+        working-directory: data/flights
+        run: python fetch_flights.py
+
+      - name: Commit and push if the data changed
+        working-directory: data/flights
+        run: |
+          git config user.name "flight-data-bot"
+          git config user.email "actions@github.com"
+          if git diff --quiet -- flights_live.json; then
+            echo "No change in flight data, skipping commit."
+          else
+            git add flights_live.json
+            git commit -m "Update live flight data [skip ci]"
+            git push
+          fi
