@@ -610,7 +610,7 @@ LAYERS.push({
   color: '#1a7fa8',
   count: 'live',
   defaultOn: false,
-  desc: "Vessels currently near Thunder Bay harbour and the western tip of Lake Superior, from AISStream.io's free real-time AIS feed — the marine equivalent of the flight tracker above, refreshed on the same roughly-10-minute schedule via a GitHub Action (AIS, like OpenSky, can't be queried directly from a browser). Thunder Bay is a working grain and bulk port, so expect lakers and the odd tug rather than passenger traffic. Great Lakes shipping is seasonal — normally late March to late December — so this layer will often be genuinely empty in winter, which is accurate, not broken.",
+  desc: "Vessels currently near Thunder Bay harbour and the western tip of Lake Superior, from AISStream.io's free real-time AIS feed — the marine equivalent of the flight tracker above, refreshed on the same roughly-10-minute schedule via a GitHub Action (AIS, like OpenSky, can't be queried directly from a browser). Thunder Bay is a working grain and bulk port, so expect lakers and the odd tug rather than passenger traffic. Great Lakes shipping is seasonal — normally late March to late December — so this layer will often be genuinely empty in winter, which is accurate, not broken. This feed is shore-station reception only, with no satellite fallback, so it will show fewer vessels than trackers like MarineTraffic that also pull in satellite and other ships' relayed positions — a vessel visible elsewhere but missing here usually means its latest position came from one of those, not a bug.",
   legendHTML: function(){
     let html = '<div class="sub-label">By activity</div>';
     Object.keys(SHIP_CATEGORY_LABEL).forEach(cat => {
