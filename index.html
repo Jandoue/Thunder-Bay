@@ -802,11 +802,11 @@ function buildLayerCard(def){
   const bodyId = `layer-body-${def.id}`;
   card.innerHTML = `
     <div class="layer-head" role="button" tabindex="0" aria-expanded="false" aria-controls="${bodyId}">
-      <span class="switch" style="--layer-color:${def.color}">
+      <label class="switch" style="--layer-color:${def.color}">
         <input type="checkbox" role="switch" ${def.defaultOn ? 'checked' : ''} aria-label="Show ${def.name} layer on the map">
         <span class="track" aria-hidden="true"></span>
         <span class="thumb" aria-hidden="true"></span>
-      </span>
+      </label>
       <span class="layer-swatch" style="background:${def.color}; width:9px; height:9px; border-radius:50%; flex:none;" aria-hidden="true"></span>
       <span class="layer-name">${def.name}</span>
       <span class="layer-count">${def.count}</span>
@@ -824,11 +824,11 @@ function buildLayerCard(def){
     head.setAttribute('aria-expanded', String(isExpanded));
   };
   head.addEventListener('click', (e) => {
-    if (e.target === checkbox) return;
+    if (e.target.closest('.switch')) return;
     toggleExpanded();
   });
   head.addEventListener('keydown', (e) => {
-    if (e.target === checkbox) return;
+    if (e.target.closest('.switch')) return;
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleExpanded(); }
   });
   checkbox.addEventListener('click', (e) => e.stopPropagation());
