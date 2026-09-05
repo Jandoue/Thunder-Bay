@@ -1,0 +1,7 @@
+[out:json][timeout:60];
+area["name"="Thunder Bay"]["boundary"="administrative"]->.a;
+(
+  relation["route"~"hiking|foot|mtb|bicycle"]["name"](area.a);
+  way["highway"~"path|footway|track|cycleway"]["name"](area.a);
+);
+out geom;
