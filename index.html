@@ -545,7 +545,7 @@ LAYERS.push({
   },
   render: function(group){
     const statusEl = () => document.getElementById('flight-status');
-    fetch('data/flights/flights_live.json', {cache: 'no-store'})
+    fetch('data/flights/flights_live.json?t=' + Date.now(), {cache: 'no-store'})
       .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(data => {
         const ageMin = Math.max(0, Math.round((Date.now() - new Date(data.fetched_at).getTime()) / 60000));
@@ -621,7 +621,7 @@ LAYERS.push({
   },
   render: function(group){
     const statusEl = () => document.getElementById('ship-status');
-    fetch('data/ships/ships_live.json', {cache: 'no-store'})
+    fetch('data/ships/ships_live.json?t=' + Date.now(), {cache: 'no-store'})
       .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(data => {
         const ageMin = Math.max(0, Math.round((Date.now() - new Date(data.fetched_at).getTime()) / 60000));
