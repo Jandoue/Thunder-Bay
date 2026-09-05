@@ -534,7 +534,7 @@ LAYERS.push({
   color: '#1baf7a',
   count: 'live',
   defaultOn: false,
-  desc: "Aircraft currently near Thunder Bay, from OpenSky Network's public ADS-B feed. This is the one layer on this map that isn't a static snapshot: a scheduled job refetches it roughly every 10 minutes (OpenSky's API blocks direct browser requests, so a GitHub Action fetches server-side and publishes the result here). It shows position, not flight plans — 'low altitude' aircraft are probably arriving at or departing Thunder Bay Airport (YQT); 'cruise altitude' ones are likely just passing overhead between other cities. Only works on the hosted site (not a local file copy).",
+  desc: "Aircraft currently near Thunder Bay, from OpenSky Network's public ADS-B feed. This is the one layer on this map that isn't a static snapshot: a scheduled job refetches it roughly every 10 minutes (OpenSky's API blocks direct browser requests, so a GitHub Action fetches server-side and publishes the result here). Dashed trails show a few aircraft's actual recent flown path (not a prediction). It shows position, not flight plans — there's no reliable source/destination data for this area in OpenSky's free tier, so it's not shown rather than guessed. 'Low altitude' aircraft are probably arriving at or departing Thunder Bay Airport (YQT); 'cruise altitude' ones are likely just passing overhead between other cities. Only works on the hosted site (not a local file copy).",
   legendHTML: function(){
     let html = '<div class="sub-label">By altitude</div>';
     Object.keys(FLIGHT_CATEGORY_LABEL).forEach(cat => {
@@ -553,13 +553,17 @@ LAYERS.push({
         data.aircraft.forEach(a => {
           const color = FLIGHT_CATEGORY_COLOR[a.category] || '#888';
           const rot = a.heading_deg != null ? a.heading_deg : 0;
+          if (a.path && a.path.length >= 2) {
+            const trail = L.polyline(a.path, {color, weight: 2.5, opacity: 0.55, dashArray: '1,6', lineCap: 'round'});
+            group.addLayer(trail);
+          }
           const icon = L.divIcon({
-            className: '', html: `<div style="width:20px;height:20px;transform:rotate(${rot}deg);display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;filter:drop-shadow(0 0 1px white) drop-shadow(0 0 1px white);color:${color};">&#9992;</div>`,
-            iconSize: [20,20], iconAnchor: [10,10],
+            className: '', html: `<div style="width:30px;height:30px;transform:rotate(${rot}deg);display:flex;align-items:center;justify-content:center;font-size:25px;line-height:1;filter:drop-shadow(0 0 1.5px white) drop-shadow(0 0 1.5px white);color:${color};">&#9992;</div>`,
+            iconSize: [30,30], iconAnchor: [15,15],
           });
           const m = L.marker([a.lat, a.lon], {icon});
           const label = a.callsign || a.icao24;
-          m.bindTooltip(`<b>${label}</b>${a.on_ground ? ' (on ground)' : ''}`, {direction:'top', offset:[0,-10]});
+          m.bindTooltip(`<b>${label}</b>${a.on_ground ? ' (on ground)' : ''}`, {direction:'top', offset:[0,-14]});
           const altFt = a.alt_m != null ? Math.round(a.alt_m * 3.281).toLocaleString() : '&mdash;';
           const speedKt = a.velocity_ms != null ? Math.round(a.velocity_ms * 1.944) : null;
           const vr = a.vertical_rate_ms;
@@ -575,7 +579,8 @@ LAYERS.push({
             `<tr><td style="color:#7c8880; padding-right:10px;">Vertical</td><td>${vrLabel}</td></tr>` +
             `<tr><td style="color:#7c8880; padding-right:10px;">ICAO24</td><td class="mono">${a.icao24}</td></tr>` +
             `</table>` +
-            `<div style="margin-top:8px; font-size:10.5px; color:#7c8880;">Position as of ${ageMin} min ago</div>`
+            (a.path && a.path.length >= 2 ? `<div style="margin-top:6px; font-size:10.5px; color:${color};">&#8213; dashed line shows its recent flown path</div>` : '') +
+            `<div style="margin-top:4px; font-size:10.5px; color:#7c8880;">Position as of ${ageMin} min ago</div>`
           );
           group.addLayer(m);
         });
