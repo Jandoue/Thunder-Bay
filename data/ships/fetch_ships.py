@@ -52,12 +52,16 @@ POSITION_MESSAGE_TYPES = ('PositionReport', 'StandardClassBPositionReport', 'Ext
 
 async def collect():
     ships = {}
-    seen_types = {}
     total = 0
+    # compression='deflate' isn't optional decoration -- AISStream's docs say
+    # permessage-deflate is required "to serve full message bandwidth", and
+    # in testing the feed was effectively silent without it (0 vessels in a
+    # region independently confirmed to have live traffic on public trackers).
     async with websockets.connect('wss://stream.aisstream.io/v0/stream', compression='deflate') as ws:
         await ws.send(json.dumps({
             'APIKey': API_KEY,
-            'BoundingBoxes': [[[40, -95], [55, -75]]],  # DIAGNOSTIC: wide Great Lakes box, no type filter
+            'BoundingBoxes': [BBOX],
+            'FilterMessageTypes': list(POSITION_MESSAGE_TYPES),
         }))
         try:
             async with asyncio.timeout(LISTEN_SECONDS):
@@ -65,7 +69,6 @@ async def collect():
                     total += 1
                     msg = json.loads(raw)
                     msg_type = msg.get('MessageType')
-                    seen_types[msg_type] = seen_types.get(msg_type, 0) + 1
                     if msg_type not in POSITION_MESSAGE_TYPES:
                         continue
                     meta = msg.get('MetaData') or {}
@@ -93,7 +96,7 @@ async def collect():
                     }
         except TimeoutError:
             pass
-    print('DIAGNOSTIC total messages:', total, 'type breakdown:', seen_types)
+    print(f'{total} raw message(s) received in the listen window')
     return ships
 
 
