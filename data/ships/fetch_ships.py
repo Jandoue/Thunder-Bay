@@ -30,7 +30,13 @@ API_KEY = os.environ["AISSTREAM_API_KEY"]
 # box, so there's no need for a tighter water-only polygon.
 BBOX = [[47.95, -90.05], [48.85, -88.55]]
 
-LISTEN_SECONDS = 25
+# AIS report intervals vary a lot by vessel state: a moving ship reports
+# every few seconds, but a moored or anchored one can report as rarely as
+# every ~3 minutes (per the AIS standard's slow-traffic reporting rate). A
+# short window systematically under-catches exactly the vessels that spend
+# the most time in a working harbour -- docked ones. 90s balances catching
+# more of them against not dragging out every scheduled run.
+LISTEN_SECONDS = 90
 
 # Standard ITU-R M.1371 AIS navigational status codes.
 NAV_STATUS = {
