@@ -32,11 +32,13 @@ BBOX = [[47.95, -90.05], [48.85, -88.55]]
 
 # AIS report intervals vary a lot by vessel state: a moving ship reports
 # every few seconds, but a moored or anchored one can report as rarely as
-# every ~3 minutes (per the AIS standard's slow-traffic reporting rate). A
-# short window systematically under-catches exactly the vessels that spend
-# the most time in a working harbour -- docked ones. 90s balances catching
-# more of them against not dragging out every scheduled run.
-LISTEN_SECONDS = 90
+# once per 3 minutes (the ITU-R M.1371 standard's slow-traffic rate) -- and
+# that's a fixed cycle on the vessel's own clock, not something a listener
+# can influence. A window shorter than that worst case will, on an
+# unlucky roll, miss a docked vessel's only transmission entirely. 200s
+# covers a full worst-case cycle with margin; it's a meaningful chunk of
+# each scheduled run but still leaves most of the 10-minute gap free.
+LISTEN_SECONDS = 200
 
 # Standard ITU-R M.1371 AIS navigational status codes.
 NAV_STATUS = {
