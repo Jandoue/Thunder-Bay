@@ -42,39 +42,51 @@ NAV_STATUS = {
 }
 
 
+# Class A vessels report as PositionReport, which is the only one of the
+# three that carries NavigationalStatus. Smaller craft (tugs, workboats --
+# common in a working harbour like Thunder Bay's) mostly carry Class B
+# transponders instead, which report as one of the other two types. Missing
+# any of the three means missing most non-Class-A traffic entirely.
+POSITION_MESSAGE_TYPES = ('PositionReport', 'StandardClassBPositionReport', 'ExtendedClassBPositionReport')
+
+
 async def collect():
     ships = {}
     async with websockets.connect('wss://stream.aisstream.io/v0/stream') as ws:
         await ws.send(json.dumps({
             'APIKey': API_KEY,
             'BoundingBoxes': [BBOX],
-            'FilterMessageTypes': ['PositionReport'],
+            'FilterMessageTypes': list(POSITION_MESSAGE_TYPES),
         }))
         try:
             async with asyncio.timeout(LISTEN_SECONDS):
                 async for raw in ws:
                     msg = json.loads(raw)
-                    if msg.get('MessageType') != 'PositionReport':
+                    msg_type = msg.get('MessageType')
+                    if msg_type not in POSITION_MESSAGE_TYPES:
                         continue
                     meta = msg.get('MetaData') or {}
-                    pr = (msg.get('Message') or {}).get('PositionReport') or {}
+                    pr = (msg.get('Message') or {}).get(msg_type) or {}
                     mmsi = meta.get('MMSI') or pr.get('UserID')
                     lat = pr.get('Latitude', meta.get('Latitude'))
                     lon = pr.get('Longitude', meta.get('Longitude'))
                     if mmsi is None or lat is None or lon is None:
                         continue
                     heading = pr.get('TrueHeading')
+                    # Only the Class A PositionReport carries this field --
+                    # Class B vessels simply don't transmit it, not an error.
                     nav_status = pr.get('NavigationalStatus')
+                    name = (meta.get('ShipName') or pr.get('Name') or '').strip() or None
                     ships[mmsi] = {
                         'mmsi': mmsi,
-                        'name': (meta.get('ShipName') or '').strip() or None,
+                        'name': name,
                         'lat': round(lat, 4),
                         'lon': round(lon, 4),
                         'sog_kn': round(pr['Sog'], 1) if pr.get('Sog') is not None else None,
                         'cog_deg': round(pr['Cog'], 1) if pr.get('Cog') is not None else None,
                         'heading_deg': heading if heading is not None and heading != 511 else None,
                         'nav_status': nav_status,
-                        'nav_status_label': NAV_STATUS.get(nav_status, 'Unknown'),
+                        'nav_status_label': NAV_STATUS.get(nav_status, 'Unknown' if nav_status is not None else None),
                     }
         except TimeoutError:
             pass

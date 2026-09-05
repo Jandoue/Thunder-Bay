@@ -642,7 +642,7 @@ LAYERS.push({
             `<b>${label}</b>` +
             `<table style="margin-top:6px; border-collapse:collapse;">` +
             `<tr><td style="color:#7c8880; padding-right:10px;">MMSI</td><td class="mono">${s.mmsi}</td></tr>` +
-            `<tr><td style="color:#7c8880; padding-right:10px;">Status</td><td>${s.nav_status_label}</td></tr>` +
+            `<tr><td style="color:#7c8880; padding-right:10px;">Status</td><td>${s.nav_status_label || 'Not reported (Class B transponder)'}</td></tr>` +
             `<tr><td style="color:#7c8880; padding-right:10px;">Speed</td><td>${s.sog_kn != null ? s.sog_kn + ' kn' : '&mdash;'}</td></tr>` +
             `<tr><td style="color:#7c8880; padding-right:10px;">Course</td><td>${s.cog_deg != null ? Math.round(s.cog_deg) + '&deg;' : '&mdash;'}</td></tr>` +
             `<tr><td style="color:#7c8880; padding-right:10px;">Heading</td><td>${s.heading_deg != null ? Math.round(s.heading_deg) + '&deg;' : '&mdash;'}</td></tr>` +
