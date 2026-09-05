@@ -21,6 +21,7 @@ If you're evaluating this repo: the `data/` folder is deliberately kept alongsid
 | Trees | 37,752 | [City of Thunder Bay Open Data — City of Thunder Bay Trees](https://opendata.thunderbay.ca/datasets/28aa2232c5654e84827158cf1a4cb073) | Full attribute set; rendered on canvas for performance at this density. |
 | Heritage properties | 135 of 136 | [City of Thunder Bay Municipal Heritage Register](https://opendata.thunderbay.ca/datasets/bd50ba0dc1534a13b4cb6f057646b049) | The register lists names/addresses, not coordinates — every point here was geocoded (see [Known limitations](#known-limitations--things-we-got-wrong-and-fixed)). 1 property omitted (source address doesn't match any real Thunder Bay street). 53 pins are flagged approximate in their own popup where OpenStreetMap has no address-point data for that street. |
 | Restaurants (menus) | 243 of 245 | [justthemenu.ca](https://justthemenu.ca/) (community-run menu directory, not affiliated with this project or the restaurants) | Only directory basics (name/address/phone/hours) plus a link back to the restaurant's menu page — menu text itself is their content and isn't reproduced here. Coordinates come from each listing's own linked Google/HERE/OSM map pin, not text geocoding. 2 listings have no address on the source site (delivery/online-only) and are omitted. |
+| Highway cameras | 17 | [Ontario 511](https://511on.ca/) (Ministry of Transportation public API) | Covers the Northwestern Ontario highway corridor (Hwy 11/17/61/527/595, roughly Ignace to Nipigon), not just the city — that's the actual coverage area of this data, and it's what 511 cameras are for. Each popup embeds a live snapshot image (reloads on open, not a static photo). Other "Thunder Bay webcam" sources found while researching this (an old personal page, a CBC link) were dead; a NOAA "Thunder Bay" webcam turned out to be a different Thunder Bay, in Michigan. |
 
 Map tiles: [OpenStreetMap](https://www.openstreetmap.org/copyright) (© OpenStreetMap contributors, ODbL). Map library: [Leaflet](https://leafletjs.com/).
 
@@ -37,6 +38,7 @@ data/
                           + the scraped list and final output
   police-incidents/      parse_crime.py, geocode_addresses.py + the 5 quarterly source CSVs
                           + aggregated/geocoded intermediate results
+  cameras/               build_cameras.py + the raw 511 Ontario API pull and final output
 ```
 
 Each `data/<layer>/` folder holds the actual scripts that pulled and processed that layer, plus the raw and intermediate files they produced — the exact chain from source to what's embedded in `index.html`. Re-running a script re-fetches from the live source and reproduces its output; nothing here is generated from anything not in this repo.
@@ -51,6 +53,7 @@ cd data/trees && python build_trees.py
 cd data/heritage && python geocode_heritage.py && python audit_precision.py && python finalize_heritage.py
 cd data/restaurants && python scrape_restaurants.py && python patch_missing.py && python finalize_restaurants.py
 cd data/police-incidents && python parse_crime.py
+cd data/cameras && python build_cameras.py
 ```
 
 The heritage and restaurant geocoding scripts call the public [Nominatim](https://nominatim.org/) API and are rate-limited (~1 request/second) out of courtesy to that free service — expect a few minutes for a full run. Re-embedding a rebuilt layer's output into `index.html` is currently a manual step (find the layer's `const X = [...]` block and replace it).
@@ -63,6 +66,7 @@ Kept here on purpose rather than quietly cleaned up, since it's the more useful 
 - **Heritage geocoding silently fell back to a street centroid** for addresses Nominatim couldn't match to an exact house number, rather than erroring. This got caught when a specific address ("1100 Ridgeway St E") turned out to just be pinned somewhere else on the same road. An audit pass checked every match's actual OSM classification (`class=highway` = a road-segment fallback, not a real address point) and reran Overpass queries directly against the raw address tags to confirm the data genuinely isn't in OpenStreetMap for ~53 addresses — those are now flagged as approximate in their own popup instead of presented as exact.
 - **A restaurant-geocoding condition matched on the string `'google'`**, but every address link on the source site is a `maps.app.goo.gl` short link — which doesn't contain that substring. The check silently matched zero restaurants until it was changed to accept any `http` URL instead of guessing the domain.
 - **Row-matching by name breaks when names repeat.** The heritage register has 13 different "Queen Anne Revival style house" entries at 13 different addresses; an early script matched geocoding results back to source rows by name and would have collapsed all 13 onto one coordinate. Fixed by matching on row index instead.
+- **Camera popups rendered off-screen at first.** Their thumbnails are `<img>` tags pointing at live 511 Ontario snapshots, which load asynchronously — Leaflet sizes and positions a popup before its content has finished loading, so the popup ended up positioned for a much smaller box than the one that actually rendered. Fixed by calling the popup's `update()` once each image's `load` (or `error`) event fires.
 
 ## Contributing
 

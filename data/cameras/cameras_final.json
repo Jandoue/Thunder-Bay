@@ -1,0 +1,380 @@
+[
+ {
+  "id": 51,
+  "location": "Highway 11 near Gorge Creek Road",
+  "roadway": "Highway 11",
+  "direction": "Unknown",
+  "lat": 49.30305,
+  "lon": -88.09916,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/149",
+    "desc": "Looking South"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/150",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/151",
+    "desc": "Looking North"
+   }
+  ]
+ },
+ {
+  "id": 52,
+  "location": "Highway 11 at Highway 102",
+  "roadway": "Highway 11",
+  "direction": "Unknown",
+  "lat": 48.53443,
+  "lon": -89.6497702,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/152",
+    "desc": "Looking North"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/153",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/154",
+    "desc": "Looking South"
+   }
+  ]
+ },
+ {
+  "id": 53,
+  "location": "Highway 11 near Kash River Road",
+  "roadway": "Highway 11",
+  "direction": "Unknown",
+  "lat": 48.65394,
+  "lon": -90.41919,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/155",
+    "desc": "Looking West"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/156",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/157",
+    "desc": "Looking East"
+   }
+  ]
+ },
+ {
+  "id": 54,
+  "location": "Highway 11 near Highway 623",
+  "roadway": "Highway 11",
+  "direction": "Unknown",
+  "lat": 48.72817,
+  "lon": -91.326689,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/158",
+    "desc": "Looking East"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/159",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/160",
+    "desc": "Looking West"
+   }
+  ]
+ },
+ {
+  "id": 64,
+  "location": "Highway 17 near English River",
+  "roadway": "Highway 17",
+  "direction": "Unknown",
+  "lat": 49.23187,
+  "lon": -90.96603,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/188",
+    "desc": "Looking East"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/189",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/190",
+    "desc": "Looking West"
+   }
+  ]
+ },
+ {
+  "id": 65,
+  "location": "Highway 17 near Dog River Road",
+  "roadway": "Highway 17",
+  "direction": "Unknown",
+  "lat": 48.89084,
+  "lon": -90.008331,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/191",
+    "desc": "Looking South"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/192",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/193",
+    "desc": "Looking North"
+   }
+  ]
+ },
+ {
+  "id": 66,
+  "location": "Highway 17 near 5 Road North",
+  "roadway": "Highway 17",
+  "direction": "Unknown",
+  "lat": 48.66418,
+  "lon": -88.65769,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/194",
+    "desc": "Looking South"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/195",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/196",
+    "desc": "Looking North"
+   }
+  ]
+ },
+ {
+  "id": 67,
+  "location": "Highway 17 at Highway 11",
+  "roadway": "Highway 17",
+  "direction": "Unknown",
+  "lat": 49.02079,
+  "lon": -88.243045,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/197",
+    "desc": "Looking North"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/198",
+    "desc": "Looking West"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/199",
+    "desc": "Looking East"
+   }
+  ]
+ },
+ {
+  "id": 68,
+  "location": "Highway 17 near Gravel River",
+  "roadway": "Highway 17",
+  "direction": "Unknown",
+  "lat": 48.92083,
+  "lon": -87.77083,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/200",
+    "desc": "Looking East"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/201",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/202",
+    "desc": "Looking West"
+   }
+  ]
+ },
+ {
+  "id": 112,
+  "location": "Highway 61 near Lake Lenore Road",
+  "roadway": "Highway 61",
+  "direction": "Unknown",
+  "lat": 48.0523,
+  "lon": -89.54055,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/330",
+    "desc": "Looking South"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/331",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/332",
+    "desc": "Looking North"
+   }
+  ]
+ },
+ {
+  "id": 113,
+  "location": "Highway 61 at Highway 11/17",
+  "roadway": "Highway 61",
+  "direction": "Unknown",
+  "lat": 48.405734,
+  "lon": -89.28717,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/333",
+    "desc": "Looking South"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/334",
+    "desc": "Looking West"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/335",
+    "desc": "Looking North"
+   }
+  ]
+ },
+ {
+  "id": 179,
+  "location": "Highway 527 near Lasseter lake",
+  "roadway": "Highway 527",
+  "direction": "Unknown",
+  "lat": 48.849847,
+  "lon": -89.122119,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/520",
+    "desc": "Looking North"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/521",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/522",
+    "desc": "Looking South"
+   }
+  ]
+ },
+ {
+  "id": 184,
+  "location": "Highway 595 near Neva Road",
+  "roadway": "Highway 595",
+  "direction": "Unknown",
+  "lat": 48.259941,
+  "lon": -89.701148,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/529",
+    "desc": "Looking South"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/530",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/531",
+    "desc": "Looking North"
+   }
+  ]
+ },
+ {
+  "id": 713,
+  "location": "Highway 17 at Hydro Road North",
+  "roadway": "Highway 17",
+  "direction": "Unknown",
+  "lat": 48.78847,
+  "lon": -87.147794,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/1342",
+    "desc": "Looking East"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/1343",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/1344",
+    "desc": "Looking West"
+   }
+  ]
+ },
+ {
+  "id": 1091,
+  "location": "Highway 17 at Nipigon River Bridge",
+  "roadway": "Highway 17",
+  "direction": "Unknown",
+  "lat": 49.019741,
+  "lon": -88.251275,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/2123",
+    "desc": "Looking West"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/2124",
+    "desc": "Looking Down"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/2125",
+    "desc": "Looking East"
+   }
+  ]
+ },
+ {
+  "id": 1166,
+  "location": "Highway 17 at Highway 587",
+  "roadway": "Highway 17",
+  "direction": "Unknown",
+  "lat": 48.60359,
+  "lon": -88.780054,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/2278",
+    "desc": "Looking North"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/2279",
+    "desc": "Looking East"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/2280",
+    "desc": "Looking South"
+   }
+  ]
+ },
+ {
+  "id": 1399,
+  "location": "Highway 11 at Dawson Road",
+  "roadway": "Highway 11",
+  "direction": "Unknown",
+  "lat": 48.449736,
+  "lon": -89.251171,
+  "views": [
+   {
+    "url": "https://511on.ca/map/Cctv/2816",
+    "desc": "Looking West"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/2817",
+    "desc": "Looking South"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/2818",
+    "desc": "Looking East"
+   },
+   {
+    "url": "https://511on.ca/map/Cctv/2819",
+    "desc": "Looking Down"
+   }
+  ]
+ }
+]
