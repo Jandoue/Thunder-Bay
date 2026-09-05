@@ -1,0 +1,866 @@
+{
+ "0": {
+  "name": "CN Station",
+  "query": "2212 Sleeping Giant Parkway, Thunder Bay, Ontario, Canada",
+  "lat": 48.4321269,
+  "lon": -89.2185996,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "1": {
+  "name": "Pagoda",
+  "query": "170 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4347552,
+  "lon": -89.2190929,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "2": {
+  "name": "Trinity United Church",
+  "query": "30 Algoma Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.4364874,
+  "lon": -89.2247932,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "3": {
+  "name": "Brodie Resource Library",
+  "query": "216 Brodie Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3816057,
+  "lon": -89.2463076,
+  "addresstype": "amenity",
+  "osm_type": "node"
+ },
+ "4": {
+  "name": "Coo House",
+  "query": "135 Archibald Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.3854297,
+  "lon": -89.2491685,
+  "addresstype": "amenity",
+  "osm_type": "way"
+ },
+ "5": {
+  "name": "Central School (Magnus Theatre)",
+  "query": "10 Algoma Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.4370021,
+  "lon": -89.2249857,
+  "addresstype": "amenity",
+  "osm_type": "way"
+ },
+ "6": {
+  "name": "Fort William Collegiate Institute",
+  "query": "512 Marks Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3774965,
+  "lon": -89.2537546,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "7": {
+  "name": "Port Arthur Collegiate Institute",
+  "query": "401 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4380367,
+  "lon": -89.2269769,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "8": {
+  "name": "St. Andrew's Presbyterian Church",
+  "query": "211 Brodie Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3820138,
+  "lon": -89.2467681,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "9": {
+  "name": "James Murphy Residence (Murphy Mansion)",
+  "query": "431 Selkirk Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3783105,
+  "lon": -89.2595481,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "10": {
+  "name": "Ottawa House",
+  "query": "38 Cumberland Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.4333922,
+  "lon": -89.2210943,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "11": {
+  "name": "Arlington Apartments",
+  "query": "230 Brodie Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.3867809,
+  "lon": -89.2465152,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "12": {
+  "name": "Royal Edward Arms",
+  "query": "114 May Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.383427,
+  "lon": -89.2452897,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "14": {
+  "name": "Virgil School of Music",
+  "query": "337 Van Norman Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4386088,
+  "lon": -89.2249528,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "15": {
+  "name": "Chippewa Park Carousel",
+  "query": " Chippewa Park, Thunder Bay, Ontario, Canada",
+  "lat": 48.3335833,
+  "lon": -89.212208,
+  "addresstype": "park",
+  "osm_type": "relation"
+ },
+ "16": {
+  "name": "Finnish Labour Temple",
+  "query": "314 Bay Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4322318,
+  "lon": -89.2299812,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "17": {
+  "name": "Lornehurst (Minore House)",
+  "query": "294 Court Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.4444401,
+  "lon": -89.2125027,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "18": {
+  "name": "Blake's Funeral Chapel",
+  "query": "200 May Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3823957,
+  "lon": -89.245297,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "19": {
+  "name": "McKibbin House",
+  "query": "131 Court Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.4394052,
+  "lon": -89.2179603,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "20": {
+  "name": "Bank of Commerce",
+  "query": "409 Victoria Avenue East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3841827,
+  "lon": -89.2443492,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "21": {
+  "name": "Thunder Bay Multicultural Centre",
+  "query": "17 Court Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.4362779,
+  "lon": -89.2211895,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "22": {
+  "name": "Thunder Bay Museum",
+  "query": "425 425 Donald Street East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3825167,
+  "lon": -89.2505432,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "23": {
+  "name": "Polish Hall",
+  "query": "818 Spring Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.3952958,
+  "lon": -89.2387106,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "24": {
+  "name": "Vickers Park",
+  "query": "1700 Arthur Street East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3807347,
+  "lon": -89.2618729,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "25": {
+  "name": "Whalen Building",
+  "query": "34 Cumberland Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.4358139,
+  "lon": -89.2184773,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "27": {
+  "name": "3-storey apartment building",
+  "query": "350 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4380099,
+  "lon": -89.2259814,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "28": {
+  "name": "8-storey apartment building",
+  "query": "9 Regent Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4383683,
+  "lon": -89.2267175,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "30": {
+  "name": "Bungalow",
+  "query": "396 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4382213,
+  "lon": -89.2337635,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "31": {
+  "name": "Colonial Revival style house",
+  "query": "334 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4382213,
+  "lon": -89.2337635,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "32": {
+  "name": "Colonial Revival style house",
+  "query": "491 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4380351,
+  "lon": -89.233485,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "34": {
+  "name": "Contemporary house",
+  "query": "410 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4380099,
+  "lon": -89.2259814,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "37": {
+  "name": "Cottage style house",
+  "query": "402 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4382213,
+  "lon": -89.2337635,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "41": {
+  "name": "English cottage style house",
+  "query": "328 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4382213,
+  "lon": -89.2337635,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "43": {
+  "name": "Everest Funeral Home",
+  "query": "299 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4362687,
+  "lon": -89.223544,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "44": {
+  "name": "First Baptist Church",
+  "query": "308 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4374266,
+  "lon": -89.2240525,
+  "addresstype": "amenity",
+  "osm_type": "way"
+ },
+ "45": {
+  "name": "Hillcrest Towers apartment building",
+  "query": "9 High Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.4374509,
+  "lon": -89.2332843,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "46": {
+  "name": "Hogarth Fountain (feature within Waverley Park)",
+  "query": " Waverley Park, Thunder Bay, Ontario, Canada",
+  "lat": 48.4372858,
+  "lon": -89.2261618,
+  "addresstype": "park",
+  "osm_type": "way"
+ },
+ "47": {
+  "name": "House (former public school - moved to this site in 1901)",
+  "query": "312 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4382213,
+  "lon": -89.2337635,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "48": {
+  "name": "Late Victorian house",
+  "query": "388 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4381961,
+  "lon": -89.2283734,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "49": {
+  "name": "Late Victorian house",
+  "query": "392 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4380099,
+  "lon": -89.2259814,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "50": {
+  "name": "Late Victorian house",
+  "query": "400 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4366763,
+  "lon": -89.2236291,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "51": {
+  "name": "Masonic Lodge",
+  "query": "262 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4361183,
+  "lon": -89.2226195,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "53": {
+  "name": "Pentacostal Church",
+  "query": "326 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4388625,
+  "lon": -89.2362771,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "55": {
+  "name": "Post-war bungalow",
+  "query": "369 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4368816,
+  "lon": -89.2282487,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "56": {
+  "name": "Queen Anne Revival style house",
+  "query": "332 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4382213,
+  "lon": -89.2337635,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "57": {
+  "name": "Queen Anne Revival style house",
+  "query": "338 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4383227,
+  "lon": -89.2266898,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "58": {
+  "name": "Queen Anne Revival style house",
+  "query": "372 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4383348,
+  "lon": -89.2279556,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "59": {
+  "name": "Queen Anne Revival style house",
+  "query": "416 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4375081,
+  "lon": -89.2301031,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "60": {
+  "name": "Queen Anne Revival style house",
+  "query": "488 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4382135,
+  "lon": -89.2332487,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "69": {
+  "name": "Queen Anne Revival style house",
+  "query": "329 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4366878,
+  "lon": -89.2264875,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "70": {
+  "name": "Queen Anne Revival style house",
+  "query": "363 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4368263,
+  "lon": -89.2280011,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "71": {
+  "name": "Queen Anne Revival style house",
+  "query": "373 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4369185,
+  "lon": -89.2284138,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "72": {
+  "name": "Queen Anne Revival style house",
+  "query": "375 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.436937,
+  "lon": -89.2284964,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "74": {
+  "name": "St. Andrew's Roman Catholic (original - now parish hall)",
+  "query": "292 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4365195,
+  "lon": -89.2232812,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "75": {
+  "name": "St. Andrew's Roman Catholic Church",
+  "query": "292 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4365195,
+  "lon": -89.2232812,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "76": {
+  "name": "St. Andrew's Roman Catholic rectory",
+  "query": "292 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4365195,
+  "lon": -89.2232812,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "78": {
+  "name": "St. Paul's United Church",
+  "query": "349 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4366971,
+  "lon": -89.2274232,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "79": {
+  "name": "St. Paul's United Church Hall",
+  "query": "349 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4366971,
+  "lon": -89.2274232,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "80": {
+  "name": "St. Paul's United Church Manse",
+  "query": "349 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4366971,
+  "lon": -89.2274232,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "81": {
+  "name": "Stucco house",
+  "query": "330 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4388625,
+  "lon": -89.2362771,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "82": {
+  "name": "Waverley Park ",
+  "query": " Waverley Street & Red River Rd, Thunder Bay, Ontario, Canada",
+  "lat": 48.4369026,
+  "lon": -89.2277625,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "83": {
+  "name": "Waverley Park Cenotaph",
+  "query": " Waverley Park, Thunder Bay, Ontario, Canada",
+  "lat": 48.4372858,
+  "lon": -89.2261618,
+  "addresstype": "park",
+  "osm_type": "way"
+ },
+ "85": {
+  "name": "Waverley Resource Library",
+  "query": "285 Waverley Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4364573,
+  "lon": -89.223868,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "86": {
+  "name": "O'Kelly Armoury",
+  "query": "317 Park Avenue, Thunder Bay, Ontario, Canada",
+  "lat": 48.4359873,
+  "lon": -89.2264481,
+  "addresstype": "building",
+  "osm_type": "way"
+ },
+ "87": {
+  "name": "Graham City Livery  *DEMOLISHED",
+  "query": "220 Cooke Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4354891,
+  "lon": -89.220319,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "88": {
+  "name": "CPR Union Station",
+  "query": "440 Syndicate Avenue South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3788057,
+  "lon": -89.2475444,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "89": {
+  "name": "Federal Building",
+  "query": "130 Syndicate Avenue South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3806177,
+  "lon": -89.2477484,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "90": {
+  "name": "Kaministiquia (Kam) Bascule Bridge",
+  "query": " 106th Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.3734239,
+  "lon": -89.2407075,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "91": {
+  "name": "Knox United Church",
+  "query": "303 Pruden Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.3898148,
+  "lon": -89.2394577,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "92": {
+  "name": "Lyceum Theatre",
+  "query": "12 Cumberland Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.4352221,
+  "lon": -89.2191741,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "93": {
+  "name": "McIntyre House",
+  "query": "1017 Isabella Street East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3777255,
+  "lon": -89.2522459,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "94": {
+  "name": "McKellar Lift Bridge",
+  "query": " Island Drive, Thunder Bay, Ontario, Canada",
+  "lat": 48.3834261,
+  "lon": -89.2319413,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "95": {
+  "name": "Prince Arthur Waterfront Hotel & Suites ",
+  "query": "17 Cumberland Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.4354853,
+  "lon": -89.2183998,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "96": {
+  "name": "Revenue Canada Building",
+  "query": "201 May Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.386374,
+  "lon": -89.2456995,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "97": {
+  "name": "Thunder Bay District Court House",
+  "query": "277 Camelot Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4377398,
+  "lon": -89.2202573,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "99": {
+  "name": "Ukrainian Catholic Church of the Transfiguration",
+  "query": "629 McIntosh Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.3935359,
+  "lon": -89.231646,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "100": {
+  "name": "Wesley United Church",
+  "query": "130 Brodie Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.3854591,
+  "lon": -89.2465115,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "101": {
+  "name": "Wiley Estate / St. Joseph's Manor House",
+  "query": "640 Red River Road, Thunder Bay, Ontario, Canada",
+  "lat": 48.4388625,
+  "lon": -89.2362771,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "102": {
+  "name": "Bishop's Residence",
+  "query": "1306 Ridgeway Street East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3791265,
+  "lon": -89.2554465,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "103": {
+  "name": "Canadian Car & Foundry National Historic Site of Canada",
+  "query": "1001 Montreal Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.3571044,
+  "lon": -89.2951379,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "104": {
+  "name": "Dease Pool",
+  "query": "370 Vickers Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.3936139,
+  "lon": -89.2510641,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "105": {
+  "name": "Dr. Dewar's",
+  "query": "121 McKellar Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.383297,
+  "lon": -89.2502668,
+  "addresstype": "amenity",
+  "osm_type": "way"
+ },
+ "106": {
+  "name": "Fort William Grain Exchange - Chapple Building",
+  "query": "701 Victoria Avenue East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3841653,
+  "lon": -89.2518565,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "107": {
+  "name": "George Graham Residence",
+  "query": "400 Archibald Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3791062,
+  "lon": -89.2487157,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "108": {
+  "name": "H.M.C.S. Griffon",
+  "query": "125 Algoma Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.4516005,
+  "lon": -89.2030625,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "109": {
+  "name": "Heath Pool",
+  "query": "1251 Heath Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.367407,
+  "lon": -89.2860748,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "110": {
+  "name": "John King Residence",
+  "query": "302 Archibald Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3807314,
+  "lon": -89.2487287,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "111": {
+  "name": "Maudslay Court",
+  "query": "151 Court Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.440192,
+  "lon": -89.2171407,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "112": {
+  "name": "Northwestern Ontario Sports Hall of Fame (Land Registry Office)",
+  "query": "219 May Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3822656,
+  "lon": -89.2456824,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "114": {
+  "name": "St. Peter's Roman Catholic Church",
+  "query": "700 McIntosh Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.3916763,
+  "lon": -89.2299667,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "116": {
+  "name": "Ukrainian Orthodox Church of the Assumption of the Blessed Virgin Mary",
+  "query": "716 Pacific Avenue, Thunder Bay, Ontario, Canada",
+  "lat": 48.3946422,
+  "lon": -89.2307236,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "117": {
+  "name": "Atkinson's Jewellers",
+  "query": "8 Cumberland Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.4345673,
+  "lon": -89.219885,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "118": {
+  "name": "Bank of Montreal / Prospector Steak House",
+  "query": "27 Cumberland Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.433824,
+  "lon": -89.2201812,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "119": {
+  "name": "Hillcrest High School (Former)",
+  "query": "96 High Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.4413008,
+  "lon": -89.2310989,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "120": {
+  "name": "Iron Ore Dock",
+  "query": "490 Maureen Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4186289,
+  "lon": -89.2282383,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "121": {
+  "name": "McVicar Manor (Walsh Residence)",
+  "query": "146 Court Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.4403463,
+  "lon": -89.2174723,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "123": {
+  "name": "Ruttan Block",
+  "query": "2 Court Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.4356403,
+  "lon": -89.2223692,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "124": {
+  "name": "St. Patrick High School",
+  "query": "621 Selkirk Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.3749952,
+  "lon": -89.2607852,
+  "addresstype": "amenity",
+  "osm_type": "way"
+ },
+ "125": {
+  "name": "St. Paul's Anglican Church",
+  "query": "808 Ridgeway Street East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3791505,
+  "lon": -89.2490525,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "126": {
+  "name": "Ukrainian Catholic Cemetery",
+  "query": "1705 Arthur Street West, Thunder Bay, Ontario, Canada",
+  "lat": 48.3810617,
+  "lon": -89.3395353,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "127": {
+  "name": "Windrose (F.R. Morris Residence)",
+  "query": "1100 Ridgeway Street East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3790333,
+  "lon": -89.2729701,
+  "addresstype": "road",
+  "osm_type": "way"
+ },
+ "128": {
+  "name": "City Hall Cenotaph Monument",
+  "query": "500 Donald Street East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3824198,
+  "lon": -89.2457514,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "129": {
+  "name": "Saint John the Evangelist Anglican Church",
+  "query": "226 Pearl Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.432971,
+  "lon": -89.2216121,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "130": {
+  "name": "Times-Journal Building",
+  "query": "115 May Street North, Thunder Bay, Ontario, Canada",
+  "lat": 48.3842162,
+  "lon": -89.2457001,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "131": {
+  "name": "Caledonia Building",
+  "query": "317 Victoria Avenue East, Thunder Bay, Ontario, Canada",
+  "lat": 48.3842516,
+  "lon": -89.2434456,
+  "addresstype": "place",
+  "osm_type": "way"
+ },
+ "132": {
+  "name": "St. Ansgarius Swedish Church   *DEMOLISHED",
+  "query": "179 Secord Street, Thunder Bay, Ontario, Canada",
+  "lat": 48.4306853,
+  "lon": -89.2322218,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "134": {
+  "name": "Paramount Theatre",
+  "query": "24 Court Street South, Thunder Bay, Ontario, Canada",
+  "lat": 48.4351019,
+  "lon": -89.2229378,
+  "addresstype": "place",
+  "osm_type": "node"
+ },
+ "135": {
+  "name": "The Doctor's Cottage",
+  "query": "281 Ray Court, Thunder Bay, Ontario, Canada",
+  "lat": 48.4410519,
+  "lon": -89.2185153,
+  "addresstype": "place",
+  "osm_type": "node"
+ }
+}

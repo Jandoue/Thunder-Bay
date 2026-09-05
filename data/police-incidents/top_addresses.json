@@ -1,0 +1,996 @@
+[
+ [
+  "P7B",
+  "700 Block MEMORIAL AV",
+  283,
+  {
+   "Other Theft": 112,
+   "Quality of Life": 23,
+   "Other": 80,
+   "Robbery": 16,
+   "Breaking & Entering": 3,
+   "Assault": 21,
+   "Other Property Crime": 7,
+   "Traffic": 9,
+   "Theft from Vehicle": 3,
+   "Theft": 3,
+   "Theft of Vehicle": 6
+  }
+ ],
+ [
+  "P7B",
+  "300 Block MAIN ST",
+  175,
+  {
+   "Other Theft": 92,
+   "Quality of Life": 7,
+   "Theft": 6,
+   "Other": 49,
+   "Assault": 8,
+   "Theft of Vehicle": 1,
+   "Other Property Crime": 5,
+   "Robbery": 3,
+   "Traffic": 2,
+   "Theft from Vehicle": 1,
+   "Breaking & Entering": 1
+  }
+ ],
+ [
+  "P7B",
+  "1000 Block DAWSON RD",
+  162,
+  {
+   "Assault": 51,
+   "Quality of Life": 41,
+   "Other Theft": 23,
+   "Other": 28,
+   "Other Property Crime": 6,
+   "Traffic": 6,
+   "Robbery": 6,
+   "Theft from Vehicle": 1
+  }
+ ],
+ [
+  "P7B",
+  "900 Block CARRICK ST",
+  131,
+  {
+   "Other Theft": 91,
+   "Robbery": 10,
+   "Traffic": 4,
+   "Other Property Crime": 4,
+   "Other": 17,
+   "Assault": 3,
+   "Theft": 2
+  }
+ ],
+ [
+  "P7B",
+  "1200 Block BALMORAL ST",
+  124,
+  {
+   "Other Property Crime": 24,
+   "Other Theft": 55,
+   "Assault": 10,
+   "Other": 7,
+   "Theft of Vehicle": 11,
+   "Traffic": 6,
+   "Theft from Vehicle": 5,
+   "Quality of Life": 5,
+   "Theft": 1
+  }
+ ],
+ [
+  "P7B",
+  "1000 Block FORT WILLIAM RD",
+  122,
+  {
+   "Robbery": 5,
+   "Other": 35,
+   "Other Theft": 20,
+   "Assault": 33,
+   "Quality of Life": 9,
+   "Theft from Vehicle": 3,
+   "Traffic": 6,
+   "Theft": 4,
+   "Sexual Offense": 1,
+   "Other Property Crime": 4,
+   "Breaking & Entering": 1,
+   "Theft of Vehicle": 1
+  }
+ ],
+ [
+  "P7B",
+  "900 Block OLIVER RD",
+  114,
+  {
+   "Other": 47,
+   "Quality of Life": 11,
+   "Assault": 31,
+   "Other Property Crime": 5,
+   "Traffic": 10,
+   "Theft of Vehicle": 2,
+   "Other Theft": 7,
+   "Robbery": 1
+  }
+ ],
+ [
+  "P7B",
+  "900 Block FORT WILLIAM RD",
+  113,
+  {
+   "Quality of Life": 16,
+   "Other Theft": 20,
+   "Other": 33,
+   "Traffic": 5,
+   "Robbery": 11,
+   "Assault": 21,
+   "Sexual Offense": 2,
+   "Theft": 2,
+   "Other Property Crime": 3
+  }
+ ],
+ [
+  "P7E",
+  "1100 Block ARTHUR ST W",
+  109,
+  {
+   "Assault": 16,
+   "Other": 43,
+   "Other Theft": 25,
+   "Traffic": 10,
+   "Theft of Vehicle": 1,
+   "Other Property Crime": 4,
+   "Quality of Life": 9,
+   "Theft": 1
+  }
+ ],
+ [
+  "P7A",
+  "1 Block CUMBERLAND ST N",
+  96,
+  {
+   "Assault": 42,
+   "Other Property Crime": 6,
+   "Quality of Life": 18,
+   "Other": 14,
+   "Traffic": 4,
+   "Other Theft": 6,
+   "Breaking & Entering": 1,
+   "Robbery": 5
+  }
+ ],
+ [
+  "P7E",
+  "500 Block ARTHUR ST W",
+  92,
+  {
+   "Traffic": 12,
+   "Assault": 20,
+   "Other Theft": 8,
+   "Other Property Crime": 2,
+   "Other": 30,
+   "Quality of Life": 17,
+   "Breaking & Entering": 3
+  }
+ ],
+ [
+  "P7E",
+  "500 Block DONALD ST E",
+  88,
+  {
+   "Assault": 40,
+   "Quality of Life": 28,
+   "Other Property Crime": 11,
+   "Robbery": 4,
+   "Other Theft": 4,
+   "Other": 1
+  }
+ ],
+ [
+  "P7C",
+  "400 Block EDWARD ST N",
+  78,
+  {
+   "Other": 17,
+   "Breaking & Entering": 3,
+   "Other Theft": 18,
+   "Assault": 17,
+   "Sexual Offense": 2,
+   "Robbery": 6,
+   "Other Property Crime": 1,
+   "Quality of Life": 11,
+   "Theft": 2,
+   "Traffic": 1
+  }
+ ],
+ [
+  "P7B",
+  "100 Block CUMBERLAND ST S",
+  76,
+  {
+   "Quality of Life": 21,
+   "Breaking & Entering": 10,
+   "Assault": 26,
+   "Sexual Offense": 2,
+   "Other Property Crime": 5,
+   "Other Theft": 8,
+   "Robbery": 3,
+   "Theft from Vehicle": 1
+  }
+ ],
+ [
+  "P7B",
+  "1 Block CUMBERLAND ST S",
+  72,
+  {
+   "Assault": 23,
+   "Sexual Offense": 1,
+   "Other": 17,
+   "Other Property Crime": 6,
+   "Robbery": 6,
+   "Quality of Life": 9,
+   "Breaking & Entering": 4,
+   "Other Theft": 3,
+   "Traffic": 2,
+   "Theft from Vehicle": 1
+  }
+ ],
+ [
+  "P7A",
+  "1000 Block DAWSON RD",
+  68,
+  {
+   "Other Theft": 11,
+   "Other": 22,
+   "Traffic": 4,
+   "Assault": 14,
+   "Quality of Life": 8,
+   "Robbery": 5,
+   "Theft of Vehicle": 1,
+   "Other Property Crime": 3
+  }
+ ],
+ [
+  "P7E",
+  "600 Block ARTHUR ST W",
+  65,
+  {
+   "Other": 15,
+   "Assault": 11,
+   "Traffic": 5,
+   "Other Theft": 8,
+   "Other Property Crime": 6,
+   "Quality of Life": 13,
+   "Theft of Vehicle": 2,
+   "Theft from Vehicle": 3,
+   "Robbery": 2
+  }
+ ],
+ [
+  "P7B",
+  "800 Block RED RIVER RD",
+  61,
+  {
+   "Other": 28,
+   "Quality of Life": 9,
+   "Assault": 6,
+   "Other Theft": 6,
+   "Property Crime": 1,
+   "Theft of Vehicle": 2,
+   "Traffic": 4,
+   "Other Property Crime": 3,
+   "Robbery": 2
+  }
+ ],
+ [
+  "P7A",
+  "600 Block RIVER ST",
+  59,
+  {
+   "Other": 30,
+   "Quality of Life": 11,
+   "Traffic": 2,
+   "Other Theft": 5,
+   "Other Property Crime": 5,
+   "Robbery": 2,
+   "Assault": 3,
+   "Theft of Vehicle": 1
+  }
+ ],
+ [
+  "P7A",
+  "100 Block CUMBERLAND ST N",
+  57,
+  {
+   "Quality of Life": 5,
+   "Assault": 19,
+   "Other": 8,
+   "Other Theft": 12,
+   "Other Property Crime": 4,
+   "Property Crime": 1,
+   "Robbery": 3,
+   "Traffic": 3,
+   "Breaking & Entering": 1,
+   "Theft of Vehicle": 1
+  }
+ ],
+ [
+  "P7E",
+  "1100 Block LINCOLN ST",
+  54,
+  {
+   "Other Theft": 7,
+   "Assault": 12,
+   "Quality of Life": 22,
+   "Robbery": 2,
+   "Breaking & Entering": 7,
+   "Other Property Crime": 3,
+   "Sexual Offense": 1
+  }
+ ],
+ [
+  "P7E",
+  "1300 Block ARTHUR ST E",
+  52,
+  {
+   "Assault": 14,
+   "Robbery": 9,
+   "Other Theft": 15,
+   "Breaking & Entering": 4,
+   "Quality of Life": 4,
+   "Other": 2,
+   "Theft from Vehicle": 1,
+   "Other Property Crime": 3
+  }
+ ],
+ [
+  "P7B",
+  "900 Block MEMORIAL AV",
+  51,
+  {
+   "Quality of Life": 5,
+   "Other": 17,
+   "Traffic": 5,
+   "Property Crime": 2,
+   "Assault": 4,
+   "Robbery": 2,
+   "Other Theft": 11,
+   "Other Property Crime": 3,
+   "Breaking & Entering": 2
+  }
+ ],
+ [
+  "P7E",
+  "400 Block GEORGE ST",
+  51,
+  {
+   "Assault": 32,
+   "Other Theft": 6,
+   "Quality of Life": 4,
+   "Other Property Crime": 3,
+   "Other": 2,
+   "Breaking & Entering": 2,
+   "Property Crime": 2
+  }
+ ],
+ [
+  "P7B",
+  "200 Block RED RIVER RD",
+  51,
+  {
+   "Traffic": 4,
+   "Other Theft": 4,
+   "Assault": 21,
+   "Other Property Crime": 10,
+   "Other": 6,
+   "Quality of Life": 5,
+   "Breaking & Entering": 1
+  }
+ ],
+ [
+  "P7B",
+  "400 Block MEMORIAL AV",
+  50,
+  {
+   "Other": 7,
+   "Assault": 19,
+   "Other Theft": 5,
+   "Theft from Vehicle": 6,
+   "Traffic": 3,
+   "Other Property Crime": 2,
+   "Quality of Life": 6,
+   "Breaking & Entering": 1,
+   "Theft of Vehicle": 1
+  }
+ ],
+ [
+  "P7B",
+  "300 Block MEMORIAL AV",
+  50,
+  {
+   "Sexual Offense": 3,
+   "Assault": 8,
+   "Other Theft": 16,
+   "Other": 11,
+   "Quality of Life": 5,
+   "Theft of Vehicle": 1,
+   "Other Property Crime": 4,
+   "Traffic": 1,
+   "Robbery": 1
+  }
+ ],
+ [
+  "P7B",
+  "300 Block FORT WILLIAM RD",
+  49,
+  {
+   "Other Theft": 40,
+   "Robbery": 3,
+   "Other": 4,
+   "Traffic": 1,
+   "Assault": 1
+  }
+ ],
+ [
+  "P7B",
+  "1100 Block MEMORIAL AV",
+  47,
+  {
+   "Other": 7,
+   "Robbery": 5,
+   "Other Theft": 11,
+   "Quality of Life": 10,
+   "Traffic": 3,
+   "Assault": 9,
+   "Other Property Crime": 2
+  }
+ ],
+ [
+  "P7B",
+  "100 Block COURT ST S",
+  47,
+  {
+   "Other": 9,
+   "Quality of Life": 13,
+   "Assault": 10,
+   "Breaking & Entering": 4,
+   "Other Property Crime": 5,
+   "Sexual Offense": 1,
+   "Other Theft": 4,
+   "Theft from Vehicle": 1
+  }
+ ],
+ [
+  "P7C",
+  "100 Block CENTENNIAL SQ",
+  45,
+  {
+   "Other Theft": 30,
+   "Quality of Life": 2,
+   "Robbery": 5,
+   "Other Property Crime": 4,
+   "Breaking & Entering": 2,
+   "Assault": 2
+  }
+ ],
+ [
+  "P7B",
+  "200 Block PEARL ST",
+  45,
+  {
+   "Other Property Crime": 11,
+   "Other Theft": 8,
+   "Assault": 13,
+   "Breaking & Entering": 9,
+   "Robbery": 2,
+   "Traffic": 1,
+   "Quality of Life": 1
+  }
+ ],
+ [
+  "P7A",
+  "1 Block COURT ST N",
+  45,
+  {
+   "Other Theft": 22,
+   "Theft": 3,
+   "Other": 10,
+   "Assault": 7,
+   "Quality of Life": 1,
+   "Other Property Crime": 1,
+   "Robbery": 1
+  }
+ ],
+ [
+  "P7C",
+  "1 Block LIMBRICK ST",
+  43,
+  {
+   "Quality of Life": 9,
+   "Other Property Crime": 7,
+   "Sexual Offense": 1,
+   "Other": 1,
+   "Assault": 10,
+   "Robbery": 3,
+   "Breaking & Entering": 9,
+   "Other Theft": 3
+  }
+ ],
+ [
+  "P7E",
+  "200 Block AMELIA ST W",
+  42,
+  {
+   "Theft of Vehicle": 1,
+   "Assault": 15,
+   "Other Theft": 7,
+   "Robbery": 2,
+   "Breaking & Entering": 7,
+   "Quality of Life": 6,
+   "Other": 2,
+   "Sexual Offense": 1,
+   "Property Crime": 1
+  }
+ ],
+ [
+  "P7E",
+  "900 Block ARTHUR ST E",
+  39,
+  {
+   "Other Theft": 19,
+   "Other": 4,
+   "Robbery": 11,
+   "Theft": 1,
+   "Assault": 3,
+   "Traffic": 1
+  }
+ ],
+ [
+  "P7B",
+  "900 Block RED RIVER RD",
+  36,
+  {
+   "Quality of Life": 2,
+   "Other Theft": 13,
+   "Other Property Crime": 4,
+   "Property Crime": 1,
+   "Assault": 4,
+   "Other": 6,
+   "Traffic": 1,
+   "Theft": 2,
+   "Robbery": 3
+  }
+ ],
+ [
+  "P7C",
+  "300 Block MAY ST N",
+  36,
+  {
+   "Robbery": 7,
+   "Quality of Life": 4,
+   "Assault": 12,
+   "Other": 3,
+   "Other Theft": 7,
+   "Other Property Crime": 1,
+   "Theft": 1,
+   "Sexual Offense": 1
+  }
+ ],
+ [
+  "P7J",
+  "2300 Block 61 HWY",
+  32,
+  {
+   "Assault": 27,
+   "Other": 3,
+   "Quality of Life": 1,
+   "Other Property Crime": 1
+  }
+ ],
+ [
+  "P7B",
+  "200 Block WINDSOR ST",
+  30,
+  {
+   "Assault": 9,
+   "Other Property Crime": 7,
+   "Quality of Life": 7,
+   "Other": 2,
+   "Breaking & Entering": 5
+  }
+ ],
+ [
+  "P7C",
+  "200 Block MAY ST N",
+  29,
+  {
+   "Assault": 13,
+   "Other Property Crime": 1,
+   "Quality of Life": 7,
+   "Other Theft": 4,
+   "Breaking & Entering": 2,
+   "Other": 2
+  }
+ ],
+ [
+  "P7A",
+  "400 Block CUMBERLAND ST N",
+  29,
+  {
+   "Sexual Offense": 1,
+   "Other": 5,
+   "Quality of Life": 5,
+   "Traffic": 3,
+   "Assault": 6,
+   "Other Theft": 5,
+   "Breaking & Entering": 1,
+   "Robbery": 1,
+   "Other Property Crime": 1,
+   "Theft of Vehicle": 1
+  }
+ ],
+ [
+  "P7E",
+  "200 Block ARTHUR ST W",
+  29,
+  {
+   "Other": 12,
+   "Assault": 4,
+   "Quality of Life": 6,
+   "Traffic": 3,
+   "Other Theft": 4
+  }
+ ],
+ [
+  "P7B",
+  "100 Block PICTON AV",
+  29,
+  {
+   "Quality of Life": 9,
+   "Breaking & Entering": 9,
+   "Assault": 6,
+   "Other Property Crime": 5
+  }
+ ],
+ [
+  "P7C",
+  "200 Block SIMPSON ST",
+  28,
+  {
+   "Other Theft": 5,
+   "Assault": 11,
+   "Quality of Life": 2,
+   "Other Property Crime": 4,
+   "Theft of Vehicle": 3,
+   "Breaking & Entering": 2,
+   "Theft from Vehicle": 1
+  }
+ ],
+ [
+  "P7B",
+  "200 Block BAY ST",
+  28,
+  {
+   "Breaking & Entering": 3,
+   "Robbery": 2,
+   "Other Theft": 6,
+   "Quality of Life": 4,
+   "Assault": 10,
+   "Theft": 1,
+   "Other Property Crime": 1,
+   "Other": 1
+  }
+ ],
+ [
+  "P7E",
+  "100 Block ARTHUR ST W",
+  28,
+  {
+   "Other Theft": 8,
+   "Traffic": 3,
+   "Other": 8,
+   "Assault": 3,
+   "Quality of Life": 1,
+   "Robbery": 3,
+   "Other Property Crime": 1,
+   "Theft": 1
+  }
+ ],
+ [
+  "P7A",
+  "300 Block CUMBERLAND ST N",
+  27,
+  {
+   "Assault": 8,
+   "Other": 8,
+   "Breaking & Entering": 3,
+   "Traffic": 2,
+   "Other Theft": 1,
+   "Other Property Crime": 2,
+   "Quality of Life": 1,
+   "Theft of Vehicle": 1,
+   "Theft from Vehicle": 1
+  }
+ ],
+ [
+  "P7A",
+  "1 Block NORTH WATER ST",
+  27,
+  {
+   "Assault": 18,
+   "Quality of Life": 4,
+   "Other Theft": 2,
+   "Sexual Offense": 1,
+   "Other Property Crime": 1,
+   "Other": 1
+  }
+ ],
+ [
+  "P7B",
+  "700 Block JOHN ST",
+  26,
+  {
+   "Quality of Life": 8,
+   "Assault": 10,
+   "Other Theft": 1,
+   "Other Property Crime": 4,
+   "Other": 2,
+   "Traffic": 1
+  }
+ ],
+ [
+  "P7C",
+  "400 Block NORTHERN AV",
+  26,
+  {
+   "Quality of Life": 4,
+   "Other": 11,
+   "Traffic": 1,
+   "Assault": 8,
+   "Theft from Vehicle": 1,
+   "Other Theft": 1
+  }
+ ],
+ [
+  "P7B",
+  "800 Block FORT WILLIAM RD",
+  26,
+  {
+   "Other Theft": 4,
+   "Sexual Offense": 1,
+   "Other Property Crime": 1,
+   "Robbery": 3,
+   "Theft": 6,
+   "Other": 5,
+   "Theft of Vehicle": 1,
+   "Quality of Life": 2,
+   "Assault": 2,
+   "Traffic": 1
+  }
+ ],
+ [
+  "P7A",
+  "200 Block MACDOUGALL ST",
+  25,
+  {
+   "Assault": 22,
+   "Other": 1,
+   "Quality of Life": 2
+  }
+ ],
+ [
+  "P7E",
+  "100 Block FREDERICA ST W",
+  24,
+  {
+   "Breaking & Entering": 4,
+   "Other Theft": 12,
+   "Robbery": 1,
+   "Other": 2,
+   "Assault": 2,
+   "Other Property Crime": 2,
+   "Theft of Vehicle": 1
+  }
+ ],
+ [
+  "P7B",
+  "1000 Block MEMORIAL AV",
+  24,
+  {
+   "Other": 11,
+   "Assault": 5,
+   "Quality of Life": 2,
+   "Traffic": 1,
+   "Other Property Crime": 3,
+   "Other Theft": 1,
+   "Theft of Vehicle": 1
+  }
+ ],
+ [
+  "P7C",
+  "200 Block CUMMING ST",
+  24,
+  {
+   "Traffic": 1,
+   "Breaking & Entering": 2,
+   "Assault": 15,
+   "Robbery": 2,
+   "Other Property Crime": 1,
+   "Theft of Vehicle": 2,
+   "Quality of Life": 1
+  }
+ ],
+ [
+  "P7E",
+  "200 Block MAY ST S",
+  24,
+  {
+   "Breaking & Entering": 4,
+   "Assault": 8,
+   "Other Property Crime": 4,
+   "Other": 1,
+   "Quality of Life": 4,
+   "Other Theft": 1,
+   "Robbery": 2
+  }
+ ],
+ [
+  "P7A",
+  "400 Block HODDER AV",
+  23,
+  {
+   "Assault": 6,
+   "Other": 11,
+   "Other Theft": 2,
+   "Breaking & Entering": 1,
+   "Other Property Crime": 1,
+   "Robbery": 1,
+   "Traffic": 1
+  }
+ ],
+ [
+  "P7B",
+  "100 Block BLUCHER AV",
+  22,
+  {
+   "Assault": 7,
+   "Other Property Crime": 7,
+   "Theft from Vehicle": 1,
+   "Breaking & Entering": 6,
+   "Robbery": 1
+  }
+ ],
+ [
+  "P7E",
+  "100 Block MAY ST S",
+  22,
+  {
+   "Assault": 8,
+   "Other Theft": 3,
+   "Other Property Crime": 7,
+   "Breaking & Entering": 2,
+   "Other": 1,
+   "Theft from Vehicle": 1
+  }
+ ],
+ [
+  "P7A",
+  "300 Block HIGH ST N",
+  21,
+  {
+   "Quality of Life": 5,
+   "Assault": 12,
+   "Other": 2,
+   "Other Property Crime": 1,
+   "Traffic": 1
+  }
+ ],
+ [
+  "P7E",
+  "1 Block VALHALLA INN RD",
+  21,
+  {
+   "Quality of Life": 8,
+   "Other": 3,
+   "Traffic": 1,
+   "Assault": 5,
+   "Other Theft": 2,
+   "Breaking & Entering": 2
+  }
+ ],
+ [
+  "P7A",
+  "200 Block CUMBERLAND ST N",
+  20,
+  {
+   "Other Theft": 1,
+   "Breaking & Entering": 3,
+   "Other": 7,
+   "Assault": 2,
+   "Quality of Life": 4,
+   "Robbery": 2,
+   "Traffic": 1
+  }
+ ],
+ [
+  "P7E",
+  "300 Block KINGSWAY",
+  20,
+  {
+   "Other Property Crime": 1,
+   "Assault": 8,
+   "Other": 4,
+   "Quality of Life": 3,
+   "Other Theft": 1,
+   "Traffic": 1,
+   "Theft from Vehicle": 1,
+   "Breaking & Entering": 1
+  }
+ ],
+ [
+  "P7A",
+  "500 Block ALGOMA ST N",
+  20,
+  {
+   "Breaking & Entering": 10,
+   "Quality of Life": 5,
+   "Other Property Crime": 4,
+   "Property Crime": 1
+  }
+ ],
+ [
+  "P7J",
+  "2000 Block JAMES ST S",
+  20,
+  {
+   "Other": 16,
+   "Quality of Life": 1,
+   "Traffic": 3
+  }
+ ],
+ [
+  "P7E",
+  "ARTHUR ST W AND 61 HWY",
+  19,
+  {
+   "Other": 11,
+   "Traffic": 6,
+   "Quality of Life": 2
+  }
+ ],
+ [
+  "P7B",
+  "500 Block BEVERLY ST",
+  19,
+  {
+   "Other Theft": 13,
+   "Other": 3,
+   "Assault": 3
+  }
+ ],
+ [
+  "P7C",
+  "800 Block MAY ST N",
+  19,
+  {
+   "Breaking & Entering": 2,
+   "Assault": 4,
+   "Robbery": 1,
+   "Quality of Life": 6,
+   "Other": 5,
+   "Other Theft": 1
+  }
+ ],
+ [
+  "P7B",
+  "1400 Block NAKINA DR",
+  19,
+  {
+   "Other": 12,
+   "Quality of Life": 1,
+   "Other Theft": 2,
+   "Assault": 4
+  }
+ ]
+]
