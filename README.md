@@ -24,6 +24,7 @@ If you're evaluating this repo: the `data/` folder is deliberately kept alongsid
 | Highway cameras | 17 | [Ontario 511](https://511on.ca/) (Ministry of Transportation public API) | Covers the Northwestern Ontario highway corridor (Hwy 11/17/61/527/595, roughly Ignace to Nipigon), not just the city — that's the actual coverage area of this data, and it's what 511 cameras are for. Each popup embeds a live snapshot image (reloads on open, not a static photo). Other "Thunder Bay webcam" sources found while researching this (an old personal page, a CBC link) were dead; a NOAA "Thunder Bay" webcam turned out to be a different Thunder Bay, in Michigan. |
 | Trails | 61 (60 named segments + the Trans Canada Trail) | [OpenStreetMap](https://www.openstreetmap.org/) via the [Overpass API](https://overpass-api.de/) | Not AllTrails — that site's terms prohibit scraping and it has no free API. OSM has no popularity or difficulty ratings (it just isn't tracked data), but coverage is genuinely strong for actively-mapped networks like Thunder Bay's mountain-bike singletrack. The Trans Canada Trail is stitched from its full 241-member route relation (42.9 km through the city) and highlighted separately from the other named trails. Length for each trail is computed directly from its own OSM geometry. |
 | Live flights | live (~5&ndash;10 aircraft typically) | [OpenSky Network](https://opensky-network.org/) public ADS-B API | The only layer here that isn't a static snapshot — see [Why flights are architecturally different](#why-flights-are-architecturally-different) below. Shows position and altitude, not flight plans: aircraft are heuristically labelled "low altitude" (probably arriving/departing YQT) or "cruise altitude" (probably overflying). A few aircraft per refresh also get a dashed trail showing their actual recently-flown path (via OpenSky's `/tracks` endpoint, capped to conserve the shared anonymous request budget). No source/destination field — tested directly against OpenSky's flight-route data and it doesn't reliably resolve for this area (see below), so it's left out rather than shown as frequently blank. |
+| Live ships | live (0 in winter; lakers/tugs in season) | [AISStream.io](https://aisstream.io/) free real-time AIS feed | The marine counterpart to the flights layer, same refresh mechanism and same honesty about what "live" means — see [Why flights are architecturally different](#why-flights-are-architecturally-different) (applies to ships too). Requires a free AISStream API key stored as a GitHub Actions secret, never committed to this repo. Thunder Bay is a working grain/bulk port, not a passenger harbour, so expect lakers and tugs. Great Lakes shipping is seasonal (roughly late March&ndash;December); an empty layer in winter is correct, not broken. |
 
 Map tiles: [OpenStreetMap](https://www.openstreetmap.org/copyright) (© OpenStreetMap contributors, ODbL). Map library: [Leaflet](https://leafletjs.com/).
 
@@ -43,7 +44,9 @@ data/
   cameras/               build_cameras.py + the raw 511 Ontario API pull and final output
   trails/                build_trails.py, the Overpass query used, the raw response, and final output
   flights/               fetch_flights.py + flights_live.json (rewritten every ~10 min by a GitHub Action,
-                          not a one-off pull — see "Why flights are architecturally different" below)
+                          not a one-off pull — see "Why flights and ships are architecturally different" below)
+  ships/                 fetch_ships.py + ships_live.json, same live-refresh pattern as flights,
+                          needs a free AISStream.io API key stored as a repo secret to actually populate
 ```
 
 Each `data/<layer>/` folder holds the actual scripts that pulled and processed that layer, plus the raw and intermediate files they produced — the exact chain from source to what's embedded in `index.html`. Re-running a script re-fetches from the live source and reproduces its output; nothing here is generated from anything not in this repo.
@@ -61,19 +64,22 @@ cd data/police-incidents && python parse_crime.py
 cd data/cameras && python build_cameras.py
 cd data/trails && python build_trails.py
 cd data/flights && python fetch_flights.py   # normally run by GitHub Actions, not by hand
+cd data/ships && python fetch_ships.py       # ditto -- needs AISSTREAM_API_KEY set in the environment
 ```
 
 The heritage and restaurant geocoding scripts call the public [Nominatim](https://nominatim.org/) API and are rate-limited (~1 request/second) out of courtesy to that free service — expect a few minutes for a full run. Re-embedding a rebuilt layer's output into `index.html` is currently a manual step (find the layer's `const X = [...]` block and replace it).
 
-## Why flights are architecturally different
+## Why flights and ships are architecturally different
 
-Every other layer on this map is a snapshot: pull once, process, embed the result directly in `index.html`. Flights can't work that way and still be live, and it turns out "live" runs into a wall none of the other layers hit.
+Every other layer on this map is a snapshot: pull once, process, embed the result directly in `index.html`. Flights and ships can't work that way and still be live, and it turns out "live" runs into a wall none of the other layers hit.
 
 [OpenSky Network](https://opensky-network.org/)'s free public API is the only genuinely open real-time flight-tracking source that doesn't require a paid key — but it only allows requests from its own site (`Access-Control-Allow-Origin: https://opensky-network.org`), which blocks any other page's JavaScript from calling it directly, GitHub Pages included. There's no client-side fix for that; it's enforced by the browser.
 
 The workaround: [`.github/workflows/update-flights.yml`](.github/workflows/update-flights.yml) runs `data/flights/fetch_flights.py` on a schedule (every 10 minutes) inside a GitHub Actions runner — a server, not a browser, so the restriction doesn't apply — and commits the result to `data/flights/flights_live.json`. The map's JavaScript then fetches that file from its own origin, which is unrestricted. So "real-time" here actually means "refreshed roughly every 10 minutes by a scheduled job," not a live socket — worth knowing if you were expecting second-by-second tracking. It's also why this is the one layer that won't show anything if you open `index.html` as a local file instead of via a real web server: browsers block `fetch()` of local relative files under `file://`.
 
 **Why some aircraft show a path and others don't, and why there's no source/destination.** Anonymous (no sign-up) OpenSky access shares one 400-request/day credit budget across every endpoint, and the endpoint that returns an aircraft's actual flown track (`/api/tracks/all`) costs more per call than the one that returns positions (`/api/states/all`). To stay well inside that budget, each run fetches a track for at most 3 aircraft (prioritizing ones likely near YQT), trimmed to roughly their last 45 minutes rather than their whole flight. Source/destination airports were also investigated — OpenSky can estimate a route, but only *after* a flight lands, using an algorithm that in direct testing didn't match a single one of the actual aircraft seen near Thunder Bay across a 4-hour sample. Rather than show a field that's usually going to say "unknown," it isn't shown at all.
+
+**Ships work the same way, with one added wrinkle: a required API key.** [AISStream.io](https://aisstream.io/) is free and doesn't require running your own AIS receiver (unlike AISHub, which asks members to feed data back in exchange for access), but unlike OpenSky it isn't anonymous — it's WebSocket-only, and authenticates by putting an API key inside the subscription message itself rather than an HTTP header. That matters here because a browser-embedded key sits in plain view of anyone who opens the page's source, so a scraper (or anyone bored) could lift it and burn through the account's connection limit. The same GitHub Actions pattern used for flights sidesteps that: `data/ships/fetch_ships.py` opens a short-lived connection, subscribes with the key read from a `AISSTREAM_API_KEY` repository secret, listens for ~25 seconds, and writes whatever it saw — the key itself never leaves the Action run or touches this repo. Setting this layer up requires a free account at [aisstream.io](https://aisstream.io/) and adding its key as a repo secret (`gh secret set AISSTREAM_API_KEY`, or via the repo's Settings &rarr; Secrets and variables &rarr; Actions) — nothing here can do that step automatically, on purpose.
 
 ## Known limitations — things we got wrong and fixed
 

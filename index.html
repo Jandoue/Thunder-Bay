@@ -74,7 +74,7 @@
 </div>
 
 <footer>
-  Map data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors. Police incidents: Thunder Bay Police Service via <a href="https://www.cityprotect.com/agency/tbps" target="_blank" rel="noopener">CityProtect</a> (non-commercial research use), approximate/aggregated locations. Fire stations, fire zones, hydrants, trees, and the heritage register: <a href="https://opendata.thunderbay.ca" target="_blank" rel="noopener">City of Thunder Bay Open Data Portal</a>. Restaurant listings: <a href="https://justthemenu.ca" target="_blank" rel="noopener">justthemenu.ca</a> (not affiliated). Highway cameras: <a href="https://511on.ca" target="_blank" rel="noopener">Ontario 511</a> (Ministry of Transportation). Trails: OpenStreetMap contributors, via the Overpass API. Live flights: <a href="https://opensky-network.org" target="_blank" rel="noopener">OpenSky Network</a>. Full sources, scripts and data: <a href="https://github.com/Jandoue/Thunder-Bay" target="_blank" rel="noopener">github.com/Jandoue/Thunder-Bay</a>.
+  Map data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors. Police incidents: Thunder Bay Police Service via <a href="https://www.cityprotect.com/agency/tbps" target="_blank" rel="noopener">CityProtect</a> (non-commercial research use), approximate/aggregated locations. Fire stations, fire zones, hydrants, trees, and the heritage register: <a href="https://opendata.thunderbay.ca" target="_blank" rel="noopener">City of Thunder Bay Open Data Portal</a>. Restaurant listings: <a href="https://justthemenu.ca" target="_blank" rel="noopener">justthemenu.ca</a> (not affiliated). Highway cameras: <a href="https://511on.ca" target="_blank" rel="noopener">Ontario 511</a> (Ministry of Transportation). Trails: OpenStreetMap contributors, via the Overpass API. Live flights: <a href="https://opensky-network.org" target="_blank" rel="noopener">OpenSky Network</a>. Live ships: <a href="https://aisstream.io" target="_blank" rel="noopener">AISStream.io</a>. Full sources, scripts and data: <a href="https://github.com/Jandoue/Thunder-Bay" target="_blank" rel="noopener">github.com/Jandoue/Thunder-Bay</a>.
 </footer>
 
 <script>
@@ -592,6 +592,73 @@ LAYERS.push({
       })
       .catch(err => {
         console.error('Flight data fetch failed:', err);
+        if (statusEl()) statusEl().innerHTML = 'Live data unavailable here — this needs the hosted site (jandoue.github.io/Thunder-Bay), not a local file copy.';
+      });
+  }
+});
+
+/* ============================================================
+   LIVE SHIPS
+   ============================================================ */
+const SHIP_CATEGORY_COLOR = { underway: '#1a7fa8', stationary: '#8b9689' };
+const SHIP_CATEGORY_LABEL = { underway: 'Under way (>0.5 kn)', stationary: 'Stationary (docked/anchored)' };
+let shipRefreshTimer = null;
+
+LAYERS.push({
+  id: 'ships',
+  name: 'Live Ships',
+  color: '#1a7fa8',
+  count: 'live',
+  defaultOn: false,
+  desc: "Vessels currently near Thunder Bay harbour and the western tip of Lake Superior, from AISStream.io's free real-time AIS feed — the marine equivalent of the flight tracker above, refreshed on the same roughly-10-minute schedule via a GitHub Action (AIS, like OpenSky, can't be queried directly from a browser). Thunder Bay is a working grain and bulk port, so expect lakers and the odd tug rather than passenger traffic. Great Lakes shipping is seasonal — normally late March to late December — so this layer will often be genuinely empty in winter, which is accurate, not broken.",
+  legendHTML: function(){
+    let html = '<div class="sub-label">By activity</div>';
+    Object.keys(SHIP_CATEGORY_LABEL).forEach(cat => {
+      html += `<div class="legend-row"><span class="dot" style="background:${SHIP_CATEGORY_COLOR[cat]}"></span>${SHIP_CATEGORY_LABEL[cat]}</div>`;
+    });
+    html += '<div id="ship-status" style="font-size:11px; color:var(--ink-muted); margin-top:8px;">Loading live data&hellip;</div>';
+    return html;
+  },
+  render: function(group){
+    const statusEl = () => document.getElementById('ship-status');
+    fetch('data/ships/ships_live.json', {cache: 'no-store'})
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(data => {
+        const ageMin = Math.max(0, Math.round((Date.now() - new Date(data.fetched_at).getTime()) / 60000));
+        if (statusEl()) statusEl().innerHTML = `${data.ships.length} vessel${data.ships.length === 1 ? '' : 's'} &middot; data from ${ageMin} min ago`;
+        data.ships.forEach(s => {
+          const moving = s.sog_kn != null && s.sog_kn > 0.5;
+          const category = moving ? 'underway' : 'stationary';
+          const color = SHIP_CATEGORY_COLOR[category];
+          const bearing = s.heading_deg != null ? s.heading_deg : (s.cog_deg != null ? s.cog_deg : 0);
+          const icon = L.divIcon({
+            className: '', html: `<div style="width:30px;height:30px;transform:rotate(${bearing}deg);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;filter:drop-shadow(0 0 1.5px white) drop-shadow(0 0 1.5px white);color:${color};">&#128674;</div>`,
+            iconSize: [30,30], iconAnchor: [15,15],
+          });
+          const m = L.marker([s.lat, s.lon], {icon});
+          const label = s.name || `Vessel ${s.mmsi}`;
+          m.bindTooltip(`<b>${label}</b>${moving ? '' : ' (stationary)'}`, {direction:'top', offset:[0,-14]});
+          m.bindPopup(
+            `<b>${label}</b>` +
+            `<table style="margin-top:6px; border-collapse:collapse;">` +
+            `<tr><td style="color:#7c8880; padding-right:10px;">MMSI</td><td class="mono">${s.mmsi}</td></tr>` +
+            `<tr><td style="color:#7c8880; padding-right:10px;">Status</td><td>${s.nav_status_label}</td></tr>` +
+            `<tr><td style="color:#7c8880; padding-right:10px;">Speed</td><td>${s.sog_kn != null ? s.sog_kn + ' kn' : '&mdash;'}</td></tr>` +
+            `<tr><td style="color:#7c8880; padding-right:10px;">Course</td><td>${s.cog_deg != null ? Math.round(s.cog_deg) + '&deg;' : '&mdash;'}</td></tr>` +
+            `<tr><td style="color:#7c8880; padding-right:10px;">Heading</td><td>${s.heading_deg != null ? Math.round(s.heading_deg) + '&deg;' : '&mdash;'}</td></tr>` +
+            `</table>` +
+            `<div style="margin-top:8px; font-size:10.5px; color:#7c8880;">Position as of ${ageMin} min ago</div>`
+          );
+          group.addLayer(m);
+        });
+        clearInterval(shipRefreshTimer);
+        shipRefreshTimer = setInterval(() => {
+          if (map.hasLayer(group)) renderLayer('ships');
+          else clearInterval(shipRefreshTimer);
+        }, 120000);
+      })
+      .catch(err => {
+        console.error('Ship data fetch failed:', err);
         if (statusEl()) statusEl().innerHTML = 'Live data unavailable here — this needs the hosted site (jandoue.github.io/Thunder-Bay), not a local file copy.';
       });
   }

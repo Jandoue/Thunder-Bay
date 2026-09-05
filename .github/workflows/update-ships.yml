@@ -1,0 +1,42 @@
+name: Update ship data
+
+on:
+  schedule:
+    # Every 10 minutes, same cadence as the flights layer.
+    - cron: '*/10 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install websockets
+
+      - name: Fetch current vessels near Thunder Bay
+        working-directory: data/ships
+        env:
+          AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
+        run: python fetch_ships.py
+
+      - name: Commit and push if the data changed
+        working-directory: data/ships
+        run: |
+          git config user.name "ship-data-bot"
+          git config user.email "actions@github.com"
+          if git diff --quiet -- ships_live.json; then
+            echo "No change in ship data, skipping commit."
+          else
+            git add ships_live.json
+            git commit -m "Update live ship data [skip ci]"
+            git push
+          fi
