@@ -1,6 +1,6 @@
 import csv, json, time, urllib.parse, urllib.request
 
-rows = list(csv.reader(open('heritage.csv', encoding='utf-8-sig')))
+rows = list(csv.reader(open('heritage_register.csv', encoding='utf-8-sig')))
 header = rows[0]
 data = [r for r in rows[1:] if any(c.strip() for c in r)]
 

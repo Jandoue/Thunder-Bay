@@ -61,10 +61,10 @@ import datetime
 def fmt_epoch_ms(ms):
     if not ms:
         return ''
-    return datetime.datetime.utcfromtimestamp(ms / 1000).strftime('%Y-%m-%d')
+    return datetime.datetime.fromtimestamp(ms / 1000, datetime.timezone.utc).strftime('%Y-%m-%d')
 
 hyd_features = []
-for fn in ['hydrants_full_p1.geojson', 'hydrants_full_p2.geojson', 'hydrants_full_p3.geojson']:
+for fn in ['hydrants_raw_p1.geojson', 'hydrants_raw_p2.geojson', 'hydrants_raw_p3.geojson']:
     hyd_features += json.load(open(fn))['features']
 hyd_out = []
 for f in hyd_features:
@@ -81,20 +81,15 @@ for f in hyd_features:
     })
 print('hydrants:', len(hyd_out))
 
-json.dump({'stations': station_out, 'zones': zone_out, 'hydrants': hyd_out},
-          open('layers_bundle.json', 'w'))
-
-# print JS-ready snippets
-def js(obj):
-    return json.dumps(obj, separators=(',', ':'))
-
-with open('stations_js.txt', 'w') as f:
-    f.write('const FIRE_STATIONS = ' + js(station_out) + ';')
-with open('zones_js.txt', 'w') as f:
-    f.write('const FIRE_ZONES = ' + js(zone_out) + ';')
-with open('hydrants_js.txt', 'w') as f:
-    f.write('const HYDRANTS = ' + js(hyd_out) + ';')
+# Three separate files, one per real-world dataset -- these are what
+# index.html actually fetches for these three layers.
+with open('fire_stations.json', 'w', encoding='utf-8') as f:
+    json.dump(station_out, f, separators=(',', ':'))
+with open('fire_zones.json', 'w', encoding='utf-8') as f:
+    json.dump(zone_out, f, separators=(',', ':'))
+with open('hydrants.json', 'w', encoding='utf-8') as f:
+    json.dump(hyd_out, f, separators=(',', ':'))
 
 import os
-for fn in ['stations_js.txt', 'zones_js.txt', 'hydrants_js.txt']:
+for fn in ['fire_stations.json', 'fire_zones.json', 'hydrants.json']:
     print(fn, os.path.getsize(fn), 'bytes')

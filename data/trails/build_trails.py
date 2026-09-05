@@ -70,16 +70,10 @@ out = {
     'tct': {'name': 'Trans Canada Trail (Thunder Bay)', 'segments': tct_segments, 'length_km': round(tct_length, 1)},
 }
 
-def js(obj):
-    return json.dumps(obj, separators=(',', ':'), ensure_ascii=False)
-
-with open('../trails_js.txt', 'w', encoding='utf-8') as f:
-    f.write('const TRAILS_DATA = ' + js(out) + ';')
-
-json.dump(out, open('trails_final.json', 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+json.dump(out, open('trails.json', 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 
 import os
-print('trails_js.txt', os.path.getsize('../trails_js.txt'), 'bytes')
+print('trails.json', os.path.getsize('trails.json'), 'bytes')
 
 from collections import Counter
 print(Counter(t['type'] for t in trails))

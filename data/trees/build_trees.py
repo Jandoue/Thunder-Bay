@@ -1,8 +1,13 @@
-import json, glob
+"""
+Builds the tree inventory dataset from the raw ArcGIS pull.
 
-feats = []
-for fn in sorted(glob.glob('trees_p*.geojson'), key=lambda s: int(s.split('trees_p')[1].split('.')[0])):
-    feats += json.load(open(fn))['features']
+Rebuild with: cd data/trees && python build_trees.py
+Writes trees.json -- the file index.html actually fetches for this layer.
+"""
+import json
+
+with open('trees_raw.geojson', encoding='utf-8') as f:
+    feats = json.load(f)['features']
 print('total trees:', len(feats))
 
 # EXPDATE is empty for all 37,752 records (confirmed on the full pull, not a
@@ -15,19 +20,16 @@ out = []
 for f in feats:
     lon, lat = f['geometry']['coordinates']
     p = f['properties']
-    out.append([
-        round(lat, 5), round(lon, 5),
-        p.get('COMMON') or '', p.get('BOTANICAL') or '',
-        p.get('STREET') or '', p.get('CIVIC_ADDRESS') or '',
-        p.get('OVERHEAD') or '', p.get('UNITID') or '',
-        p.get('OBJECTID'), p.get('GlobalID') or '',
-    ])
+    out.append({
+        'lat': round(lat, 5), 'lon': round(lon, 5),
+        'common': p.get('COMMON') or None, 'botanical': p.get('BOTANICAL') or None,
+        'street': p.get('STREET') or None, 'civic_address': p.get('CIVIC_ADDRESS') or None,
+        'overhead': p.get('OVERHEAD') or None, 'unitid': p.get('UNITID') or None,
+        'objectid': p.get('OBJECTID'), 'globalid': p.get('GlobalID') or None,
+    })
 
-def js(obj):
-    return json.dumps(obj, separators=(',', ':'))
-
-with open('../trees_js.txt', 'w') as f:
-    f.write('const TREES = ' + js(out) + ';')
+with open('trees.json', 'w', encoding='utf-8') as f:
+    json.dump(out, f, separators=(',', ':'), ensure_ascii=False)
 
 import os
-print('trees_js.txt', os.path.getsize('../trees_js.txt'), 'bytes')
+print('trees.json:', os.path.getsize('trees.json'), 'bytes,', len(out), 'trees')

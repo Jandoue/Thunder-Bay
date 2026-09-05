@@ -35,13 +35,7 @@ print('omitted (no address on source site):', omitted)
 from collections import Counter
 print(Counter(o['src'] for o in out))
 
-json.dump(out, open('restaurants_final.json', 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
-
-def js(obj):
-    return json.dumps(obj, separators=(',', ':'), ensure_ascii=False)
-
-with open('../restaurants_js.txt', 'w', encoding='utf-8') as f:
-    f.write('const RESTAURANTS = ' + js(out) + ';')
+json.dump(out, open('restaurants.json', 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 
 import os
-print('restaurants_js.txt', os.path.getsize('../restaurants_js.txt'), 'bytes')
+print('restaurants.json', os.path.getsize('restaurants.json'), 'bytes')

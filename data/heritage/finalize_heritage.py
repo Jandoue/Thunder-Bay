@@ -1,6 +1,6 @@
 import csv, json, math
 
-rows = list(csv.reader(open('heritage.csv', encoding='utf-8-sig')))
+rows = list(csv.reader(open('heritage_register.csv', encoding='utf-8-sig')))
 data = [r for r in rows[1:] if any(c.strip() for c in r)]
 
 geocoded_list = json.load(open('heritage_geocoded.json', encoding='utf-8'))  # 108 successes, in original row order
@@ -110,13 +110,7 @@ print('unresolved (omitted from map):')
 for i, r in unresolved:
     print(' ', i, r)
 
-json.dump(out, open('heritage_final.json', 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
-
-def js(obj):
-    return json.dumps(obj, separators=(',', ':'), ensure_ascii=False)
-
-with open('../heritage_js.txt', 'w', encoding='utf-8') as f:
-    f.write('const HERITAGE = ' + js(out) + ';')
+json.dump(out, open('heritage.json', 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 
 from collections import Counter
 print(Counter(r['status'] for r in out))

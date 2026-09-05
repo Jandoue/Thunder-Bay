@@ -1,6 +1,6 @@
 import csv, json, time, urllib.parse, urllib.request
 
-rows = list(csv.reader(open('heritage.csv', encoding='utf-8-sig')))
+rows = list(csv.reader(open('heritage_register.csv', encoding='utf-8-sig')))
 data = [r for r in rows[1:] if any(c.strip() for c in r)]
 
 UA = 'thunderbay-civic-map-research/1.0 (precision audit of prior geocoding pass; contact via project repo)'
