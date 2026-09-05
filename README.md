@@ -8,7 +8,7 @@ A scalable, multi-layer map of open civic data for Thunder Bay, Ontario — buil
 
 This project was built collaboratively with [Claude](https://claude.com/claude-code) (Anthropic's Claude Code), directed by [@Jandoue](https://github.com/Jandoue). Claude did the research, data fetching, geocoding, scraping, and front-end code; the human directed scope, caught real bugs (including a couple of genuine data-precision mistakes — see [Known limitations](#known-limitations--things-we-got-wrong-and-fixed)), and made the calls on what to include and how to source it responsibly. Nothing here is presented as more authoritative than its source data actually is — see each layer's notes below, and the in-app description text under each layer's expandable card on the map itself.
 
-If you're evaluating this repo: the `data/` folder is deliberately kept alongside `index.html` specifically so the whole pipeline — raw pull → script → final embedded JSON — is inspectable, not just the finished map.
+If you're evaluating this repo: the `data/` folder is deliberately kept alongside `index.html` specifically so the whole pipeline — raw pull → script → final JSON — is inspectable, not just the finished map. Every dataset is also a plain file the site fetches at runtime (not embedded in the HTML), so it's directly reusable — see [data/README.md](data/README.md) for the full field-by-field catalog of every layer.
 
 ## Layers
 
@@ -20,7 +20,7 @@ If you're evaluating this repo: the `data/` folder is deliberately kept alongsid
 | Hydrants | 4,243 | [City of Thunder Bay Open Data — Hydrants Feature Layer](https://opendata.thunderbay.ca/maps/9d778b0ada6243c6b6a4399dbac1f526) | Full attribute set (matches the City's own ArcGIS viewer field-for-field). |
 | Trees | 37,752 | [City of Thunder Bay Open Data — City of Thunder Bay Trees](https://opendata.thunderbay.ca/datasets/28aa2232c5654e84827158cf1a4cb073) | Full attribute set; rendered on canvas for performance at this density. |
 | Heritage properties | 135 of 136 | [City of Thunder Bay Municipal Heritage Register](https://opendata.thunderbay.ca/datasets/bd50ba0dc1534a13b4cb6f057646b049) | The register lists names/addresses, not coordinates — every point here was geocoded (see [Known limitations](#known-limitations--things-we-got-wrong-and-fixed)). 1 property omitted (source address doesn't match any real Thunder Bay street). 53 pins are flagged approximate in their own popup where OpenStreetMap has no address-point data for that street. |
-| Restaurants (menus) | 243 of 245 | [justthemenu.ca](https://justthemenu.ca/) (community-run menu directory, not affiliated with this project or the restaurants) | Only directory basics (name/address/phone/hours) plus a link back to the restaurant's menu page — menu text itself is their content and isn't reproduced here. Coordinates come from each listing's own linked Google/HERE/OSM map pin, not text geocoding. 2 listings have no address on the source site (delivery/online-only) and are omitted. |
+| Justthemenu.ca (restaurants) | 243 of 245 | [Justthemenu.ca](https://justthemenu.ca/) (community-run menu directory, not affiliated with this project or the restaurants) | Only directory basics (name/address/phone/hours) plus a link back to the restaurant's menu page — menu text itself is their content and isn't reproduced here. Coordinates come from each listing's own linked Google/HERE/OSM map pin, not text geocoding. 2 listings have no address on the source site (delivery/online-only) and are omitted. |
 | Highway cameras | 17 | [Ontario 511](https://511on.ca/) (Ministry of Transportation public API) | Covers the Northwestern Ontario highway corridor (Hwy 11/17/61/527/595, roughly Ignace to Nipigon), not just the city — that's the actual coverage area of this data, and it's what 511 cameras are for. Each popup embeds a live snapshot image (reloads on open, not a static photo). Other "Thunder Bay webcam" sources found while researching this (an old personal page, a CBC link) were dead; a NOAA "Thunder Bay" webcam turned out to be a different Thunder Bay, in Michigan. |
 | Trails | 61 (60 named segments + the Trans Canada Trail) | [OpenStreetMap](https://www.openstreetmap.org/) via the [Overpass API](https://overpass-api.de/) | Not AllTrails — that site's terms prohibit scraping and it has no free API. OSM has no popularity or difficulty ratings (it just isn't tracked data), but coverage is genuinely strong for actively-mapped networks like Thunder Bay's mountain-bike singletrack. The Trans Canada Trail is stitched from its full 241-member route relation (42.9 km through the city) and highlighted separately from the other named trails. Length for each trail is computed directly from its own OSM geometry. |
 | Live flights | live (~5&ndash;10 aircraft typically) | [OpenSky Network](https://opensky-network.org/) public ADS-B API | The only layer here that isn't a static snapshot — see [Why flights are architecturally different](#why-flights-are-architecturally-different) below. Shows position and altitude, not flight plans: aircraft are heuristically labelled "low altitude" (probably arriving/departing YQT) or "cruise altitude" (probably overflying). A few aircraft per refresh also get a dashed trail showing their actual recently-flown path (via OpenSky's `/tracks` endpoint, capped to conserve the shared anonymous request budget). No source/destination field — tested directly against OpenSky's flight-route data and it doesn't reliably resolve for this area (see below), so it's left out rather than shown as frequently blank. |
@@ -31,43 +31,42 @@ Map tiles: [OpenStreetMap](https://www.openstreetmap.org/copyright) (© OpenStre
 ## Repo structure
 
 ```
-index.html              the live map — self-contained, all layer data inlined
+index.html              the live map -- fetches every dataset below at runtime, nothing is inlined
+LICENSE                 MIT, for the code only -- data licensing is per-source, see below
 data/
-  fire-hydrants/         build_layers.py + raw ArcGIS pulls + the merged bundle it produces
-  trees/                 build_trees.py + the raw ArcGIS pull (37,752 features)
-  heritage/              geocode_heritage.py, audit_precision.py, finalize_heritage.py
-                          + the source CSV, intermediate geocoding results, and final output
-  restaurants/           scrape_restaurants.py, patch_missing.py, finalize_restaurants.py
-                          + the scraped list and final output
-  police-incidents/      parse_crime.py, geocode_addresses.py + the 5 quarterly source CSVs
-                          + aggregated/geocoded intermediate results
-  cameras/               build_cameras.py + the raw 511 Ontario API pull and final output
-  trails/                build_trails.py, the Overpass query used, the raw response, and final output
-  flights/               fetch_flights.py + flights_live.json (rewritten every ~10 min by a GitHub Action,
+  README.md             full field-by-field catalog for every dataset, for anyone reusing the data directly
+  fire-hydrants/         build_layers.py -> fire_stations.json, fire_zones.json, hydrants.json
+  trees/                 build_trees.py -> trees.json (37,752 features)
+  heritage/              geocode_heritage.py, audit_precision.py, finalize_heritage.py -> heritage.json
+  restaurants/           scrape_restaurants.py, patch_missing.py, finalize_restaurants.py -> restaurants.json
+  police-incidents/      parse_crime.py, geocode_addresses.py, finalize_incidents.py -> incidents.json
+  cameras/               build_cameras.py -> cameras.json
+  trails/                build_trails.py -> trails.json
+  flights/               fetch_flights.py -> flights_live.json (rewritten every ~10 min by a GitHub Action,
                           not a one-off pull — see "Why flights and ships are architecturally different" below)
-  ships/                 fetch_ships.py + ships_live.json, same live-refresh pattern as flights,
+  ships/                 fetch_ships.py -> ships_live.json, same live-refresh pattern as flights,
                           needs a free AISStream.io API key stored as a repo secret to actually populate
 ```
 
-Each `data/<layer>/` folder holds the actual scripts that pulled and processed that layer, plus the raw and intermediate files they produced — the exact chain from source to what's embedded in `index.html`. Re-running a script re-fetches from the live source and reproduces its output; nothing here is generated from anything not in this repo.
+Each `data/<layer>/` folder holds the actual scripts that pulled and processed that layer, plus the raw/intermediate files they produced along the way — the exact chain from source to the final `<name>.json`, which is also the one file each layer's `render()` function in `index.html` fetches. Re-running a script re-fetches from the live source (or reprocesses the raw pull already in the folder) and reproduces its output; nothing here is generated from anything not in this repo.
 
 ## Rebuilding a layer
 
-Each script is a self-contained Python file, run from inside its own `data/<layer>/` folder (they use relative paths). Examples:
+Each script is a self-contained Python file, run from inside its own `data/<layer>/` folder (they use relative paths), and writes its final `<name>.json` directly — no separate step to wire it into `index.html`, since the page fetches that file by name at runtime.
 
 ```bash
 cd data/fire-hydrants && python build_layers.py
 cd data/trees && python build_trees.py
 cd data/heritage && python geocode_heritage.py && python audit_precision.py && python finalize_heritage.py
 cd data/restaurants && python scrape_restaurants.py && python patch_missing.py && python finalize_restaurants.py
-cd data/police-incidents && python parse_crime.py
+cd data/police-incidents && python parse_crime.py && python geocode_addresses.py && python finalize_incidents.py
 cd data/cameras && python build_cameras.py
 cd data/trails && python build_trails.py
 cd data/flights && python fetch_flights.py   # normally run by GitHub Actions, not by hand
 cd data/ships && python fetch_ships.py       # ditto -- needs AISSTREAM_API_KEY set in the environment
 ```
 
-The heritage and restaurant geocoding scripts call the public [Nominatim](https://nominatim.org/) API and are rate-limited (~1 request/second) out of courtesy to that free service — expect a few minutes for a full run. Re-embedding a rebuilt layer's output into `index.html` is currently a manual step (find the layer's `const X = [...]` block and replace it).
+The heritage and restaurant geocoding scripts call the public [Nominatim](https://nominatim.org/) API and are rate-limited (~1 request/second) out of courtesy to that free service — expect a few minutes for a full run.
 
 ## Why flights and ships are architecturally different
 
@@ -95,22 +94,25 @@ Kept here on purpose rather than quietly cleaned up, since it's the more useful 
 - **Row-matching by name breaks when names repeat.** The heritage register has 13 different "Queen Anne Revival style house" entries at 13 different addresses; an early script matched geocoding results back to source rows by name and would have collapsed all 13 onto one coordinate. Fixed by matching on row index instead.
 - **Camera popups rendered off-screen at first.** Their thumbnails are `<img>` tags pointing at live 511 Ontario snapshots, which load asynchronously — Leaflet sizes and positions a popup before its content has finished loading, so the popup ended up positioned for a much smaller box than the one that actually rendered. Fixed by calling the popup's `update()` once each image's `load` (or `error`) event fires.
 - **The ships layer's first live run found zero vessels** despite real ones being visibly present in the harbour on a public tracker at the time — checked directly rather than assumed to be a quiet night. Three real bugs compounded: the message-type filter only asked for Class A traffic (missing Class B, common on smaller harbour craft); the WebSocket connection was missing `compression='deflate'`, which AISStream's docs say is required for the server to send anything close to full bandwidth; and a 25-second listen window was too short to reliably catch a moored vessel's ~3-minute AIS reporting cycle. Fixing all three got real vessels flowing. A related but separate discovery, not a bug: GitHub Pages' CDN can serve a stale cached copy of a data file for a few minutes after a new commit even with `cache: 'no-store'` on the client fetch (that header only controls the browser's own cache) — fixed by appending a cache-busting timestamp to both the ships and flights fetch URLs.
+- **The mobile layout was completely broken — the map was invisible on every phone.** A CSS media query set the map's height for narrow viewports, but an unconditional rule of equal specificity came later in the stylesheet and silently won at every width, collapsing the map to 0px height on anything ≤860px wide. Existed from the very first version of the page; found by an accessibility/UX audit, not by testing on an actual phone, which is exactly the kind of bug that step was worth doing.
+- **Three of the seven data-rebuild scripts silently produced empty or wrong output.** `build_trees.py` globbed for `trees_p*.geojson` (a paginated-pull naming scheme) when the repo only ever had one `trees_raw.geojson`, so it matched nothing and wrote an empty file without erroring. `build_layers.py` and `build_cameras.py` had the same problem with different filenames (`hydrants_full_p*.geojson` vs. the real `hydrants_raw_p*.geojson`; `cams_511.json` vs. the real `cams_511_raw.json`), and `finalize_heritage.py` looked for `heritage.csv` instead of the real `heritage_register.csv`. None of these were caught earlier because nobody had re-run them since the initial pull — the very first real test of "rebuild a layer from scratch" (prompted by this cleanup pass) is what surfaced them. All four now point at the files that actually exist.
+- **The police-incidents pipeline had no `finalize_*.py` step at all** — unlike every other layer, the 70→67-row cleanup (title-casing addresses, expanding abbreviations, and merging a couple of adjacent block-range entries on the same corridor into one combined entry) had been done by hand at some point and never written down. Reconstructed it by diffing the intermediate `geocoded_points.json` against the incidents already shipping, encoded the specific merges and renames that diff revealed, and verified the result matches all 67 rows exactly (down to the category breakdown) before trusting it — see `data/police-incidents/finalize_incidents.py`.
 
 ## Contributing
 
 This is a personal side project, not a City of Thunder Bay product. If you spot bad data, a better geocode, or want another open-data layer added:
 
 - Open an issue or PR on this repo.
-- For a new layer: add a `data/<layer>/` folder with whatever script(s) pulled the source data, plus its output, and add a `LAYERS.push({...})` block to `index.html` following the pattern of the existing layers (each one is self-contained: an id, a color, a description, and a `render()` function).
+- For a new layer: add a `data/<layer>/` folder with whatever script(s) pulled the source data, writing its final output to `data/<layer>/<name>.json`; document its fields in `data/README.md`; and add a `LAYERS.push({...})` block to `index.html` following the pattern of the existing layers (an id, a color, a description, and a `render()` function that calls `loadData(id, url)` and returns the resulting promise so the sidebar's loading/error state works automatically).
 - If something here is factually wrong about a specific business, address, or property, the most durable fix is usually at the source (the City's open data portal, OpenStreetMap, or the relevant listing site) rather than only here — this map will re-pull from source if a layer is rebuilt.
 
 ## License / attribution
 
-This repo mixes several sources with different terms — check the table above for which applies to which layer:
+The code in this repo (`index.html`, the `data/*/*.py` scripts, the GitHub Actions workflows) is [MIT licensed](LICENSE) — reuse it freely.
+
+The **data** is not covered by that license and mixes several sources with different terms — check the layers table above for which applies to which layer, and [data/README.md](data/README.md) for per-file details:
 
 - City of Thunder Bay open data: [Open Data License](https://www.thunderbay.ca/en/city-services/resources/City-of-Thunder-Bay-Open-Data-Licence.pdf).
 - OpenStreetMap data and tiles: [ODbL](https://www.openstreetmap.org/copyright), © OpenStreetMap contributors.
 - Police incident data: via CityProtect, for non-commercial research/informational use.
-- Restaurant listings: directory info only, linked back to [justthemenu.ca](https://justthemenu.ca/) for the actual menu content.
-
-The code in this repo (`index.html`, the `data/*/*.py` scripts) is not separately licensed — ask if you want to reuse it for something specific.
+- Restaurant listings: directory info only, linked back to [Justthemenu.ca](https://justthemenu.ca/) for the actual menu content.
