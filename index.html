@@ -707,9 +707,16 @@ LAYERS.push({
           const category = moving ? 'underway' : 'stationary';
           const color = SHIP_CATEGORY_COLOR[category];
           const bearing = s.heading_deg != null ? s.heading_deg : (s.cog_deg != null ? s.cog_deg : 0);
+          // A top-down hull silhouette, not the side-view ship emoji: a
+          // profile drawing (bow/deck/funnel) has a "right way up" and
+          // looks capsized past a 90-270 degree rotation, but a flat
+          // bird's-eye outline reads correctly at any heading -- rotating
+          // it just points the bow the right way, the same as a real AIS
+          // chart symbol.
           const icon = L.divIcon({
-            className: '', html: `<div style="width:30px;height:30px;transform:rotate(${bearing}deg);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1;filter:drop-shadow(0 0 1.5px white) drop-shadow(0 0 1.5px white);color:${color};">&#128674;</div>`,
-            iconSize: [30,30], iconAnchor: [15,15],
+            className: '', html: `<div style="width:38px;height:38px;transform:rotate(${bearing}deg);filter:drop-shadow(0 1px 3px rgba(0,0,0,.45));">` +
+              `<svg width="38" height="38" viewBox="0 0 24 24"><path d="M12 1.3 L17.3 15.5 Q17.6 18.5 12 21 Q6.4 18.5 6.7 15.5 Z" fill="${color}" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg></div>`,
+            iconSize: [38,38], iconAnchor: [19,19],
           });
           const m = L.marker([s.lat, s.lon], {icon});
           const label = s.name || `Vessel ${s.mmsi}`;
