@@ -277,6 +277,20 @@ Source: City of Thunder Bay Open Data Portal (Rail Network Feature Layer). Unlik
 | `operator` | string | Same value set as `owner`, and almost always identical to it in this data |
 | `points` | array | `[lat, lon]` pairs tracing the segment |
 
+## Road right-of-way
+
+**File**: `road-row/road_row.json` · 1,291 segments · rebuild: `python build_road_row.py`
+
+Source: City of Thunder Bay Open Data Portal (Designated Road Right of Way Feature Layer) — designated corridor reservation widths from the 2019 Transportation Master Plan / Official Plan, alongside the prior 2002 Official Plan's designation. Last updated March 2019 — over 6 years stale.
+
+The source schema's `ROAD_CLASS` field is entirely empty in this data (checked directly against all 1,291 records) and isn't included here.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `row_2018` | string | 2019 Official Plan designation: a width (`"24 m"`, `"30 m"`, etc.), `"Provincial Highway"`, `"Local Road"`, or `"Not designated"` — normalized from inconsistent raw casing (`"30 M"` vs `"30 m"`) |
+| `row_2002` | string | Same normalization, from the prior 2002 Official Plan's designation (often `"TBD"`) |
+| `points` | array | `[lat, lon]` pairs tracing the segment |
+
 ## Live flights
 
 **File**: `flights/flights_live.json` · rewritten roughly every 10 minutes by [a GitHub Action](../.github/workflows/update-flights.yml), not a one-off build

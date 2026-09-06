@@ -967,6 +967,70 @@ LAYERS.push({
 });
 
 /* ============================================================
+   DESIGNATED ROAD RIGHT-OF-WAY
+   ============================================================ */
+const ROW_COLOR = {
+  'Local Road': '#8b9689', '20 m': '#2f6b52', '24 m': '#2980b9', '30 m': '#c9820c',
+  '36 m': '#a8412c', '100 m': '#8e44ad', 'Provincial Highway': '#c0392b',
+};
+const ROW_WEIGHT = {
+  'Local Road': 1.5, '20 m': 1.5, '24 m': 2, '30 m': 2.5, '36 m': 3, '100 m': 4, 'Provincial Highway': 3.5,
+};
+// Static counts from the source pull (see build_road_row.py's own
+// printed summary) -- avoids loading the full file just to draw this legend.
+const ROW_COUNTS = { 'Local Road': 10, '20 m': 322, '24 m': 566, '30 m': 216, '36 m': 139, '100 m': 7, 'Provincial Highway': 31 };
+const activeRowClasses = new Set(Object.keys(ROW_COLOR));
+
+LAYERS.push({
+  id: 'road-row',
+  category: 'transport',
+  name: 'Road Right-of-Way',
+  color: '#a8412c',
+  count: '1,291 segments',
+  defaultOn: false,
+  desc: "Designated road right-of-way (corridor reservation) widths from the 2019 Transportation Master Plan and Official Plan — wider designations generally mean a higher-order arterial road, reserved for future widening/intersection improvements, not necessarily the street's current built width. Source: City of Thunder Bay Open Data Portal (Designated Road Right of Way Feature Layer), last updated March 2019 — over 6 years stale as of writing, disclosed rather than treated as current planning policy (check with the City directly before relying on this for anything current). Colored/filterable by the 2019 designation; each popup also shows the prior 2002 Official Plan's designation for comparison. The source schema's own 'Road Class' field is entirely empty in this data and is left out rather than shown as a field that's always blank.",
+  legendHTML: function(){
+    let html = '<div class="sub-label">Filter by 2019 designation</div>';
+    Object.keys(ROW_COLOR).forEach(cls => {
+      html += `<div class="legend-row" data-cat="${cls}" role="checkbox" aria-checked="true" tabindex="0"><span class="dot" style="border-radius:3px;background:${ROW_COLOR[cls]}"></span>${cls}<span class="n">${ROW_COUNTS[cls].toLocaleString()}</span></div>`;
+    });
+    return html;
+  },
+  afterRender: function(root){
+    root.querySelectorAll('.legend-row[data-cat]').forEach(row => {
+      const toggle = (e) => {
+        e.stopPropagation();
+        const cls = row.dataset.cat;
+        if (activeRowClasses.has(cls)) { activeRowClasses.delete(cls); row.classList.add('off'); row.setAttribute('aria-checked','false'); }
+        else { activeRowClasses.add(cls); row.classList.remove('off'); row.setAttribute('aria-checked','true'); }
+        renderLayer('road-row');
+      };
+      row.addEventListener('click', toggle);
+      row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); } });
+    });
+  },
+  render: function(group){
+    return loadData('road-row', 'data/road-row/road_row.json').then(SEGMENTS => {
+      SEGMENTS.forEach(s => {
+        if (!activeRowClasses.has(s.row_2018)) return;
+        const color = ROW_COLOR[s.row_2018] || '#888';
+        const weight = ROW_WEIGHT[s.row_2018] || 1.5;
+        const line = L.polyline(s.points, {color, weight, opacity: 0.75});
+        line.bindTooltip(`<b>${s.row_2018}</b> designated ROW`, {sticky:true});
+        line.bindPopup(
+          `<b>${s.row_2018} designated ROW</b>` +
+          `<table style="margin-top:6px; border-collapse:collapse;">` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">2019 Official Plan</td><td>${s.row_2018}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">2002 Official Plan</td><td>${s.row_2002}</td></tr>` +
+          `</table>`
+        );
+        group.addLayer(line);
+      });
+    });
+  }
+});
+
+/* ============================================================
    LIVE FLIGHTS
    ============================================================ */
 const FLIGHT_CATEGORY_COLOR = { ground: '#8b9689', low: '#1baf7a', cruise: '#5b7c99' };
