@@ -153,6 +153,19 @@ Source: City of Thunder Bay Open Data Portal (Waste Disposal Site Feature Layer)
 | `source` | string\|null | How this point's location was derived, e.g. `"From Figure 6 OP 2002 - CAD file"`, `"Used address centroid"` (the source's own field, named `Souce` — a typo in the City's schema, corrected here) |
 | `lat`, `lon` | number | Location |
 
+## Municipal wards
+
+**File**: `wards/wards.json` · 7 records · rebuild: `python build_wards.py`
+
+Source: City of Thunder Bay Open Data Portal (Wards Feature Layer) — the City's 7 electoral wards, based on original township boundaries and boundaries approved by the Office of the City Clerk. Last updated June 2025.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `name` | string | Ward name, e.g. `"McIntyre"` — corrected by hand from the source's ALL-CAPS text, same reasoning as the watercourses layer's river names |
+| `ward_no` | string | Ward number, `"100"`–`"700"` |
+| `area_km2` | number\|null | Computed from the source's own `Shape__Area` (assumed square metres) |
+| `rings` | array | One or more `[lat, lon]` polygon rings |
+
 ## Cameras
 
 **File**: `cameras/cameras.json` · 19 records (17 Ontario 511 + 1 YouTube + 1 FAA/NAV CANADA site with 4 directions) · rebuild: `python build_cameras.py`

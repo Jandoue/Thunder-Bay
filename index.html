@@ -591,6 +591,47 @@ LAYERS.push({
   }
 });
 
+const WARD_COLOR = {
+  'Current River': '#c2185b', 'Red River': '#8e44ad', 'McKellar': '#16a085', 'McIntyre': '#2980b9',
+  'Northwood': '#d68910', 'Westfort': '#c0392b', 'Neebing': '#27ae60',
+};
+
+LAYERS.push({
+  id: 'wards',
+  category: 'explore',
+  name: 'Municipal Wards',
+  color: '#8e44ad',
+  count: '7 wards',
+  defaultOn: false,
+  desc: "The City's 7 municipal electoral wards, based on original township boundaries and electoral boundaries approved by the Office of the City Clerk. Source: City of Thunder Bay Open Data Portal (Wards Feature Layer), last updated June 2025.",
+  legendHTML: function(){
+    let html = '<div class="sub-label">By ward</div>';
+    Object.keys(WARD_COLOR).forEach(name => {
+      html += `<div class="legend-row"><span class="dot" style="border-radius:3px;background:${WARD_COLOR[name]}"></span>${name}</div>`;
+    });
+    return html;
+  },
+  render: function(group){
+    return loadData('wards', 'data/wards/wards.json').then(WARDS => {
+      WARDS.forEach(w => {
+        const color = WARD_COLOR[w.name] || '#888';
+        const poly = L.polygon(w.rings, {color, weight:1.5, fillColor:color, fillOpacity:0.18});
+        poly.bindTooltip(`<b>${w.name}</b> &middot; Ward ${w.ward_no}`, {sticky:true});
+        poly.bindPopup(
+          `<b>${w.name}</b>` +
+          `<table style="margin-top:6px; border-collapse:collapse;">` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Ward number</td><td>${w.ward_no}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Area</td><td>${w.area_km2 != null ? w.area_km2 + ' km&sup2;' : '&mdash;'}</td></tr>` +
+          `</table>`
+        );
+        poly.on('mouseover', function(){ this.setStyle({fillOpacity:0.4}); });
+        poly.on('mouseout', function(){ this.setStyle({fillOpacity:0.18}); });
+        group.addLayer(poly);
+      });
+    });
+  }
+});
+
 LAYERS.push({
   id: 'cameras',
   category: 'safety',
