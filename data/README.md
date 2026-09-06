@@ -178,6 +178,28 @@ Top-level shape is `{trails: [...], tct: {...}}`, not a flat array.
 | `segments` | array | Array of `[lat, lon]` polylines, one per underlying OSM way |
 | `length_km` | number | Total length through the city |
 
+## Street signs
+
+**File**: `street-signs/signs.json` · 22,066 records · rebuild: `python build_signs.py`
+
+Source: City of Thunder Bay Open Data Portal (Street Signs Feature Layer). The portal's own item description states this data was last updated February 10, 2020 — over 5 years stale as of writing, not re-verified per-record, just disclosed (see root README).
+
+| Field | Type | Meaning |
+|---|---|---|
+| `lat`, `lon` | number | Location |
+| `name` | string\|null | Human-readable description, e.g. `"Truck Entrance"`, `"Stop ( 120 cm x 120 cm)"` |
+| `text` | string\|null | Custom text on the sign itself (street names on wayfinding signs, etc.) — blank for most regulatory/warning signs, which use a pictogram instead |
+| `category` | string | `regulatory` / `warning` / `informational` / `tourism` / `other` — normalized from the source's own classification field, which has a long tail of inconsistent raw values (typos, mixed case, apparent sign-code values in the wrong field); anything not confidently matching the first four lands in `other` rather than being guessed at (see `build_signs.py`'s `categorize()`) |
+| `type_raw` | string\|null | The source's classification value, unmodified — kept alongside `category` for anyone who wants to see exactly what was normalized |
+| `code` | string\|null | Sign type code (Ontario Traffic Manual-style), e.g. `"RA-1101"` (Stop), `"WC-8R/L"` |
+| `facing` | string\|null | Compass direction the sign faces |
+| `support` | string\|null | Mounting type, e.g. `"UPOST"`, `"WOOD"` |
+| `material` | string\|null | Support material |
+| `owner` | string\|null | e.g. `"MUN"` (Municipal) |
+| `created` | string\|null | Install/record-creation date, `YYYY-MM-DD` |
+| `updated` | string\|null | Last updated date, `YYYY-MM-DD` |
+| `objectid` | number\|null | Source system's object ID |
+
 ## Live flights
 
 **File**: `flights/flights_live.json` · rewritten roughly every 10 minutes by [a GitHub Action](../.github/workflows/update-flights.yml), not a one-off build

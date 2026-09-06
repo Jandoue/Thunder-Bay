@@ -639,6 +639,79 @@ LAYERS.push({
 });
 
 /* ============================================================
+   STREET SIGNS
+   ============================================================ */
+const SIGN_CATEGORY_COLOR = {
+  regulatory: '#a8412c', informational: '#2980b9', warning: '#c9820c', other: '#8b9689', tourism: '#2f6b52',
+};
+const SIGN_CATEGORY_LABEL = {
+  regulatory: 'Regulatory', informational: 'Informational', warning: 'Warning', other: 'Other / unlabeled', tourism: 'Tourism',
+};
+// Static counts from the source pull (see build_signs.py's own printed
+// summary) -- avoids loading the full 22k-record file just to draw this
+// legend before the layer's even switched on.
+const SIGN_CATEGORY_COUNTS = {
+  regulatory: 14396, informational: 4461, warning: 2524, other: 654, tourism: 31,
+};
+const activeSignCats = new Set(Object.keys(SIGN_CATEGORY_COLOR));
+
+LAYERS.push({
+  id: 'signs',
+  category: 'transport',
+  name: 'Street Signs',
+  color: '#a8412c',
+  count: '22,066 signs',
+  defaultOn: false,
+  desc: "Every regulatory, warning, informational, and tourism sign in the City's street-sign inventory — stop signs, speed limits, parking restrictions, hidden-driveway warnings, and similar, 22,066 records in total. Source: City of Thunder Bay Open Data Portal (Street Signs Feature Layer). The portal's own listing states this data was last updated February 10, 2020 — over 5 years stale as of writing, disclosed rather than treated as current, though a sign post is physical infrastructure that doesn't move nearly as often as something like a bus route. Categorized from the source's own field for this, which itself has a long tail of inconsistent entries in the raw data (typos, inconsistent capitalization, what look like sign-code values typed into the wrong field) — anything that doesn't confidently match Regulatory/Warning/Informational/Tourism is bucketed as \"Other / unlabeled\" rather than guessed at.",
+  legendHTML: function(){
+    let html = '<div class="sub-label">Filter by category</div>';
+    Object.keys(SIGN_CATEGORY_COLOR).forEach(cat => {
+      html += `<div class="legend-row" data-cat="${cat}" role="checkbox" aria-checked="true" tabindex="0"><span class="dot" style="background:${SIGN_CATEGORY_COLOR[cat]}"></span>${SIGN_CATEGORY_LABEL[cat]}<span class="n">${SIGN_CATEGORY_COUNTS[cat].toLocaleString()}</span></div>`;
+    });
+    return html;
+  },
+  afterRender: function(root){
+    root.querySelectorAll('.legend-row[data-cat]').forEach(row => {
+      const toggle = (e) => {
+        e.stopPropagation();
+        const cat = row.dataset.cat;
+        if (activeSignCats.has(cat)) { activeSignCats.delete(cat); row.classList.add('off'); row.setAttribute('aria-checked','false'); }
+        else { activeSignCats.add(cat); row.classList.remove('off'); row.setAttribute('aria-checked','true'); }
+        renderLayer('signs');
+      };
+      row.addEventListener('click', toggle);
+      row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); } });
+    });
+  },
+  render: function(group){
+    return loadData('signs', 'data/street-signs/signs.json').then(SIGNS => {
+      SIGNS.forEach(s => {
+        if (!activeSignCats.has(s.category)) return;
+        const color = SIGN_CATEGORY_COLOR[s.category] || '#888';
+        const m = L.circleMarker([s.lat, s.lon], {radius:3, color:'#fff', weight:0.5, fillColor:color, fillOpacity:0.85});
+        const label = s.name || s.code || 'Sign';
+        m.bindTooltip(`<b>${label}</b>${s.text ? ' &middot; “' + s.text + '”' : ''}`, {direction:'top', offset:[0,-3]});
+        m.bindPopup(
+          `<b>${label}</b>` +
+          `<table style="margin-top:6px; border-collapse:collapse;">` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Category</td><td>${SIGN_CATEGORY_LABEL[s.category]}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Sign code</td><td>${s.code || '&mdash;'}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Text</td><td>${s.text || '&mdash;'}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Facing</td><td>${s.facing || '&mdash;'}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Support</td><td>${s.support || '&mdash;'}${s.material ? ' (' + s.material + ')' : ''}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Owner</td><td>${s.owner || '&mdash;'}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Installed</td><td>${s.created || '&mdash;'}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Last updated</td><td>${s.updated || '&mdash;'}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Object ID</td><td>${s.objectid ?? '&mdash;'}</td></tr>` +
+          `</table>`
+        );
+        group.addLayer(m);
+      });
+    });
+  }
+});
+
+/* ============================================================
    LIVE FLIGHTS
    ============================================================ */
 const FLIGHT_CATEGORY_COLOR = { ground: '#8b9689', low: '#1baf7a', cruise: '#5b7c99' };
