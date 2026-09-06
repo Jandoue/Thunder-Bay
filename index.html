@@ -864,10 +864,10 @@ LAYERS.push({
   count: 'live',
   customStatus: true,
   defaultOn: false,
-  desc: "Thunder Bay Transit buses currently in service, from the City's public GTFS-Realtime Vehicle Positions feed (published by NextLift, the transit system's AVL vendor), plus faint route-line paths drawn underneath so a route is visible even when nothing's currently on it. Each bus is colored and labeled by its route number; the color itself is generated from the route number, not looked up from official route branding. The route lines come from the City's static GTFS file — the only route-shape data available — but that file's internal dates are November 2019, nearly 7 years stale: route numbers still check out against the live feed, but street-level paths can't be trusted to still be exactly current, and at least 3 routes running live today (15, 17, 18) don't exist in that file at all, so their buses show with no route line rather than a wrong one. Out-of-service and depot vehicles (no route assigned, or no GPS fix) are filtered out rather than shown parked at their garage.",
+  desc: "Thunder Bay Transit buses currently in service, from the City's public GTFS-Realtime Vehicle Positions feed (published by NextLift, the transit system's AVL vendor). Each bus is colored and labeled by its route number; the color itself is generated from the route number, not looked up from official route branding. Click a bus to highlight its route's path — shown one at a time rather than all 17 at once, which read as a tangle of colored lines rather than an answer to \"where does this bus go.\" Route paths come from the City's static GTFS file — the only route-shape data available — but that file's internal dates are November 2019, nearly 7 years stale: route numbers still check out against the live feed, but street-level paths can't be trusted to still be exactly current, and at least 3 routes running live today (15, 17, 18) don't exist in that file at all, so clicking one of their buses highlights nothing rather than a wrong path. Out-of-service and depot vehicles (no route assigned, or no GPS fix) are filtered out rather than shown parked at their garage.",
   legendHTML: function(){
     let html = '<div class="freeze-note"><b>Not real-time:</b> this is refreshed on a schedule, not streamed continuously — a bus can move well beyond its shown position between refreshes. "Data fetched" below is exactly how old the current snapshot is.</div>';
-    html += '<div class="freeze-note"><b>Route lines may be outdated:</b> drawn from a November 2019 schedule snapshot, the only route-shape data this City dataset has ever published — some routes have no line at all if they were added since (see description above).</div>';
+    html += '<div class="freeze-note"><b>Click a bus to see its route.</b> Its path highlights on the map (from a November 2019 schedule snapshot — some routes added since won\'t show one, see description above); click elsewhere to clear it.</div>';
     html += '<div style="font-size:11px; color:var(--ink-muted); margin-top:8px;">' +
       '<span id="bus-status"></span>' +
       '<button type="button" class="refresh-btn" id="bus-refresh-btn">Refresh</button>' +
@@ -897,15 +897,16 @@ LAYERS.push({
         if (statusEl()) statusEl().innerHTML = `${data.buses.length} bus${data.buses.length === 1 ? '' : 'es'} &middot; Data fetched ${ageMin} min ago`;
         const countEl = layerCards.buses && layerCards.buses.querySelector('.layer-count');
         if (countEl) countEl.textContent = `${data.buses.length} bus${data.buses.length === 1 ? '' : 'es'}`;
-        // Route lines first so live bus markers always sit on top of them.
-        routesData.routes.forEach(r => {
-          const color = routeColor(r.route);
-          r.shapes.forEach(s => {
-            const line = L.polyline(s.points, {color, weight: 3, opacity: 0.5});
-            line.bindTooltip(`<b>Route ${r.route}</b>${s.headsign ? ' &middot; ' + s.headsign : ''}`, {sticky:true});
-            group.addLayer(line);
-          });
-        });
+        // Route lines are drawn on demand (see popupopen/popupclose below),
+        // not all 17 at once -- with every route visible simultaneously the
+        // map read as a tangle of colored lines rather than "where does
+        // this bus go." At most one popup can be open at a time (Leaflet's
+        // default), so at most one route's lines are ever shown.
+        let activeRouteLines = [];
+        const clearActiveRouteLines = () => {
+          activeRouteLines.forEach(l => group.removeLayer(l));
+          activeRouteLines = [];
+        };
         data.buses.forEach(b => {
           const color = routeColor(b.route);
           // A colored badge with the route number, not a rotated vehicle
@@ -933,6 +934,18 @@ LAYERS.push({
             `</table>` +
             `<div style="margin-top:8px; font-size:10.5px; color:#5f6b64;">Position as of ${ageMin} min ago</div>`
           );
+          m.on('popupopen', () => {
+            clearActiveRouteLines();
+            const routeEntry = routesData.routes.find(r => r.route === b.route);
+            if (!routeEntry) return; // route not in the static file at all (e.g. 15/17/18) -- nothing to draw
+            activeRouteLines = routeEntry.shapes.map(s => {
+              const line = L.polyline(s.points, {color, weight: 4, opacity: 0.7});
+              if (s.headsign) line.bindTooltip(`<b>Route ${b.route}</b> &middot; ${s.headsign}`, {sticky:true});
+              group.addLayer(line);
+              return line;
+            });
+          });
+          m.on('popupclose', clearActiveRouteLines);
           group.addLayer(m);
         });
         clearInterval(busRefreshTimer);

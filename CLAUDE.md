@@ -126,8 +126,12 @@ GTFS file's official branding — that file's internal dates are November
 `routes.json` (built by `data/buses/build_routes.py`, run manually/
 occasionally, not on a schedule) *does* use that same static file, but
 only `shapes.txt` joined to `trips.txt` (verified 1:1 shape→route in this
-feed) for a reference route-line layer — disclosed as possibly-outdated
-in the UI, not presented as current. `stops.txt`/`stop_times.txt`/
+feed) for a reference route-line layer. It's drawn one route at a time,
+on click (via the marker's `popupopen`/`popupclose` events in
+index.html), not all 17 at once — that was tried first and read as a
+tangle of colored lines, not an answer to "where does this bus go."
+Disclosed as possibly-outdated in the UI, not presented as current.
+`stops.txt`/`stop_times.txt`/
 `calendar_dates.txt` are still untouched. If ever asked to add a stops
 layer, re-verify that file's currency first (route *numbers* checked out
 against the live feed; stop locations have no equivalent live signal to
