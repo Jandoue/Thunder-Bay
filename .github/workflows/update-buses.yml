@@ -1,0 +1,59 @@
+name: Update bus data
+
+on:
+  schedule:
+    # Hourly backstop only -- same reasoning as update-flights.yml and
+    # update-ships.yml. The real 5-minute cadence comes from a Cloudflare
+    # Worker; see cloudflare-worker/README.md.
+    - cron: '0 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-buses
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install gtfs-realtime-bindings
+
+      - name: Fetch current buses near Thunder Bay
+        working-directory: data/buses
+        run: python fetch_buses.py
+
+      - name: Commit and push if the data changed
+        working-directory: data/buses
+        run: |
+          git config user.name "bus-data-bot"
+          git config user.email "actions@github.com"
+          if git diff --quiet -- buses_live.json; then
+            echo "No change in bus data, skipping commit."
+            exit 0
+          fi
+          git add buses_live.json
+          git commit -m "Update live bus data [skip ci]"
+          # Same cross-workflow push race as flights/ships -- all three
+          # commit to the same branch on roughly the same 5-minute cycle,
+          # so main may have moved by the time this is ready to push.
+          # Rebase onto whatever's new and retry rather than fail outright.
+          for i in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push rejected (attempt $i) -- pulling and retrying..."
+            git pull --rebase origin main
+            sleep 2
+          done
+          echo "Failed to push after 5 attempts" >&2
+          exit 1

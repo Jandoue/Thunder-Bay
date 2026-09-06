@@ -222,6 +222,26 @@ Top-level: `{fetched_at, bbox, ships: [...]}`. **An empty `ships` array is a nor
 | `nav_status` | number\|null | Raw ITU-R M.1371 navigational status code |
 | `nav_status_label` | string\|null | Human-readable status, e.g. `"At anchor"`, `"Moored"`. `null` specifically means the code is genuinely absent from the AIS message (normal for Class B transponders, common on smaller harbour craft) — not a parsing failure. |
 
+## Live buses
+
+**File**: `buses/buses_live.json` · rewritten roughly every 10 minutes by [a GitHub Action](../.github/workflows/update-buses.yml)
+
+Top-level: `{fetched_at, feed_timestamp, buses: [...]}`. `feed_timestamp` is the Unix timestamp NextLift's own feed header reports (when *they* last updated it), separate from `fetched_at` (when this repo last polled it).
+
+`buses[]`:
+
+| Field | Type | Meaning |
+|---|---|---|
+| `id` | string | Vehicle/fleet number |
+| `route` | string | Route number, e.g. `"3C"` — matches Thunder Bay Transit's public route numbering, not looked up from any file here (see root README) |
+| `lat`, `lon` | number | Position |
+| `heading_deg` | number\|null | Bearing, degrees — `null` below ~2 m/s (7 km/h), where the feed's own bearing reading isn't reliable, checked directly against a live pull (see `fetch_buses.py`) |
+| `speed_ms` | number | Speed, m/s |
+| `status` | string\|null | `incoming` (approaching a stop) / `stopped` (at a stop) / `in_transit` |
+| `stop_id` | string\|null | The stop the vehicle is at/approaching/departing — a raw GTFS stop ID, not a name (no stop-name lookup is used here, see root README) |
+
+Vehicles with no route assigned or no GPS fix (out of service, at the depot) are dropped before this file is written, not included with blank fields.
+
 ## What's *not* here
 
 - **Raw/intermediate pulls** (`*_raw.geojson`, `*_scraped.json`, `precision_audit.json`, etc.) exist in each folder for pipeline transparency but aren't meant to be consumed directly — they're pre-cleanup, may have different field names, and in a couple of cases (trees, heritage) are positional or differently-shaped from the final output.
