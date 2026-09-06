@@ -806,6 +806,62 @@ LAYERS.push({
   }
 });
 
+const WATER_TYPE_COLOR = {
+  'Stream or River': '#1c5c78', 'Lake or pond': '#2980b9', 'Virtual Flow': '#8b9689', 'Unknown': '#95a5a6', 'Shoreline': '#16a085',
+};
+const WATER_TYPE_WEIGHT = { 'Stream or River': 2.5, 'Lake or pond': 2.5, 'Virtual Flow': 1.5, 'Unknown': 1.5, 'Shoreline': 1.5 };
+const WATER_TYPE_DASH = { 'Virtual Flow': '4,4' };
+// Static counts from the source pull (see build_watercourses.py's own
+// printed summary) -- avoids loading the full file just to draw this legend.
+const WATER_TYPE_COUNTS = { 'Stream or River': 2600, 'Virtual Flow': 77, 'Unknown': 60, 'Lake or pond': 18, 'Shoreline': 15 };
+const activeWaterTypes = new Set(Object.keys(WATER_TYPE_COLOR));
+
+LAYERS.push({
+  id: 'watercourses',
+  category: 'nature',
+  name: 'Watercourses',
+  color: '#1c5c78',
+  count: '2,770 segments',
+  defaultOn: false,
+  desc: "Streams, rivers, creeks, and lake/pond centrelines across the city — Thunder Bay's main waterways (Kaministiquia River, Current River, McIntyre River, Neebing River, and others) plus their smaller tributaries. Source: City of Thunder Bay Open Data Portal (Watercourse Feature Layer), traced from 2012/2019 aerial photography. 'Virtual Flow' segments (dashed) are modeled drainage paths, not necessarily a visible surface watercourse — filterable separately from real streams/rivers below.",
+  legendHTML: function(){
+    let html = '<div class="sub-label">Filter by type</div>';
+    Object.keys(WATER_TYPE_COLOR).forEach(t => {
+      html += `<div class="legend-row" data-cat="${t}" role="checkbox" aria-checked="true" tabindex="0"><span class="dot" style="border-radius:3px;background:${WATER_TYPE_COLOR[t]}"></span>${t}<span class="n">${WATER_TYPE_COUNTS[t].toLocaleString()}</span></div>`;
+    });
+    return html;
+  },
+  afterRender: function(root){
+    root.querySelectorAll('.legend-row[data-cat]').forEach(row => {
+      const toggle = (e) => {
+        e.stopPropagation();
+        const t = row.dataset.cat;
+        if (activeWaterTypes.has(t)) { activeWaterTypes.delete(t); row.classList.add('off'); row.setAttribute('aria-checked','false'); }
+        else { activeWaterTypes.add(t); row.classList.remove('off'); row.setAttribute('aria-checked','true'); }
+        renderLayer('watercourses');
+      };
+      row.addEventListener('click', toggle);
+      row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); } });
+    });
+  },
+  render: function(group){
+    return loadData('watercourses', 'data/watercourses/watercourses.json').then(WATER => {
+      WATER.forEach(w => {
+        if (!activeWaterTypes.has(w.type)) return;
+        const color = WATER_TYPE_COLOR[w.type] || '#888';
+        const weight = WATER_TYPE_WEIGHT[w.type] || 1.5;
+        const opts = {color, weight, opacity: 0.75};
+        if (WATER_TYPE_DASH[w.type]) opts.dashArray = WATER_TYPE_DASH[w.type];
+        const line = L.polyline(w.points, opts);
+        const label = w.name || w.type;
+        line.bindTooltip(`<b>${label}</b>${w.name ? ' &middot; ' + w.type : ''}`, {sticky:true});
+        line.bindPopup(`<b>${label}</b><table style="margin-top:6px; border-collapse:collapse;"><tr><td style="color:#5f6b64; padding-right:10px;">Type</td><td>${w.type}</td></tr></table>`);
+        group.addLayer(line);
+      });
+    });
+  }
+});
+
 /* ============================================================
    RAIL NETWORK
    ============================================================ */

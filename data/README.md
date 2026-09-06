@@ -216,6 +216,18 @@ Top-level shape is `{trails: [...], tct: {...}}`, not a flat array.
 | `segments` | array | Array of `[lat, lon]` polylines, one per underlying OSM way |
 | `length_km` | number | Total length through the city |
 
+## Watercourses
+
+**File**: `watercourses/watercourses.json` · 2,770 segments · rebuild: `python build_watercourses.py`
+
+Source: City of Thunder Bay Open Data Portal (Watercourse Feature Layer), traced from 2012/2019 aerial photography, last updated 2019.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `name` | string\|null | River/creek/lake name, e.g. `"Kaministiquia River"` — corrected by hand from the source's ALL-CAPS text (`"MCINTYRE RIVER"` etc.) rather than naively title-cased, which would have mangled the "Mc" names |
+| `type` | string | `Stream or River` / `Lake or pond` / `Virtual Flow` (a modeled drainage path, not necessarily a visible watercourse) / `Shoreline` / `Unknown` |
+| `points` | array | `[lat, lon]` pairs tracing the segment |
+
 ## Street signs
 
 **File**: `street-signs/signs.json` · 22,066 records · rebuild: `python build_signs.py`
