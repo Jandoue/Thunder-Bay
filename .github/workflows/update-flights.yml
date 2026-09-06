@@ -2,14 +2,22 @@ name: Update flight data
 
 on:
   schedule:
-    # Every 10 minutes. OpenSky's anonymous API allows ~400 requests/day;
-    # this uses ~144/day, well under that, and is a reasonable refresh
-    # cadence for a civic map (this is not a real-time ATC feed).
-    - cron: '*/10 * * * *'
+    # Hourly backstop only. The real cadence (every 5 minutes) comes from
+    # a Cloudflare Worker calling workflow_dispatch on a Cron Trigger --
+    # see cloudflare-worker/README.md. GitHub's own schedule: trigger
+    # doesn't reliably honor a sub-hourly cron for this repo (observed
+    # running 1.5-4.5+ hours apart despite a 10-minute cron), so there's
+    # no point asking it for anything tighter than a safety net for when
+    # the Worker itself is down.
+    - cron: '0 * * * *'
   workflow_dispatch: {}
 
 permissions:
   contents: write
+
+concurrency:
+  group: update-flights
+  cancel-in-progress: false
 
 jobs:
   update:
@@ -32,8 +40,21 @@ jobs:
           git config user.email "actions@github.com"
           if git diff --quiet -- flights_live.json; then
             echo "No change in flight data, skipping commit."
-          else
-            git add flights_live.json
-            git commit -m "Update live flight data [skip ci]"
-            git push
+            exit 0
           fi
+          git add flights_live.json
+          git commit -m "Update live flight data [skip ci]"
+          # update-ships.yml commits to the same branch and can still be
+          # mid-run (its AIS listen takes ~3.5min) when this tries to
+          # push, so main may have moved. Rebase onto whatever's new and
+          # retry rather than fail outright.
+          for i in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push rejected (attempt $i) -- pulling and retrying..."
+            git pull --rebase origin main
+            sleep 2
+          done
+          echo "Failed to push after 5 attempts" >&2
+          exit 1

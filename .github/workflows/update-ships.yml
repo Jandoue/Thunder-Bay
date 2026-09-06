@@ -2,12 +2,18 @@ name: Update ship data
 
 on:
   schedule:
-    # Every 10 minutes, same cadence as the flights layer.
-    - cron: '*/10 * * * *'
+    # Hourly backstop only -- same reasoning as update-flights.yml. The
+    # real 5-minute cadence comes from a Cloudflare Worker; see
+    # cloudflare-worker/README.md.
+    - cron: '0 * * * *'
   workflow_dispatch: {}
 
 permissions:
   contents: write
+
+concurrency:
+  group: update-ships
+  cancel-in-progress: false
 
 jobs:
   update:
@@ -35,8 +41,22 @@ jobs:
           git config user.email "actions@github.com"
           if git diff --quiet -- ships_live.json; then
             echo "No change in ship data, skipping commit."
-          else
-            git add ships_live.json
-            git commit -m "Update live ship data [skip ci]"
-            git push
+            exit 0
           fi
+          git add ships_live.json
+          git commit -m "Update live ship data [skip ci]"
+          # update-flights.yml commits to the same branch and usually
+          # finishes first (it's a ~15s job vs. this one's ~3.5min AIS
+          # listen), so main has almost always moved by the time this is
+          # ready to push. Rebase onto whatever's new and retry rather
+          # than fail outright.
+          for i in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push rejected (attempt $i) -- pulling and retrying..."
+            git pull --rebase origin main
+            sleep 2
+          done
+          echo "Failed to push after 5 attempts" >&2
+          exit 1
