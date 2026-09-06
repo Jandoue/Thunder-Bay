@@ -553,6 +553,44 @@ LAYERS.push({
   }
 });
 
+const WASTE_STATUS_COLOR = { active: '#27ae60', closed: '#c0392b' };
+const WASTE_STATUS_COUNTS = { active: 11, closed: 15 };
+
+LAYERS.push({
+  id: 'waste-sites',
+  category: 'explore',
+  name: 'Waste Disposal Sites',
+  color: '#27ae60',
+  count: '26 sites',
+  defaultOn: false,
+  desc: "Solid waste and recycling facilities, recycling depots, and water/sewage treatment sites — both active and closed — traced from Figure 5 of the City's 2019 Official Plan (older entries cite Figure 6 of the 2002 plan or a CAD file as their own source). Source: City of Thunder Bay Open Data Portal (Waste Disposal Site Feature Layer), last updated June 2025. The majority (15 of 26) are historic closed sites, not currently operating — colored red here to make that distinction obvious at a glance, with active sites in green.",
+  legendHTML: function(){
+    let html = '<div class="sub-label">By status</div>';
+    Object.keys(WASTE_STATUS_COLOR).forEach(status => {
+      html += `<div class="legend-row"><span class="dot" style="background:${WASTE_STATUS_COLOR[status]}"></span>${status[0].toUpperCase() + status.slice(1)}<span class="n">${WASTE_STATUS_COUNTS[status]}</span></div>`;
+    });
+    return html;
+  },
+  render: function(group){
+    return loadData('waste-sites', 'data/waste-sites/waste_sites.json').then(SITES => {
+      SITES.forEach(s => {
+        const color = WASTE_STATUS_COLOR[s.status] || '#888';
+        const m = L.circleMarker([s.lat, s.lon], {radius:6, color:'#fff', weight:1.5, fillColor:color, fillOpacity:0.85});
+        const label = s.type || 'Waste disposal site';
+        m.bindTooltip(`<b>${label}</b>`, {direction:'top', offset:[0,-6]});
+        m.bindPopup(
+          `<b>${label}</b>` +
+          `<table style="margin-top:6px; border-collapse:collapse;">` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Status</td><td>${s.status === 'closed' ? 'Closed' : 'Active'}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Source</td><td>${s.source || '&mdash;'}</td></tr>` +
+          `</table>`
+        );
+        group.addLayer(m);
+      });
+    });
+  }
+});
+
 LAYERS.push({
   id: 'cameras',
   category: 'safety',

@@ -140,6 +140,19 @@ Same source and vintage as School Crossing Guards above (Hansen application / Ci
 | `url` | string | Link to the restaurant's page on justthemenu.ca — menu content itself isn't reproduced here |
 | `src` | string | Where the coordinate came from: `google_maps_link`, `here_maps_link`, `here_maps_b64`, or `osm_node` |
 
+## Waste disposal sites
+
+**File**: `waste-sites/waste_sites.json` · 26 records · rebuild: `python build_waste.py`
+
+Source: City of Thunder Bay Open Data Portal (Waste Disposal Site Feature Layer), traced from Figure 5 of the 2019 Official Plan (older entries cite Figure 6 of the 2002 plan or a CAD file). Last updated June 2025.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `type` | string\|null | The source's own site-type text, e.g. `"Closed Waste Disposal Site"`, `"Active Recycling Depot"` |
+| `status` | string | `active` or `closed`, derived from whether `type` contains the word "Closed" — the one type with no such qualifier (`"Water Treatment Plant"`) defaults to `active` |
+| `source` | string\|null | How this point's location was derived, e.g. `"From Figure 6 OP 2002 - CAD file"`, `"Used address centroid"` (the source's own field, named `Souce` — a typo in the City's schema, corrected here) |
+| `lat`, `lon` | number | Location |
+
 ## Cameras
 
 **File**: `cameras/cameras.json` · 19 records (17 Ontario 511 + 1 YouTube + 1 FAA/NAV CANADA site with 4 directions) · rebuild: `python build_cameras.py`
