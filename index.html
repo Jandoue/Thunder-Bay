@@ -843,11 +843,13 @@ LAYERS.push({
 const BUS_STATUS_LABEL = { incoming: 'Approaching a stop', stopped: 'Stopped at a stop', in_transit: 'In transit' };
 let busRefreshTimer = null;
 
-// Deterministic color per route number, not looked up from any static
-// file: the only route/branding file on the City's open data portal is a
-// stale 2019 snapshot (see fetch_buses.py), so this generates a color
-// from the route number itself instead. Same route always gets the same
-// hue.
+// Deterministic color per route number, not looked up from any file:
+// the only route-branding data on the City's open data portal is inside
+// the stale 2019 GTFS snapshot (see fetch_buses.py and build_routes.py),
+// so this generates a color from the route number itself instead of
+// trusting that file's official colors to still be accurate. Same route
+// always gets the same hue, and it's the same function used for both a
+// bus's badge and its route line, so they visually match.
 function routeColor(route){
   let hash = 0;
   for (let i = 0; i < route.length; i++) hash = (hash * 31 + route.charCodeAt(i)) % 360;
@@ -862,9 +864,10 @@ LAYERS.push({
   count: 'live',
   customStatus: true,
   defaultOn: false,
-  desc: "Thunder Bay Transit buses currently in service, from the City's public GTFS-Realtime Vehicle Positions feed (published by NextLift, the transit system's AVL vendor). Each bus is colored and labeled by its route number; the color itself is generated from the route number, not looked up from official route branding, since the only static route file on the City's open data portal is a schedule snapshot from November 2019 — the route numbers still check out against this live feed, but street-level paths and stop lists in that file can't be trusted to still be current, so it isn't used here at all. Out-of-service and depot vehicles (no route assigned, or no GPS fix) are filtered out rather than shown parked at their garage.",
+  desc: "Thunder Bay Transit buses currently in service, from the City's public GTFS-Realtime Vehicle Positions feed (published by NextLift, the transit system's AVL vendor), plus faint route-line paths drawn underneath so a route is visible even when nothing's currently on it. Each bus is colored and labeled by its route number; the color itself is generated from the route number, not looked up from official route branding. The route lines come from the City's static GTFS file — the only route-shape data available — but that file's internal dates are November 2019, nearly 7 years stale: route numbers still check out against the live feed, but street-level paths can't be trusted to still be exactly current, and at least 3 routes running live today (15, 17, 18) don't exist in that file at all, so their buses show with no route line rather than a wrong one. Out-of-service and depot vehicles (no route assigned, or no GPS fix) are filtered out rather than shown parked at their garage.",
   legendHTML: function(){
     let html = '<div class="freeze-note"><b>Not real-time:</b> this is refreshed on a schedule, not streamed continuously — a bus can move well beyond its shown position between refreshes. "Data fetched" below is exactly how old the current snapshot is.</div>';
+    html += '<div class="freeze-note"><b>Route lines may be outdated:</b> drawn from a November 2019 schedule snapshot, the only route-shape data this City dataset has ever published — some routes have no line at all if they were added since (see description above).</div>';
     html += '<div style="font-size:11px; color:var(--ink-muted); margin-top:8px;">' +
       '<span id="bus-status"></span>' +
       '<button type="button" class="refresh-btn" id="bus-refresh-btn">Refresh</button>' +
@@ -885,13 +888,24 @@ LAYERS.push({
   },
   render: function(group){
     const statusEl = () => document.getElementById('bus-status');
-    return fetch('data/buses/buses_live.json?t=' + Date.now(), {cache: 'no-store'})
-      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(data => {
+    return Promise.all([
+      fetch('data/buses/buses_live.json?t=' + Date.now(), {cache: 'no-store'}).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
+      loadData('bus-routes', 'data/buses/routes.json'),
+    ])
+      .then(([data, routesData]) => {
         const ageMin = Math.max(0, Math.round((Date.now() - new Date(data.fetched_at).getTime()) / 60000));
         if (statusEl()) statusEl().innerHTML = `${data.buses.length} bus${data.buses.length === 1 ? '' : 'es'} &middot; Data fetched ${ageMin} min ago`;
         const countEl = layerCards.buses && layerCards.buses.querySelector('.layer-count');
         if (countEl) countEl.textContent = `${data.buses.length} bus${data.buses.length === 1 ? '' : 'es'}`;
+        // Route lines first so live bus markers always sit on top of them.
+        routesData.routes.forEach(r => {
+          const color = routeColor(r.route);
+          r.shapes.forEach(s => {
+            const line = L.polyline(s.points, {color, weight: 3, opacity: 0.5});
+            line.bindTooltip(`<b>Route ${r.route}</b>${s.headsign ? ' &middot; ' + s.headsign : ''}`, {sticky:true});
+            group.addLayer(line);
+          });
+        });
         data.buses.forEach(b => {
           const color = routeColor(b.route);
           // A colored badge with the route number, not a rotated vehicle

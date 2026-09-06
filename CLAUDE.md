@@ -118,13 +118,23 @@ chat, never put it in a file. If it's ever missing, ships_live.json's own
 `note` field explains why (see fetch_ships.py).
 
 `buses_live.json` needs no API key (NextLift's GTFS-RT feed is anonymous).
-It deliberately does **not** use the static route/stop/shapes GTFS file
-also on the City's open data portal — that file's internal dates are
-November 2019, checked directly. Route *numbers* in it still match the
-live feed (also checked directly), so buses are colored/labeled by route
-number computed from the number itself, not looked up from that file. If
-ever asked to add route lines or stop markers, re-verify that file's
-currency first rather than assuming it's still safe to use as-is.
+Buses are still colored/labeled by route number computed from the number
+itself (`routeColor()` in index.html), not looked up from the static
+GTFS file's official branding — that file's internal dates are November
+2019, checked directly, so its `route_color` field isn't trusted.
+
+`routes.json` (built by `data/buses/build_routes.py`, run manually/
+occasionally, not on a schedule) *does* use that same static file, but
+only `shapes.txt` joined to `trips.txt` (verified 1:1 shape→route in this
+feed) for a reference route-line layer — disclosed as possibly-outdated
+in the UI, not presented as current. `stops.txt`/`stop_times.txt`/
+`calendar_dates.txt` are still untouched. If ever asked to add a stops
+layer, re-verify that file's currency first (route *numbers* checked out
+against the live feed; stop locations have no equivalent live signal to
+check against, so don't assume the same confidence carries over). Routes
+15, 17, and 18 are live in the Vehicle Positions feed but absent from the
+2019 file entirely — concrete evidence it's missing more than just
+alignment drift, not just a hedge.
 
 ## Deployment workflow
 

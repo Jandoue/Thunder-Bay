@@ -242,6 +242,28 @@ Top-level: `{fetched_at, feed_timestamp, buses: [...]}`. `feed_timestamp` is the
 
 Vehicles with no route assigned or no GPS fix (out of service, at the depot) are dropped before this file is written, not included with blank fields.
 
+## Bus routes (static reference)
+
+**File**: `buses/routes.json` · 17 routes, 89 shape variants · rebuild: `python build_routes.py` (occasional/manual, not on a schedule — route paths don't change often)
+
+Built from the City's static GTFS file for this system, whose internal file dates are **November 2019** (`source_date` below) — the route *numbers* still match the live feed (checked directly), but treat the actual line geometry as a reference, not a current-as-of-today guarantee. Three routes live in the Vehicle Positions feed today (15, 17, 18) don't exist in this file at all and so have no entry here.
+
+Top-level: `{source_date, routes: [...]}`.
+
+`routes[]`:
+
+| Field | Type | Meaning |
+|---|---|---|
+| `route` | string | Route number, matches `buses_live.json`'s `route` field |
+| `shapes` | array | One entry per distinct path this route runs (direction, branch, etc.) |
+
+`shapes[]`:
+
+| Field | Type | Meaning |
+|---|---|---|
+| `headsign` | string\|null | Destination text as shown on the bus, e.g. `"BALMORAL to City Hall"` |
+| `points` | array | `[lat, lon]` pairs tracing the path |
+
 ## What's *not* here
 
 - **Raw/intermediate pulls** (`*_raw.geojson`, `*_scraped.json`, `precision_audit.json`, etc.) exist in each folder for pipeline transparency but aren't meant to be consumed directly — they're pre-cleanup, may have different field names, and in a couple of cases (trees, heritage) are positional or differently-shaped from the final output.
