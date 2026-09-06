@@ -712,6 +712,69 @@ LAYERS.push({
 });
 
 /* ============================================================
+   RAIL NETWORK
+   ============================================================ */
+const RAIL_CLASS_COLOR = {
+  Main: '#a8412c', Yard: '#8b9689', Spur: '#2f6b52', Siding: '#2980b9', Crossover: '#8e44ad', Unknown: '#888',
+};
+const RAIL_CLASS_WEIGHT = { Main: 3, Yard: 1.5, Spur: 1.5, Siding: 1.5, Crossover: 1.5, Unknown: 1.5 };
+// Static counts from the source pull (see build_rail.py's own printed
+// summary) -- avoids loading the full file just to draw this legend.
+const RAIL_CLASS_COUNTS = { Main: 144, Yard: 938, Spur: 367, Siding: 33, Crossover: 20, Unknown: 9 };
+const activeRailClasses = new Set(Object.keys(RAIL_CLASS_COLOR));
+
+LAYERS.push({
+  id: 'rail',
+  category: 'transport',
+  name: 'Rail Network',
+  color: '#a8412c',
+  count: '1,511 track segments',
+  defaultOn: false,
+  desc: "Thunder Bay's rail network — CN and CP mainlines, yards, spurs, sidings, and crossovers, 1,511 track segments in total. Source: City of Thunder Bay Open Data Portal (Rail Network Feature Layer), last updated June 2025 per the portal's own listing — unlike some of the other static layers here, this one isn't stale. Filterable by track class: 'Yard' (the majority, ~62%) is switching/storage trackage around the grain terminals and industrial sidings, not through-traffic; 'Main' is the actual CN/CP mainline corridor and is drawn thicker to stand out from the yard clutter around it. Most segments — especially yard trackage — have no individual name in the source data and are labeled generically rather than left blank.",
+  legendHTML: function(){
+    let html = '<div class="sub-label">Filter by track class</div>';
+    Object.keys(RAIL_CLASS_COLOR).forEach(cls => {
+      html += `<div class="legend-row" data-cat="${cls}" role="checkbox" aria-checked="true" tabindex="0"><span class="dot" style="border-radius:3px;background:${RAIL_CLASS_COLOR[cls]}"></span>${cls}<span class="n">${RAIL_CLASS_COUNTS[cls].toLocaleString()}</span></div>`;
+    });
+    return html;
+  },
+  afterRender: function(root){
+    root.querySelectorAll('.legend-row[data-cat]').forEach(row => {
+      const toggle = (e) => {
+        e.stopPropagation();
+        const cls = row.dataset.cat;
+        if (activeRailClasses.has(cls)) { activeRailClasses.delete(cls); row.classList.add('off'); row.setAttribute('aria-checked','false'); }
+        else { activeRailClasses.add(cls); row.classList.remove('off'); row.setAttribute('aria-checked','true'); }
+        renderLayer('rail');
+      };
+      row.addEventListener('click', toggle);
+      row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); } });
+    });
+  },
+  render: function(group){
+    return loadData('rail', 'data/rail/rail.json').then(RAIL => {
+      RAIL.forEach(t => {
+        if (!activeRailClasses.has(t.class)) return;
+        const color = RAIL_CLASS_COLOR[t.class] || '#888';
+        const weight = RAIL_CLASS_WEIGHT[t.class] || 1.5;
+        const line = L.polyline(t.points, {color, weight, opacity: 0.8});
+        const label = t.name || `Unnamed ${t.class.toLowerCase()} track`;
+        line.bindTooltip(`<b>${label}</b> &middot; ${t.class}`, {sticky:true});
+        line.bindPopup(
+          `<b>${label}</b>` +
+          `<table style="margin-top:6px; border-collapse:collapse;">` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Class</td><td>${t.class}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Owner</td><td>${t.owner}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Operator</td><td>${t.operator}</td></tr>` +
+          `</table>`
+        );
+        group.addLayer(line);
+      });
+    });
+  }
+});
+
+/* ============================================================
    LIVE FLIGHTS
    ============================================================ */
 const FLIGHT_CATEGORY_COLOR = { ground: '#8b9689', low: '#1baf7a', cruise: '#5b7c99' };

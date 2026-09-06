@@ -200,6 +200,20 @@ Source: City of Thunder Bay Open Data Portal (Street Signs Feature Layer). The p
 | `updated` | string\|null | Last updated date, `YYYY-MM-DD` |
 | `objectid` | number\|null | Source system's object ID |
 
+## Rail network
+
+**File**: `rail/rail.json` · 1,511 track segments · rebuild: `python build_rail.py`
+
+Source: City of Thunder Bay Open Data Portal (Rail Network Feature Layer). Unlike street signs or the bus layer's static file, the portal states this was last updated June 2025 — current, not stale.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `name` | string\|null | Track name, e.g. `"Thunder Bay Terminal"` — absent for most segments (especially yard trackage), which the source simply doesn't name individually |
+| `class` | string | `Main` / `Yard` / `Spur` / `Siding` / `Crossover` / `Unknown` |
+| `owner` | string | `CNR`, `CPR`, `Private`, or `Unknown` |
+| `operator` | string | Same value set as `owner`, and almost always identical to it in this data |
+| `points` | array | `[lat, lon]` pairs tracing the segment |
+
 ## Live flights
 
 **File**: `flights/flights_live.json` · rewritten roughly every 10 minutes by [a GitHub Action](../.github/workflows/update-flights.yml), not a one-off build
