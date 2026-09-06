@@ -117,9 +117,9 @@ Field names match the City's own ArcGIS field abbreviations directly (kept short
 
 ## Cameras
 
-**File**: `cameras/cameras.json` · 18 records (17 Ontario 511 + 1 YouTube) · rebuild: `python build_cameras.py`
+**File**: `cameras/cameras.json` · 19 records (17 Ontario 511 + 1 YouTube + 1 FAA/NAV CANADA site with 4 directions) · rebuild: `python build_cameras.py`
 
-Two record shapes, distinguished by `source`. 511 records (`source: "511"`):
+Three record shapes, distinguished by `source`. 511 records (`source: "511"`):
 
 | Field | Type | Meaning |
 |---|---|---|
@@ -140,6 +140,17 @@ YouTube records (`source: "youtube"`), hand-curated in `cameras/youtube_cams.jso
 | `youtube_id` | string | The video's YouTube ID — embed at `youtube.com/embed/<youtube_id>` |
 | `channel` | string | The YouTube channel's display name, for attribution |
 | `channel_url` | string | Link to the video/channel on YouTube |
+
+FAA records (`source: "faa"`), hand-curated in `cameras/airport_cams.json`. Unlike the other two sources, this one is a **link-out only, no embedded image**: `weathercams.faa.gov`'s API that reveals which snapshot is current sits behind Akamai bot-detection (confirmed directly — a plain server-side request gets HTTP 401, while the same request from an already-loaded browser session succeeds), and this project treats that as a "please don't automate this" signal rather than something to work around. The underlying image CDN itself isn't protected, but there's no way to discover the current image URL without the protected API, so there's nothing reliable to embed.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `id` | string | A slug, e.g. `"faa-cyqt"` |
+| `location` | string | Site name, e.g. `"Thunder Bay Airport (CYQT)"` |
+| `lat`, `lon` | number | Location of the camera site (one physical site, multiple directions) |
+| `operator` | string | Who actually runs the cameras (NAV CANADA) — FAA WeatherCams just displays them |
+| `site_url` | string | Link to the live viewer on weathercams.faa.gov |
+| `directions` | array | `{direction, bearing}` objects, one per camera angle (North/East/South/West here) — all link to the same `site_url`, since a per-camera deep link wasn't reliable to construct |
 
 ## Trails
 

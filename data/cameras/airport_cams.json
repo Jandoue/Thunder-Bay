@@ -1,0 +1,17 @@
+[
+  {
+    "id": "faa-cyqt",
+    "source": "faa",
+    "location": "Thunder Bay Airport (CYQT)",
+    "lat": 48.37052,
+    "lon": -89.31965,
+    "operator": "NAV CANADA",
+    "site_url": "https://weathercams.faa.gov/map/-89.35906,48.35301,-89.24954,48.38793/cameraSite/483/details/camera",
+    "directions": [
+      {"direction": "North", "bearing": 5},
+      {"direction": "East", "bearing": 95},
+      {"direction": "South", "bearing": 185},
+      {"direction": "West", "bearing": 275}
+    ]
+  }
+]

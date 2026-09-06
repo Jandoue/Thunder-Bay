@@ -34,10 +34,23 @@ youtube_cams = json.load(open('youtube_cams.json', encoding='utf-8'))
 print('youtube live cams:', len(youtube_cams))
 out.extend(youtube_cams)
 
+# FAA WeatherCams (weathercams.faa.gov) -- also hand-curated, not pulled from
+# an API: the endpoint that reveals which image is current is behind Akamai
+# bot-detection, so this links out to the live viewer instead of embedding a
+# thumbnail. See data/README.md for why.
+airport_cams = json.load(open('airport_cams.json', encoding='utf-8'))
+print('airport link-out cams:', len(airport_cams))
+out.extend(airport_cams)
+
 json.dump(out, open('cameras.json', 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 
 import os
 print('cameras.json', os.path.getsize('cameras.json'), 'bytes')
 for c in out:
-    tag = f"{len(c['views'])} view(s)" if c.get('source') == '511' else f"youtube:{c.get('youtube_id')}"
+    if c.get('source') == '511':
+        tag = f"{len(c['views'])} view(s)"
+    elif c.get('source') == 'youtube':
+        tag = f"youtube:{c.get('youtube_id')}"
+    else:
+        tag = f"{len(c.get('directions', []))} direction(s)"
     print(c['id'], c['location'], '|', tag)
