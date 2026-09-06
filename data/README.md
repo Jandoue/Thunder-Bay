@@ -115,9 +115,11 @@ Field names match the City's own ArcGIS field abbreviations directly (kept short
 | `url` | string | Link to the restaurant's page on justthemenu.ca — menu content itself isn't reproduced here |
 | `src` | string | Where the coordinate came from: `google_maps_link`, `here_maps_link`, `here_maps_b64`, or `osm_node` |
 
-## Highway cameras
+## Cameras
 
-**File**: `cameras/cameras.json` · 17 records · rebuild: `python build_cameras.py`
+**File**: `cameras/cameras.json` · 18 records (17 Ontario 511 + 1 YouTube) · rebuild: `python build_cameras.py`
+
+Two record shapes, distinguished by `source`. 511 records (`source: "511"`):
 
 | Field | Type | Meaning |
 |---|---|---|
@@ -127,6 +129,17 @@ Field names match the City's own ArcGIS field abbreviations directly (kept short
 | `direction` | string | Facing direction, or `"Unknown"` |
 | `lat`, `lon` | number | Location |
 | `views` | array | One or more `{url, desc}` objects — `url` is a *live* snapshot image, not a stored photo; it changes every time it's loaded |
+
+YouTube records (`source: "youtube"`), hand-curated in `cameras/youtube_cams.json` and merged into `cameras.json` by `build_cameras.py` (there's no API to discover these — each one is manually found and verified as an actually-live, ongoing stream, not a one-off recording, before being added):
+
+| Field | Type | Meaning |
+|---|---|---|
+| `id` | string | A slug, e.g. `"yt-landfill"` (not a numeric 511 ID) |
+| `location` | string | Description including the street address where known |
+| `lat`, `lon` | number | Location |
+| `youtube_id` | string | The video's YouTube ID — embed at `youtube.com/embed/<youtube_id>` |
+| `channel` | string | The YouTube channel's display name, for attribution |
+| `channel_url` | string | Link to the video/channel on YouTube |
 
 ## Trails
 

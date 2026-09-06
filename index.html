@@ -158,7 +158,7 @@
 </div>
 
 <footer>
-  Map data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors. Police incidents: Thunder Bay Police Service via <a href="https://www.cityprotect.com/agency/tbps" target="_blank" rel="noopener">CityProtect</a> (non-commercial research use), approximate/aggregated locations. Fire stations, fire zones, hydrants, trees, and the heritage register: <a href="https://opendata.thunderbay.ca" target="_blank" rel="noopener">City of Thunder Bay Open Data Portal</a>. Restaurant listings: <a href="https://justthemenu.ca" target="_blank" rel="noopener">Justthemenu.ca</a> (not affiliated). Highway cameras: <a href="https://511on.ca" target="_blank" rel="noopener">Ontario 511</a> (Ministry of Transportation). Trails: OpenStreetMap contributors, via the Overpass API. Live flights: <a href="https://opensky-network.org" target="_blank" rel="noopener">OpenSky Network</a>. Live ships: <a href="https://aisstream.io" target="_blank" rel="noopener">AISStream.io</a>. Full sources, scripts and data: <a href="https://github.com/Jandoue/Thunder-Bay" target="_blank" rel="noopener">github.com/Jandoue/Thunder-Bay</a>.
+  Map data &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors. Police incidents: Thunder Bay Police Service via <a href="https://www.cityprotect.com/agency/tbps" target="_blank" rel="noopener">CityProtect</a> (non-commercial research use), approximate/aggregated locations. Fire stations, fire zones, hydrants, trees, and the heritage register: <a href="https://opendata.thunderbay.ca" target="_blank" rel="noopener">City of Thunder Bay Open Data Portal</a>. Restaurant listings: <a href="https://justthemenu.ca" target="_blank" rel="noopener">Justthemenu.ca</a> (not affiliated). Cameras: <a href="https://511on.ca" target="_blank" rel="noopener">Ontario 511</a> (Ministry of Transportation) and individual YouTube channels (linked in each camera's popup). Trails: OpenStreetMap contributors, via the Overpass API. Live flights: <a href="https://opensky-network.org" target="_blank" rel="noopener">OpenSky Network</a>. Live ships: <a href="https://aisstream.io" target="_blank" rel="noopener">AISStream.io</a>. Full sources, scripts and data: <a href="https://github.com/Jandoue/Thunder-Bay" target="_blank" rel="noopener">github.com/Jandoue/Thunder-Bay</a>.
 </footer>
 
 <script>
@@ -496,14 +496,20 @@ LAYERS.push({
 LAYERS.push({
   id: 'cameras',
   category: 'transport',
-  name: 'Highway Cameras',
+  name: 'Cameras',
   color: '#6a4c93',
-  count: '17 cameras',
+  count: '18 cameras',
   defaultOn: false,
-  desc: "Live public highway traffic cameras from Ontario's 511 system (Ministry of Transportation), covering Highways 11, 17, 61, 527 and 595 across the Northwestern Ontario corridor — roughly Ignace to Nipigon, not just the city itself. Each marker's thumbnail is a live snapshot, not a photo — it reloads with the page. Source: 511on.ca public API.",
+  desc: "Live public cameras around the Thunder Bay area: 17 highway traffic cameras from Ontario's 511 system (Ministry of Transportation), covering Highways 11, 17, 61, 527 and 595 across the Northwestern Ontario corridor — roughly Ignace to Nipigon, not just the city itself — plus a small, separately-curated set of independent YouTube live streams (currently just one: the City's own landfill entrance cam). Each 511 marker's thumbnail is a live snapshot, not a photo — it reloads with the page. YouTube cameras embed the channel's live player directly; playback doesn't start until you click it. Sources: 511on.ca public API, and the individual YouTube channels linked in each popup.",
+  legendHTML: function(){
+    return '<div class="sub-label">By source</div>' +
+      '<div class="legend-row"><span class="dot" style="background:#6a4c93"></span>Ontario 511 (highway traffic)</div>' +
+      '<div class="legend-row"><span class="dot" style="background:#c4302b"></span>YouTube live stream</div>';
+  },
   render: function(group){
     return loadData('cameras', 'data/cameras/cameras.json').then(CAMERAS => {
       CAMERAS.forEach(c => {
+        if (c.source === 'youtube') { renderYoutubeCam(c, group); return; }
         const icon = L.divIcon({
           className: '', html: `<div style="width:22px;height:22px;background:#6a4c93;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1;">📷</div>`,
           iconSize: [22,22], iconAnchor: [11,11],
@@ -541,6 +547,23 @@ LAYERS.push({
     });
   }
 });
+
+function renderYoutubeCam(c, group){
+  const icon = L.divIcon({
+    className: '', html: `<div style="width:24px;height:24px;background:#c4302b;border:2px solid #fff;border-radius:6px;box-shadow:0 0 0 1px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;line-height:1;">&#9654;</div>`,
+    iconSize: [24,24], iconAnchor: [12,12],
+  });
+  const m = L.marker([c.lat, c.lon], {icon});
+  m.bindTooltip(`<b>${c.location}</b> &middot; live on YouTube`, {direction:'top', offset:[0,-12]});
+  m.bindPopup(
+    `<b>${c.location}</b><br>` +
+    `<span style="color:#5f6b64; font-size:11.5px;">YouTube &middot; ${c.channel}</span>` +
+    `<div style="margin-top:6px;"><iframe width="240" height="135" src="https://www.youtube.com/embed/${c.youtube_id}" title="${c.channel} live stream" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:4px; display:block;"></iframe></div>` +
+    `<div style="margin-top:8px;"><a href="${c.channel_url}" target="_blank" rel="noopener" style="color:#c4302b; font-weight:600;">Watch on YouTube &rarr;</a></div>`,
+    {maxWidth: 280}
+  );
+  group.addLayer(m);
+}
 
 LAYERS.push({
   id: 'trails',

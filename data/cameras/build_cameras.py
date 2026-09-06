@@ -16,6 +16,7 @@ for c in wide:
         continue
     out.append({
         'id': c['Id'],
+        'source': '511',
         'location': c['Location'],
         'roadway': c['Roadway'],
         'direction': c['Direction'],
@@ -26,9 +27,17 @@ for c in wide:
 
 print('cameras with at least one enabled view:', len(out))
 
+# Independent YouTube live streams -- not from an API, hand-curated (and
+# hand-verified as actually live, not a one-off recording) in
+# youtube_cams.json. Merged in here so index.html only has to fetch one file.
+youtube_cams = json.load(open('youtube_cams.json', encoding='utf-8'))
+print('youtube live cams:', len(youtube_cams))
+out.extend(youtube_cams)
+
 json.dump(out, open('cameras.json', 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 
 import os
 print('cameras.json', os.path.getsize('cameras.json'), 'bytes')
 for c in out:
-    print(c['id'], c['location'], '|', len(c['views']), 'view(s)')
+    tag = f"{len(c['views'])} view(s)" if c.get('source') == '511' else f"youtube:{c.get('youtube_id')}"
+    print(c['id'], c['location'], '|', tag)
