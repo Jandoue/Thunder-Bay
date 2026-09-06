@@ -317,6 +317,37 @@ LAYERS.push({
 });
 
 LAYERS.push({
+  id: 'crossing-guards',
+  category: 'safety',
+  name: 'School Crossing Guards',
+  color: '#d68910',
+  count: '44 huts',
+  defaultOn: false,
+  desc: 'School crossing guard hut locations, maintained by the City\'s Infrastructure and Operations Department. Source: City of Thunder Bay Open Data Portal (School Crossing Guard Hut Locations), last updated September 2023. 5 hut numbers appear twice at slightly different coordinates — kept as separate points rather than merged, since each is a distinct crossing location at the same intersection, not a data-entry duplicate.',
+  render: function(group){
+    return loadData('crossing-guards', 'data/school-crossing-guards/guards.json').then(GUARDS => {
+      GUARDS.forEach(g => {
+        const icon = L.divIcon({
+          className: '', html: `<div style="width:16px;height:16px;background:#d68910;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.25);"></div>`,
+          iconSize: [16,16], iconAnchor: [8,8],
+        });
+        const m = L.marker([g.lat, g.lon], {icon});
+        const label = g.landmark || `Hut ${g.hut}`;
+        m.bindTooltip(`<b>${label}</b>${g.intersection ? ' &middot; ' + g.intersection : ''}`, {direction:'top', offset:[0,-8]});
+        m.bindPopup(
+          `<b>${label}</b>` +
+          `<table style="margin-top:6px; border-collapse:collapse;">` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Hut #</td><td>${g.hut ?? '&mdash;'}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Intersection</td><td>${g.intersection || '&mdash;'}</td></tr>` +
+          `</table>`
+        );
+        group.addLayer(m);
+      });
+    });
+  }
+});
+
+LAYERS.push({
   id: 'zones',
   category: 'safety',
   name: 'Fire Response Zones',
@@ -498,7 +529,7 @@ LAYERS.push({
 
 LAYERS.push({
   id: 'cameras',
-  category: 'transport',
+  category: 'safety',
   name: 'Cameras',
   color: '#6a4c93',
   count: '19 cameras',

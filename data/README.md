@@ -67,6 +67,19 @@ Field names match the City's own ArcGIS field abbreviations directly (kept short
 | `created` | `CREATEDDATE` | Install/record-creation date, `YYYY-MM-DD` |
 | `updated` | `LASTUPDATE` | Last updated date, `YYYY-MM-DD` |
 
+## School crossing guards
+
+**File**: `school-crossing-guards/guards.json` · 44 records · rebuild: `python build_guards.py`
+
+Source: City of Thunder Bay Open Data Portal (School Crossing Guard Hut Locations), maintained by the Infrastructure and Operations Department, last updated September 2023.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `hut` | number | Hut number — 5 numbers appear on two records each (two crossing points at the same intersection), not deduplicated |
+| `landmark` | string\|null | Nearest landmark, e.g. a school or church name |
+| `intersection` | string\|null | The intersection being crossed |
+| `lat`, `lon` | number | Location |
+
 ## Trees
 
 **File**: `trees/trees.json` · 37,752 records (~9 MB) · rebuild: `python build_trees.py`

@@ -51,10 +51,10 @@ structurally hard to reintroduce, don't undo it for a quick fix.
 
 | Category | Layers | Notes |
 |---|---|---|
-| Public Safety | Police Incidents, Fire Stations, Fire Response Zones, Hydrants | All static, City of Thunder Bay open data + CityProtect |
+| Public Safety | Police Incidents, Fire Stations, Fire Response Zones, Hydrants, School Crossing Guards, Cameras (511 + YouTube + FAA, see below) | All static (Cameras is static-ish, rebuilt by hand), City of Thunder Bay open data + CityProtect |
 | Nature & Trails | Trees (37,752 records, ~9MB — the one dataset that matters most to keep lazy), Trails (OSM/Overpass) | Static |
 | Explore | Heritage Properties, Justthemenu.ca (restaurants) | Static; both went through real geocoding-precision problems, see README's "Known limitations" |
-| Transportation | Cameras (511 + YouTube + FAA, see below), Street Signs (22,066 records, filterable by category), Rail Network (1,511 segments, filterable by track class), Live Flights, Live Ships, Live Buses | Cameras/signs/rail are static-ish (rebuilt by hand); flights/ships/buses are the only three live layers |
+| Transportation | Street Signs (22,066 records, filterable by category), Rail Network (1,511 segments, filterable by track class), Live Flights, Live Ships, Live Buses | Signs/rail are static-ish (rebuilt by hand); flights/ships/buses are the only three live layers |
 
 ### Cameras layer specifically (three source types in one dataset)
 
