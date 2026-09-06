@@ -80,6 +80,18 @@ Source: City of Thunder Bay Open Data Portal (School Crossing Guard Hut Location
 | `intersection` | string\|null | The intersection being crossed |
 | `lat`, `lon` | number | Location |
 
+## School crosswalks
+
+**File**: `school-crosswalks/crosswalks.json` · 81 records · rebuild: `python build_crosswalks.py`
+
+Same source and vintage as School Crossing Guards above (Hansen application / City GIS layers, Infrastructure and Operations, last updated September 2023).
+
+| Field | Type | Meaning |
+|---|---|---|
+| `type` | string\|null | Always `"SCHOOL"` in this data — kept as-is rather than dropped, in case a future rebuild picks up a different value |
+| `colour` | string\|null | The source's recorded paint color, title-cased (almost always `"White"`) — **not** what the map actually draws the line in, since white would be invisible against the basemap; see index.html |
+| `points` | array | `[lat, lon]` pairs, typically just 2-3 tracing a single short crosswalk |
+
 ## Trees
 
 **File**: `trees/trees.json` · 37,752 records (~9 MB) · rebuild: `python build_trees.py`

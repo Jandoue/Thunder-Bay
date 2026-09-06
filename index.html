@@ -348,6 +348,32 @@ LAYERS.push({
 });
 
 LAYERS.push({
+  id: 'crosswalks',
+  category: 'safety',
+  name: 'School Crosswalks',
+  color: '#16a085',
+  count: '81 crosswalks',
+  defaultOn: false,
+  desc: 'Marked school crosswalks, from the same source and vintage as School Crossing Guards above (Hansen application / City GIS layers, maintained by Infrastructure and Operations, last updated September 2023). Drawn in a bold color for visibility on the map, not the source data’s actual paint color (nearly all are recorded as plain white, which would be invisible against the basemap) — the real recorded color is shown in each popup.',
+  render: function(group){
+    return loadData('crosswalks', 'data/school-crosswalks/crosswalks.json').then(CROSSWALKS => {
+      CROSSWALKS.forEach(c => {
+        const line = L.polyline(c.points, {color: '#16a085', weight: 5, opacity: 0.8, lineCap: 'round'});
+        line.bindTooltip('School crosswalk', {sticky:true});
+        line.bindPopup(
+          `<b>School crosswalk</b>` +
+          `<table style="margin-top:6px; border-collapse:collapse;">` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Type</td><td>${c.type || '&mdash;'}</td></tr>` +
+          `<tr><td style="color:#5f6b64; padding-right:10px;">Recorded color</td><td>${c.colour || '&mdash;'}</td></tr>` +
+          `</table>`
+        );
+        group.addLayer(line);
+      });
+    });
+  }
+});
+
+LAYERS.push({
   id: 'zones',
   category: 'safety',
   name: 'Fire Response Zones',
