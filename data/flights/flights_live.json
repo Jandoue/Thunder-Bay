@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-07T09:00:26+00:00","opensky_time":1788771610,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-09-07T09:05:28+00:00","opensky_time":1788771909,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c00e17","callsign":"ACA1188","country":"Canada","lat":48.3721,"lon":-89.314,"alt_m":0,"on_ground":true,"velocity_ms":0.5,"heading_deg":70.3,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
