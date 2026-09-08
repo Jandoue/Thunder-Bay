@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-08T07:50:29+00:00","opensky_time":1788853815,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c077b1","callsign":"CGTIM","country":"Canada","lat":48.3725,"lon":-89.3138,"alt_m":0,"on_ground":true,"velocity_ms":5.4,"heading_deg":219.4,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-09-08T07:55:28+00:00","opensky_time":1788854117,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
