@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-09T05:15:28+00:00","opensky_time":1788930925,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c073f1","callsign":"PUL108","country":"Canada","lat":48.3764,"lon":-89.3181,"alt_m":0,"on_ground":true,"velocity_ms":4.9,"heading_deg":11.2,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-09-09T05:20:28+00:00","opensky_time":1788931210,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
