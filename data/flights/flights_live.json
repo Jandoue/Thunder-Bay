@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-10T05:45:54+00:00","opensky_time":1789019149,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c08354","callsign":"CGXTB","country":"Canada","lat":48.3757,"lon":-89.3217,"alt_m":0,"on_ground":true,"velocity_ms":0.6,"heading_deg":59.1,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-09-10T05:50:59+00:00","opensky_time":1789019453,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
