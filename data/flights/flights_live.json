@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-10T05:55:52+00:00","opensky_time":1789019748,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-09-10T06:01:04+00:00","opensky_time":1789020059,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c08566","callsign":"CGYNL","country":"Canada","lat":48.4766,"lon":-90.0258,"alt_m":1539.0,"on_ground":false,"velocity_ms":87.9,"heading_deg":96.0,"vertical_rate_ms":0,"squawk":null,"category":"low","path":[[48.5139,-90.6049],[48.4763,-90.0225]]}]}
