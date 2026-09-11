@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-11T10:10:58+00:00","opensky_time":1789121454,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-09-11T10:15:58+00:00","opensky_time":1789121748,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c06359","callsign":"PTR2630","country":"Canada","lat":48.3716,"lon":-89.3277,"alt_m":0,"on_ground":true,"velocity_ms":17.5,"heading_deg":70.3,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
