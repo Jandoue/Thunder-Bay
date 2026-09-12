@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-12T00:11:00+00:00","opensky_time":1789171856,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c08042","callsign":"WSG1606","country":"Canada","lat":48.3709,"lon":-89.3238,"alt_m":0,"on_ground":true,"velocity_ms":6.9,"heading_deg":95.6,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-09-12T00:15:57+00:00","opensky_time":1789172149,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
