@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-14T05:40:56+00:00","opensky_time":1789364455,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-09-14T05:46:03+00:00","opensky_time":1789364759,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c03a24","callsign":"CFWAL","country":"Canada","lat":48.3256,"lon":-88.6963,"alt_m":2591.0,"on_ground":false,"velocity_ms":128.0,"heading_deg":282.3,"vertical_rate_ms":-6.2,"squawk":null,"category":"low","path":[[48.3235,-88.6817],[48.3256,-88.6963]]}]}
