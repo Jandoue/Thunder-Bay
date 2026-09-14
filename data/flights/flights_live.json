@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-14T02:11:06+00:00","opensky_time":1789351860,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-09-14T02:16:09+00:00","opensky_time":1789352161,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c02f2b","callsign":"THU850","country":"Canada","lat":48.371,"lon":-89.3242,"alt_m":0,"on_ground":true,"velocity_ms":3.1,"heading_deg":298.1,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
