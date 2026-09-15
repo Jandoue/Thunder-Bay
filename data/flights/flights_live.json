@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-15T10:57:35+00:00","opensky_time":1789469844,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c04d24","callsign":"CGDFN","country":"Canada","lat":48.3716,"lon":-89.3176,"alt_m":0,"on_ground":true,"velocity_ms":0,"heading_deg":53.4,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-09-15T11:01:03+00:00","opensky_time":1789470055,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
