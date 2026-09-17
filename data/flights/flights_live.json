@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-17T06:20:57+00:00","opensky_time":1789626049,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c06017","callsign":"PHX370","country":"Canada","lat":48.3726,"lon":-89.3164,"alt_m":0,"on_ground":true,"velocity_ms":10.3,"heading_deg":70.3,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-09-17T06:25:57+00:00","opensky_time":1789626356,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
