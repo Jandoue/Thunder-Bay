@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-18T10:25:54+00:00","opensky_time":1789727149,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-09-18T10:30:57+00:00","opensky_time":1789727450,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c08866","callsign":"POE222","country":"Canada","lat":48.3728,"lon":-89.3135,"alt_m":0,"on_ground":true,"velocity_ms":0,"heading_deg":42.2,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
