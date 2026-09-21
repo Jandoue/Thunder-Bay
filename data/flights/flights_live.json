@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-21T05:40:26+00:00","opensky_time":1789969216,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c01bf7","callsign":"CFKPI","country":"Canada","lat":48.8365,"lon":-89.2057,"alt_m":7315.0,"on_ground":false,"velocity_ms":107.4,"heading_deg":287.6,"vertical_rate_ms":-0.3,"squawk":null,"category":"cruise","path":[[48.6225,-88.2145],[48.8384,-89.215]]}]}
+{"fetched_at":"2026-09-21T05:45:27+00:00","opensky_time":1789969515,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
