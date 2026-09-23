@@ -1,1 +1,1 @@
-{"fetched_at":"2026-09-23T05:45:24+00:00","opensky_time":1790142311,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-09-23T05:50:26+00:00","opensky_time":1790142617,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c04b8e","callsign":"CGCPX","country":"Canada","lat":48.373,"lon":-89.3147,"alt_m":0,"on_ground":true,"velocity_ms":8.2,"heading_deg":250.3,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
