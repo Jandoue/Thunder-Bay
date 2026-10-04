@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-04T04:20:37+00:00","feed_timestamp":1791087632,"buses":[{"id":"3420100232","route":"3M","lat":48.40699,"lon":-89.24565,"heading_deg":null,"speed_ms":0.0,"status":"in_transit","stop_id":"1804"},{"id":"3420100223","route":"1","lat":48.39111,"lon":-89.23714,"heading_deg":209.6,"speed_ms":14.7,"status":"in_transit","stop_id":"1013"}]}
+{"fetched_at":"2026-10-04T04:25:37+00:00","feed_timestamp":1791087933,"buses":[{"id":"3420100232","route":"3M","lat":48.38411,"lon":-89.24634,"heading_deg":268.3,"speed_ms":6.7,"status":"in_transit","stop_id":"1019"}]}
