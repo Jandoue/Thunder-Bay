@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-06T01:35:55+00:00","opensky_time":1791250548,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-10-06T01:40:53+00:00","opensky_time":1791250844,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c068b6","callsign":"CGNQZ","country":"Canada","lat":48.7562,"lon":-89.3469,"alt_m":2941.0,"on_ground":false,"velocity_ms":145.0,"heading_deg":165.6,"vertical_rate_ms":-8.4,"squawk":null,"category":"low","path":[[48.8984,-89.4018],[48.8895,-89.3984],[48.7562,-89.3469]]}]}
