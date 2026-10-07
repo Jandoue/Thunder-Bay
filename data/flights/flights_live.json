@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-07T11:50:55+00:00","opensky_time":1791373850,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c03ca7","callsign":"MAL8060","country":"Canada","lat":48.3678,"lon":-89.3185,"alt_m":0,"on_ground":true,"velocity_ms":8.8,"heading_deg":64.7,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-10-07T11:55:53+00:00","opensky_time":1791374150,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
