@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-07T04:25:54+00:00","feed_timestamp":1791347149,"buses":[{"id":"3420100185","route":"3M","lat":48.38251,"lon":-89.24644,"heading_deg":60.7,"speed_ms":2.8,"status":"incoming","stop_id":"1019"}]}
+{"fetched_at":"2026-10-07T04:31:07+00:00","feed_timestamp":1791347462,"buses":[{"id":"3420100185","route":"3M","lat":48.38247,"lon":-89.24561,"heading_deg":null,"speed_ms":0.0,"status":"stopped","stop_id":"1019"}]}
