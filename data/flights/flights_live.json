@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-10T05:30:52+00:00","opensky_time":1791610245,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-10-10T05:35:52+00:00","opensky_time":1791610546,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c0794b","callsign":"CGTYG","country":"Canada","lat":48.3089,"lon":-88.8888,"alt_m":1935.0,"on_ground":false,"velocity_ms":121.0,"heading_deg":260.5,"vertical_rate_ms":-1.9,"squawk":null,"category":"low","path":[[48.34,-88.608],[48.3257,-88.7373],[48.3083,-88.8944]]}]}
