@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-11T07:25:48+00:00","opensky_time":1791703545,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-10-11T07:30:51+00:00","opensky_time":1791703846,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c08574","callsign":"CGYNZ","country":"Canada","lat":48.3741,"lon":-89.3184,"alt_m":0,"on_ground":true,"velocity_ms":4.1,"heading_deg":157.5,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
