@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-12T05:30:51+00:00","opensky_time":1791783049,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-10-12T05:35:51+00:00","opensky_time":1791783344,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c03cbe","callsign":"AB239","country":"Canada","lat":48.3705,"lon":-89.3326,"alt_m":0,"on_ground":true,"velocity_ms":5.7,"heading_deg":275.6,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
