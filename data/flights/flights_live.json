@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-20T07:31:07+00:00","opensky_time":1792481465,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-10-20T07:36:07+00:00","opensky_time":1792481765,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c03a1e","callsign":"CFWAF","country":"Canada","lat":48.3733,"lon":-89.3206,"alt_m":91.0,"on_ground":false,"velocity_ms":51.9,"heading_deg":253.9,"vertical_rate_ms":6.8,"squawk":null,"category":"low"}]}
