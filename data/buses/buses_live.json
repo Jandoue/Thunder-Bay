@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-23T09:40:52+00:00","feed_timestamp":1792748447,"buses":[]}
+{"fetched_at":"2026-10-23T09:45:52+00:00","feed_timestamp":1792748748,"buses":[{"id":"3420100227","route":"1","lat":48.40513,"lon":-89.24153,"heading_deg":195.0,"speed_ms":11.7,"status":"in_transit","stop_id":"1019"}]}
