@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-24T07:50:50+00:00","opensky_time":1792828237,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-10-24T07:55:52+00:00","opensky_time":1792828549,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c04599","callsign":"CJT551","country":"Canada","lat":48.1764,"lon":-89.2,"alt_m":10363.0,"on_ground":false,"velocity_ms":220.4,"heading_deg":296.0,"vertical_rate_ms":0,"squawk":null,"category":"cruise","path":[[45.7557,-83.0751],[47.4104,-86.9669],[48.1747,-89.1947]]}]}
