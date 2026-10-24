@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-24T11:30:51+00:00","opensky_time":1792841441,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c07223","callsign":"CAV586","country":"Canada","lat":48.374,"lon":-89.3174,"alt_m":0,"on_ground":true,"velocity_ms":11.3,"heading_deg":75.9,"vertical_rate_ms":null,"squawk":"0701","category":"ground"}]}
+{"fetched_at":"2026-10-24T11:35:49+00:00","opensky_time":1792841745,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
