@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-25T08:00:50+00:00","opensky_time":1792915237,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-10-25T08:05:50+00:00","opensky_time":1792915547,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c08565","callsign":"CGYNK","country":"Canada","lat":48.5718,"lon":-89.4911,"alt_m":945.0,"on_ground":false,"velocity_ms":93.8,"heading_deg":135.4,"vertical_rate_ms":-1.9,"squawk":null,"category":"low","path":[[48.6815,-89.6551],[48.5718,-89.4911]]}]}
