@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-26T04:20:49+00:00","opensky_time":1792988445,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c03b2d","callsign":"CFWKQ","country":"Canada","lat":48.376,"lon":-89.3216,"alt_m":0,"on_ground":true,"velocity_ms":0.8,"heading_deg":151.9,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-10-26T04:25:48+00:00","opensky_time":1792988744,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
