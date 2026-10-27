@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-27T07:50:49+00:00","opensky_time":1793087439,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-10-27T07:55:49+00:00","opensky_time":1793087744,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"86951c","callsign":"ANA159","country":"Japan","lat":48.0265,"lon":-88.7481,"alt_m":9144,"on_ground":false,"velocity_ms":228.7,"heading_deg":296.4,"vertical_rate_ms":0,"squawk":null,"category":"cruise","path":[[45.6292,-82.8202],[47.4621,-87.1126],[48.0291,-88.7561]]}]}
