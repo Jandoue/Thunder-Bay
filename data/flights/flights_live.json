@@ -1,1 +1,1 @@
-{"fetched_at":"2026-10-31T05:20:50+00:00","opensky_time":1793424047,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c08044","callsign":"CGWOX","country":"Canada","lat":48.3737,"lon":-89.3118,"alt_m":0,"on_ground":true,"velocity_ms":6.4,"heading_deg":163.1,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-10-31T05:25:49+00:00","opensky_time":1793424345,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
