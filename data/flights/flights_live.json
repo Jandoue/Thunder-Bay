@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-02T00:15:49+00:00","opensky_time":1793578543,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c06afc","callsign":"BF202","country":"Canada","lat":48.374,"lon":-89.3183,"alt_m":0,"on_ground":true,"velocity_ms":4.9,"heading_deg":292.5,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-11-02T00:20:50+00:00","opensky_time":1793578846,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
