@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-03T14:25:51+00:00","opensky_time":1793715945,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-11-03T14:30:54+00:00","opensky_time":1793716242,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c0730e","callsign":"ACA341","country":"Canada","lat":48.707,"lon":-88.7731,"alt_m":7925.0,"on_ground":false,"velocity_ms":197.5,"heading_deg":289,"vertical_rate_ms":0,"squawk":null,"category":"cruise","path":[[47.0784,-82.697],[48.5382,-88.0469],[48.7122,-88.7962]]}]}
