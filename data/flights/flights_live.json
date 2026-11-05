@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-05T06:15:56+00:00","opensky_time":1793859345,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-11-05T06:20:56+00:00","opensky_time":1793859647,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c027dc","callsign":"CFPCL","country":"Canada","lat":48.375,"lon":-89.3189,"alt_m":0,"on_ground":true,"velocity_ms":5.7,"heading_deg":146.2,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
