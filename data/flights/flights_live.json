@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-08T08:15:40+00:00","opensky_time":1794125737,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c01691","callsign":"PHX706","country":"Canada","lat":48.7403,"lon":-88.8012,"alt_m":4961.0,"on_ground":false,"velocity_ms":120.3,"heading_deg":305.2,"vertical_rate_ms":0,"squawk":null,"category":"cruise","path":[[47.9928,-87.2527],[48.5565,-88.4125],[48.7391,-88.7986]]}]}
+{"fetched_at":"2026-11-08T08:20:40+00:00","opensky_time":1794126036,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
