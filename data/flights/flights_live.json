@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-12T05:35:21+00:00","opensky_time":1794461713,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c04969","callsign":"BF1915","country":"Canada","lat":48.3741,"lon":-89.3184,"alt_m":0,"on_ground":true,"velocity_ms":4.4,"heading_deg":351.6,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-11-12T05:40:21+00:00","opensky_time":1794462011,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
