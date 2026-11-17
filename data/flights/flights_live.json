@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-17T02:40:47+00:00","opensky_time":1794883241,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c08569","callsign":"CGYNO","country":"Canada","lat":48.3746,"lon":-89.3187,"alt_m":0,"on_ground":true,"velocity_ms":3.3,"heading_deg":340.3,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-11-17T02:45:47+00:00","opensky_time":1794883540,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
