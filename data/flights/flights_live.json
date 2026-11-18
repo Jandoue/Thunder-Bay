@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-18T05:20:44+00:00","opensky_time":1794979240,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c00f1b","callsign":"THU860","country":"Canada","lat":48.3733,"lon":-89.3131,"alt_m":0,"on_ground":true,"velocity_ms":6.2,"heading_deg":255.9,"vertical_rate_ms":null,"squawk":"5102","category":"ground"}]}
+{"fetched_at":"2026-11-18T05:25:51+00:00","opensky_time":1794979539,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
