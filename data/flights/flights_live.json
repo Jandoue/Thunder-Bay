@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-19T03:10:10+00:00","opensky_time":1795057803,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c060b7","callsign":"POE2637","country":"Canada","lat":48.3728,"lon":-89.3133,"alt_m":0,"on_ground":true,"velocity_ms":2.3,"heading_deg":163.1,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-11-19T03:15:22+00:00","opensky_time":1795058120,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
