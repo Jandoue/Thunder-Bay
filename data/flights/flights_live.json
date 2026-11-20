@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-20T10:11:07+00:00","opensky_time":1795169464,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-11-20T10:16:07+00:00","opensky_time":1795169764,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c00eb0","callsign":"ROU1962","country":"Canada","lat":48.3745,"lon":-89.3153,"alt_m":130.0,"on_ground":false,"velocity_ms":62.1,"heading_deg":250.7,"vertical_rate_ms":0.3,"squawk":null,"category":"low"}]}
