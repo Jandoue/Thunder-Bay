@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-21T14:56:06+00:00","opensky_time":1795272959,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c01bf7","callsign":"CFKPI","country":"Canada","lat":48.3755,"lon":-89.3228,"alt_m":0,"on_ground":true,"velocity_ms":1.8,"heading_deg":298.1,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-11-21T15:01:07+00:00","opensky_time":1795273260,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
