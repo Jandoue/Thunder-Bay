@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-22T14:16:03+00:00","opensky_time":1795356959,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-11-22T14:21:11+00:00","opensky_time":1795357270,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c02682","callsign":"CFOPD","country":"Canada","lat":48.3812,"lon":-89.3559,"alt_m":488.0,"on_ground":false,"velocity_ms":61.0,"heading_deg":298.7,"vertical_rate_ms":6.2,"squawk":null,"category":"low","path":[[48.373,-89.334],[48.3806,-89.3543]]}]}
