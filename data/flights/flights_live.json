@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-23T12:35:23+00:00","opensky_time":1795437319,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
+{"fetched_at":"2026-11-23T12:40:22+00:00","opensky_time":1795437621,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c03f67","callsign":"PAG317","country":"Canada","lat":48.3751,"lon":-89.3119,"alt_m":0,"on_ground":true,"velocity_ms":4.9,"heading_deg":19.7,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
