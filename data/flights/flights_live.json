@@ -1,1 +1,1 @@
-{"fetched_at":"2026-11-25T08:55:32+00:00","opensky_time":1795596927,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[{"icao24":"c0168f","callsign":"PHX632","country":"Canada","lat":48.3726,"lon":-89.3137,"alt_m":0,"on_ground":true,"velocity_ms":5.1,"heading_deg":219.4,"vertical_rate_ms":null,"squawk":null,"category":"ground"}]}
+{"fetched_at":"2026-11-25T09:00:25+00:00","opensky_time":1795597219,"bbox":{"lamin":47.95,"lomin":-90.05,"lamax":48.85,"lomax":-88.55},"aircraft":[]}
